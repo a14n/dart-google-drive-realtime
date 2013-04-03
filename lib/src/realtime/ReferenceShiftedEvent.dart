@@ -21,7 +21,4 @@ class ReferenceShiftedEvent extends BaseModelEvent {
 
   int get newIndex => $unsafe.newIndex;
   int get oldIndex => $unsafe.oldIndex;
-
-  set newIndex(int newIndex) => $unsafe.newIndex = newIndex;
-  set oldIndex(int oldIndex) => $unsafe.oldIndex = oldIndex;
 }

@@ -21,7 +21,4 @@ class ValuesAddedEvent extends BaseModelEvent {
 
   int get index => $unsafe.index;
   List<dynamic> get values => jsw.JsArrayToListAdapter.cast($unsafe.values);
-
-  set index(int index) => $unsafe.index = index;
-  set values(List<dynamic> values) => $unsafe.values = values is js.Serializable<js.Proxy> ? values : js.array(values);
 }

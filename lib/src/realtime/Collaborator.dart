@@ -17,7 +17,6 @@ part of google_drive_realtime;
 class Collaborator extends jsw.TypedProxy {
   static Collaborator cast(js.Proxy proxy) => proxy == null ? null : new Collaborator.fromProxy(proxy);
 
-  Collaborator(String userId, String sessionId, String displayName, String color, bool isMe, bool isAnonymous, String photoUrl) : this.fromProxy(new js.Proxy.withArgList(realtime.Collaborator, [userId, sessionId, displayName, color, isMe, isAnonymous, photoUrl]));
   Collaborator.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
   String get color => $unsafe.color;
@@ -27,12 +26,4 @@ class Collaborator extends jsw.TypedProxy {
   String get photoUrl => $unsafe.photoUrl;
   String get sessionId => $unsafe.sessionId;
   String get userId => $unsafe.userId;
-
-  set color(String color) => $unsafe.color = color;
-  set displayName(String displayName) => $unsafe.displayName = displayName;
-  set isAnonymous(bool isAnonymous) => $unsafe.isAnonymous = isAnonymous;
-  set isMe(bool isMe) => $unsafe.isMe = isMe;
-  set photoUrl(String photoUrl) => $unsafe.photoUrl = photoUrl;
-  set sessionId(String sessionId) => $unsafe.sessionId = sessionId;
-  set userId(String userId) => $unsafe.userId = userId;
 }

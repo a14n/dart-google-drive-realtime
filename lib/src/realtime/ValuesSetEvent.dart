@@ -22,8 +22,4 @@ class ValuesSetEvent extends BaseModelEvent {
   int get index => $unsafe.index;
   List<dynamic> get newValues => jsw.JsArrayToListAdapter.cast($unsafe.newValues);
   List<dynamic> get oldValues => jsw.JsArrayToListAdapter.cast($unsafe.oldValues);
-
-  set index(int index) => $unsafe.index = index;
-  set newValues(List<dynamic> newValues) => $unsafe.newValues = newValues is js.Serializable<js.Proxy> ? newValues : js.array(newValues);
-  set oldValues(List<dynamic> oldValues) => $unsafe.oldValues = oldValues is js.Serializable<js.Proxy> ? oldValues : js.array(oldValues);
 }

@@ -21,7 +21,4 @@ class TextDeletedEvent extends BaseModelEvent {
 
   int get index => $unsafe.index;
   String get text => $unsafe.text;
-
-  set index(int index) => $unsafe.index = index;
-  set text(String text) => $unsafe.text = text;
 }

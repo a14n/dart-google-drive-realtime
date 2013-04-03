@@ -17,9 +17,9 @@ part of google_drive_realtime;
 class EventTarget extends jsw.TypedProxy {
   static EventTarget cast(js.Proxy proxy) => proxy == null ? null : new EventTarget.fromProxy(proxy);
 
-  EventTarget() : this.fromProxy(new js.Proxy.withArgList(realtime.EventTarget, []));
   EventTarget.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
+  // TODO Stream + onXxx on good objects
   // TODO handle "handler" param
   void addEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.addEventListener(type, handler, capture);
   // TODO handle "handler" param

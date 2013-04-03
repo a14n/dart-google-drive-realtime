@@ -22,8 +22,4 @@ class Error extends jsw.TypedProxy {
   bool get isFatal => $unsafe.isFatal;
   String get message => $unsafe.message;
   ErrorType get type => ErrorType.find($unsafe.type);
-
-  set isFatal(bool isFatal) => $unsafe.isFatal = isFatal;
-  set message(String message) => $unsafe.message = message;
-  set type(ErrorType type) => $unsafe.type = type;
 }

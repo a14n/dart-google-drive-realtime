@@ -22,8 +22,4 @@ class IndexReference extends CollaborativeObject {
   bool get canBeDeleted => $unsafe.canBeDeleted;
   int get index => $unsafe.index;
   CollaborativeObject get referencedObject => CollaborativeObject.cast($unsafe.referencedObject);
-
-  set canBeDeleted(bool canBeDeleted) => $unsafe.canBeDeleted = canBeDeleted;
-  set index(int index) => $unsafe.index = index;
-  set referencedObject(CollaborativeObject referencedObject) => $unsafe.referencedObject = referencedObject;
 }

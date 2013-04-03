@@ -20,8 +20,8 @@ class Document extends EventTarget {
   Document.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
   void close() { $unsafe.close(); }
-  List<Collaborator> getCollaborators() => jsw.JsArrayToListAdapter.castListOfSerializables($unsafe.getCollaborators(), Collaborator.cast);
-  Model getModel() => Model.cast($unsafe.getModel());
+  List<Collaborator> get collaborators => jsw.JsArrayToListAdapter.castListOfSerializables($unsafe.getCollaborators(), Collaborator.cast);
+  Model get model => Model.cast($unsafe.getModel());
 
   void exportDocument(void successFn([dynamic _]), void failureFn([dynamic _])) => $unsafe.exportDocument(new js.Callback.once(successFn), new js.Callback.once(failureFn));
 }

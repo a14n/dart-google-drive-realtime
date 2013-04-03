@@ -21,8 +21,6 @@ class Model extends jsw.TypedProxy {
 
   bool get isReadOnly => $unsafe.isReadOnly;
 
-  set isReadOnly(bool isReadOnly) => $unsafe.isReadOnly = isReadOnly;
-
   void beginCreationCompoundOperation() { $unsafe.beginCreationCompoundOperation(); }
   void endCompoundOperation() { $unsafe.endCompoundOperation(); }
   CollaborativeMap getRoot() => CollaborativeMap.cast($unsafe.getRoot());
@@ -31,9 +29,9 @@ class Model extends jsw.TypedProxy {
   void beginCompoundOperation([String name]) => $unsafe.beginCompoundOperation(name);
   CollaborativeObject create(dynamic/*function(*)|string*/ ref, List args) {
     final params = [ref]..addAll(args);
-    $unsafe.create.apply($unsafe, js.array(params));
+    CollaborativeObject.cast($unsafe.create.apply($unsafe, js.array(params)));
   }
-  CollaborativeList createList([List initialValue]) => $unsafe.createList(initialValue is js.Serializable<js.Proxy> ? initialValue : js.array(initialValue));
-  CollaborativeMap createMap([Map initialValue]) => $unsafe.createMap(initialValue is js.Serializable<js.Proxy> ? initialValue : js.map(initialValue));
-  CollaborativeString createString([String initialValue]) => $unsafe.createString(initialValue);
+  CollaborativeList createList([List initialValue]) => CollaborativeList.cast($unsafe.createList(initialValue == null ? null : initialValue is js.Serializable<js.Proxy> ? initialValue : js.array(initialValue)));
+  CollaborativeMap createMap([Map initialValue]) => CollaborativeMap.cast($unsafe.createMap(initialValue == null ? null : initialValue is js.Serializable<js.Proxy> ? initialValue : js.map(initialValue)));
+  CollaborativeString createString([String initialValue]) => CollaborativeString.cast($unsafe.createString(initialValue));
 }

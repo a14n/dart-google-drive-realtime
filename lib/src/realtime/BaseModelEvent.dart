@@ -17,7 +17,6 @@ part of google_drive_realtime;
 class BaseModelEvent extends jsw.TypedProxy {
   static BaseModelEvent cast(js.Proxy proxy) => proxy == null ? null : new BaseModelEvent.fromProxy(proxy);
 
-  BaseModelEvent(String type, EventTarget target, String sessionId, String userId, bool isLocal, bool bubbles) : this.fromProxy(new js.Proxy.withArgList(realtime.BaseModelEvent, [type, target, sessionId, userId, isLocal, bubbles]));
   BaseModelEvent.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
   bool get bubbles => $unsafe.bubbles;
@@ -25,10 +24,4 @@ class BaseModelEvent extends jsw.TypedProxy {
   String get sessionId => $unsafe.sessionId;
   String get type => $unsafe.type;
   String get userId => $unsafe.userId;
-
-  set bubbles(bool bubbles) => $unsafe.bubbles = bubbles;
-  set isLocal(bool isLocal) => $unsafe.isLocal = isLocal;
-  set sessionId(String sessionId) => $unsafe.sessionId = sessionId;
-  set type(String type) => $unsafe.type = type;
-  set userId(String userId) => $unsafe.userId = userId;
 }

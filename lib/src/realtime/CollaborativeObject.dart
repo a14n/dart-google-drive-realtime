@@ -17,7 +17,6 @@ part of google_drive_realtime;
 class CollaborativeObject extends EventTarget {
   static CollaborativeObject cast(js.Proxy proxy) => proxy == null ? null : new CollaborativeObject.fromProxy(proxy);
 
-  CollaborativeObject(Model model) : this.fromProxy(new js.Proxy.withArgList(realtime.CollaborativeObject, [model]));
   CollaborativeObject.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
   String get id => $unsafe.id;

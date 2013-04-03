@@ -22,8 +22,4 @@ class ValueChangedEvent extends BaseModelEvent {
   dynamic get newValue => $unsafe.newValue;
   dynamic get oldValue => $unsafe.oldValue;
   String get property => $unsafe.property;
-
-  set newValue(dynamic newValue) => $unsafe.newValue = newValue;
-  set oldValue(dynamic oldValue) => $unsafe.oldValue = oldValue;
-  set property(String property) => $unsafe.property = property;
 }
