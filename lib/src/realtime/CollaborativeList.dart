@@ -25,7 +25,7 @@ class CollaborativeList extends CollaborativeObject {
   dynamic get(int index) => $unsafe.get(index);
   void insert(int index, dynamic value) { $unsafe.insert(index, value); }
   int push(dynamic value) => $unsafe.push(value);
-  IndexReference registerReference(int index, bool canBeDeleted) => $unsafe.registerReference(index, canBeDeleted);
+  IndexReference registerReference(int index, bool canBeDeleted) => IndexReference.cast($unsafe.registerReference(index, canBeDeleted));
   void remove(int index) { $unsafe.remove(index); }
   void removeRange(int startIndex, int endIndex) { $unsafe.removeRange(startIndex, endIndex); }
   bool removeValue(dynamic value) => $unsafe.removeValue(value);
@@ -38,7 +38,7 @@ class CollaborativeList extends CollaborativeObject {
       comparatorCallback = new js.Callback.many(comparator);
     }
     try {
-      $unsafe.indexOf(value, comparatorCallback);
+      return $unsafe.indexOf(value, comparatorCallback);
     } finally {
       if (comparatorCallback != null) {
         comparatorCallback.dispose();
@@ -52,7 +52,7 @@ class CollaborativeList extends CollaborativeObject {
       comparatorCallback = new js.Callback.many(comparator);
     }
     try {
-      $unsafe.lastIndexOf(value, comparatorCallback);
+      return $unsafe.lastIndexOf(value, comparatorCallback);
     } finally {
       if (comparatorCallback != null) {
         comparatorCallback.dispose();

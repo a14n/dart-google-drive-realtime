@@ -17,7 +17,6 @@ part of google_drive_realtime;
 class CollaborativeMap extends CollaborativeObject {
   static CollaborativeMap cast(js.Proxy proxy) => proxy == null ? null : new CollaborativeMap.fromProxy(proxy);
 
-  CollaborativeMap(Model model) : this.fromProxy(new js.Proxy.withArgList(realtime.CollaborativeMap, [model]));
   CollaborativeMap.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
   int get size => $unsafe.size;

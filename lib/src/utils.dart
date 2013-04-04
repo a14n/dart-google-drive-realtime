@@ -18,21 +18,8 @@ import 'package:js/js.dart' as js;
 import 'package:js/js_wrapping.dart' as jsw;
 import 'package:meta/meta.dart';
 
-/// metadata to indicate that an wrapped method has been renamed or customized in a darty way
-const dartified = const _Dartified();
-class _Dartified {
-  const _Dartified();
-}
-
 // utility to get js.Proxy even if out of scope
 dynamic findIn(List elements, Object o) => elements.where((e) => e == o).reduce(null, (previousValue, e) => (previousValue != null ? previousValue : e));
-
-dynamic firstNotNull(List elements) {
-  for (final e in elements) {
-    if (e != null) return e;
-  }
-  return null;
-}
 
 class IsEnum<E> implements js.Serializable<E> {
   E value;

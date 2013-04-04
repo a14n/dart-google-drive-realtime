@@ -23,13 +23,13 @@ class Model extends jsw.TypedProxy {
 
   void beginCreationCompoundOperation() { $unsafe.beginCreationCompoundOperation(); }
   void endCompoundOperation() { $unsafe.endCompoundOperation(); }
-  CollaborativeMap getRoot() => CollaborativeMap.cast($unsafe.getRoot());
-  bool isInitialized() => $unsafe.isInitialized();
+  CollaborativeMap get root => CollaborativeMap.cast($unsafe.getRoot());
+  bool get isInitialized => $unsafe.isInitialized();
 
   void beginCompoundOperation([String name]) => $unsafe.beginCompoundOperation(name);
   CollaborativeObject create(dynamic/*function(*)|string*/ ref, List args) {
     final params = [ref]..addAll(args);
-    CollaborativeObject.cast($unsafe.create.apply($unsafe, js.array(params)));
+    return CollaborativeObject.cast($unsafe.create.apply($unsafe, js.array(params)));
   }
   CollaborativeList createList([List initialValue]) => CollaborativeList.cast($unsafe.createList(initialValue == null ? null : initialValue is js.Serializable<js.Proxy> ? initialValue : js.array(initialValue)));
   CollaborativeMap createMap([Map initialValue]) => CollaborativeMap.cast($unsafe.createMap(initialValue == null ? null : initialValue is js.Serializable<js.Proxy> ? initialValue : js.map(initialValue)));

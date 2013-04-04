@@ -17,7 +17,6 @@ part of google_drive_realtime;
 class CollaborativeString extends CollaborativeObject {
   static CollaborativeString cast(js.Proxy proxy) => proxy == null ? null : new CollaborativeString.fromProxy(proxy);
 
-  CollaborativeString(Model model) : this.fromProxy(new js.Proxy.withArgList(realtime.CollaborativeString, [model]));
   CollaborativeString.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
   int get length => $unsafe.length;
