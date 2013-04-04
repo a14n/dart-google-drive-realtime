@@ -15,7 +15,7 @@
 part of google_drive_realtime;
 
 class CollaboratorJoinedEvent extends jsw.TypedProxy {
-  static CollaboratorJoinedEvent deserialize(Document source, dynamic serialized) => CollaboratorJoinedEvent.cast($unsafe.deserialize(source, serialized));
+  static CollaboratorJoinedEvent deserialize(Document source, dynamic serialized) => CollaboratorJoinedEvent.cast(js.context.CollaboratorJoinedEvent.deserialize(source, serialized));
   static CollaboratorJoinedEvent cast(js.Proxy proxy) => proxy == null ? null : new CollaboratorJoinedEvent.fromProxy(proxy);
 
   CollaboratorJoinedEvent.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);

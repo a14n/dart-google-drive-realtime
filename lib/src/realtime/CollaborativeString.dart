@@ -22,9 +22,9 @@ class CollaborativeString extends CollaborativeObject {
   int get length => $unsafe.length;
 
   void append(String text) { $unsafe.append(text); }
-  String getText() => $unsafe.getText();
+  String get text => $unsafe.getText();
   void insertString(int index, String text) { $unsafe.insertString(index, text); }
   IndexReference registerReference(int index, bool canBeDeleted) => IndexReference.cast($unsafe.registerReference(index, canBeDeleted));
   void removeRange(int startIndex, int endIndex) { $unsafe.removeRange(startIndex, endIndex); }
-  void setText(String text) { $unsafe.setText(text); }
+  void set text(String text) { $unsafe.setText(text); }
 }
