@@ -19,9 +19,31 @@ class EventTarget extends jsw.TypedProxy {
 
   EventTarget.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
-  // TODO Stream + onXxx on good objects
-  // TODO handle "handler" param
-  void addEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.addEventListener(type, handler, capture);
-  // TODO handle "handler" param
-  void removeEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.removeEventListener(type, handler, capture);
+  void _addEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.addEventListener(type, handler, capture);
+  void _removeEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.removeEventListener(type, handler, capture);
+
+  Stream _getStreamFor(EventType eventType, [transformEvent(e)]) {
+    StreamController streamController;
+    js.Callback handler = null;
+    final listener = () {
+      js.scoped((){
+        if (!streamController.hasSubscribers || streamController.isPaused || streamController.isClosed) {
+          if (handler != null) {
+            _removeEventListener(eventType, handler);
+            handler.dispose();
+            handler = null;
+          }
+        } else {
+          if (handler == null) {
+            handler = new js.Callback.many((e) {
+              streamController.add(transformEvent == null ? e : transformEvent(e));
+            });
+            _addEventListener(eventType, handler);
+          }
+        }
+      });
+    };
+    streamController = new StreamController.broadcast(onPauseStateChange: listener, onSubscriptionStateChange: listener);
+    return streamController.stream;
+  }
 }

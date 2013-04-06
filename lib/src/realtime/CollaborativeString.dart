@@ -17,7 +17,13 @@ part of google_drive_realtime;
 class CollaborativeString extends CollaborativeObject {
   static CollaborativeString cast(js.Proxy proxy) => proxy == null ? null : new CollaborativeString.fromProxy(proxy);
 
-  CollaborativeString.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+  Stream<TextInsertedEvent> _onTextInserted;
+  Stream<TextDeletedEvent> _onTextDeleted;
+
+  CollaborativeString.fromProxy(js.Proxy proxy) : super.fromProxy(proxy) {
+    _onTextInserted = _getStreamFor(EventType.TEXT_INSERTED, TextInsertedEvent.cast);
+    _onTextDeleted = _getStreamFor(EventType.TEXT_DELETED, TextDeletedEvent.cast);
+  }
 
   int get length => $unsafe.length;
 
@@ -27,4 +33,7 @@ class CollaborativeString extends CollaborativeObject {
   IndexReference registerReference(int index, bool canBeDeleted) => IndexReference.cast($unsafe.registerReference(index, canBeDeleted));
   void removeRange(int startIndex, int endIndex) { $unsafe.removeRange(startIndex, endIndex); }
   void set text(String text) { $unsafe.setText(text); }
+
+  Stream<TextInsertedEvent> get onTextInserted => _onTextInserted;
+  Stream<TextDeletedEvent> get onTextDeleted => _onTextDeleted;
 }

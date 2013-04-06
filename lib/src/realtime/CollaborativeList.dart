@@ -17,7 +17,15 @@ part of google_drive_realtime;
 class CollaborativeList extends CollaborativeObject {
   static CollaborativeList cast(js.Proxy proxy) => proxy == null ? null : new CollaborativeList.fromProxy(proxy);
 
-  CollaborativeList.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+  Stream<ValuesAddedEvent> _onValuesAdded;
+  Stream<ValuesRemovedEvent> _onValuesRemoved;
+  Stream<ValuesSetEvent> _onValuesSet;
+
+  CollaborativeList.fromProxy(js.Proxy proxy) : super.fromProxy(proxy) {
+    _onValuesAdded = _getStreamFor(EventType.VALUES_ADDED, ValuesAddedEvent.cast);
+    _onValuesRemoved = _getStreamFor(EventType.VALUES_REMOVED, ValuesRemovedEvent.cast);
+    _onValuesSet = _getStreamFor(EventType.VALUES_SET, ValuesSetEvent.cast);
+  }
 
   int get length => $unsafe.length;
 
@@ -61,4 +69,8 @@ class CollaborativeList extends CollaborativeObject {
   }
   void pushAll(List values) { $unsafe.pushAll(values is js.Serializable<js.Proxy> ? values : js.array(values)); }
   void replaceRange(int index, List values) { $unsafe.replaceRange(index, values is js.Serializable<js.Proxy> ? values : js.array(values)); }
+
+  Stream<ValuesAddedEvent> get onValuesAdded => _onValuesAdded;
+  Stream<ValuesRemovedEvent> get onValuesRemoved => _onValuesRemoved;
+  Stream<ValuesSetEvent> get onValuesSet => _onValuesSet;
 }

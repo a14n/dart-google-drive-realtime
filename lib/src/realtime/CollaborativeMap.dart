@@ -17,7 +17,11 @@ part of google_drive_realtime;
 class CollaborativeMap extends CollaborativeObject {
   static CollaborativeMap cast(js.Proxy proxy) => proxy == null ? null : new CollaborativeMap.fromProxy(proxy);
 
-  CollaborativeMap.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+  Stream<ValueChangedEvent> _onValueChanged;
+
+  CollaborativeMap.fromProxy(js.Proxy proxy) : super.fromProxy(proxy) {
+    _onValueChanged = _getStreamFor(EventType.VALUE_CHANGED, ValueChangedEvent.cast);
+  }
 
   int get size => $unsafe.size;
 
@@ -30,4 +34,6 @@ class CollaborativeMap extends CollaborativeObject {
   List<String> keys() => jsw.JsArrayToListAdapter.cast($unsafe.keys());
   dynamic set(String key, dynamic value) => $unsafe.set(key, value);
   List<dynamic> values() => jsw.JsArrayToListAdapter.cast($unsafe.values());
+
+  Stream<ValueChangedEvent> get onValueChanged => _onValueChanged;
 }
