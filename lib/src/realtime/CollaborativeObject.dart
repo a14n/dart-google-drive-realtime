@@ -17,9 +17,15 @@ part of google_drive_realtime;
 class CollaborativeObject extends EventTarget {
   static CollaborativeObject cast(js.Proxy proxy) => proxy == null ? null : new CollaborativeObject.fromProxy(proxy);
 
-  CollaborativeObject.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+  Stream<ObjectChangedEvent> _onObjectChanged;
+
+  CollaborativeObject.fromProxy(js.Proxy proxy) : super.fromProxy(proxy) {
+    _onObjectChanged = _getStreamFor(EventType.OBJECT_CHANGED, ObjectChangedEvent.cast);
+  }
 
   String get id => $unsafe.id;
 
   String toString() => $unsafe["toString"]();
+
+  Stream<ObjectChangedEvent> get onObjectChanged => _onObjectChanged;
 }
