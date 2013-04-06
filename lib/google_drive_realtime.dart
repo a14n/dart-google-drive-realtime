@@ -53,13 +53,14 @@ final realtime = js.retain(js.context.gapi.drive.realtime);
 
 String get token => realtime.getToken();
 
-void load(String docId, void onLoaded(Document document),
-          [void initializerFn(Model model), void errorFn(Error error)]) {
+Future<Document> load(String docId, [void initializerFn(Model model), void errorFn(Error error)]) {
+  final completer = new Completer();
   realtime.load(docId,
-      new js.Callback.once((js.Proxy p) => onLoaded(Document.cast(p))),
+      new js.Callback.once((js.Proxy p) => completer.complete(Document.cast(p))),
       initializerFn == null ? null : new js.Callback.once((js.Proxy p) => initializerFn(Model.cast(p))),
       errorFn == null ? null : new js.Callback.once((js.Proxy p) => errorFn(Error.cast(p)))
   );
+  return completer.future;
 }
 
 
