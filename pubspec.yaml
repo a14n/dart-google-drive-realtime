@@ -8,8 +8,6 @@ dev_dependencies:
   meta: any
   browser: any
 dependencies:
-  js:
-    git: https://github.com/dart-lang/js-interop.git
 #  js:
-#    path: '../js-interop'
-#  js: '>=0.0.17 <1.0.0'
+#    git: https://github.com/dart-lang/js-interop.git
+  js: '>=0.0.19 <1.0.0'
