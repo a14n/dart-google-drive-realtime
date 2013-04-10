@@ -17,6 +17,9 @@ dependencies:
 
 ```dart
 import 'package:google_drive_realtime/google_drive_realtime.dart';
+
+// for databinding part
+import 'package:google_drive_realtime/google_drive_realtime_databinding.dart';
 ```
 
 * Follow the steps described at [Create a Realtime Application](https://developers.google.com/drive/realtime/application).
