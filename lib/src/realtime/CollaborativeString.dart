@@ -25,14 +25,14 @@ class CollaborativeString extends CollaborativeObject {
     _onTextDeleted = _getStreamFor(EventType.TEXT_DELETED, TextDeletedEvent.cast);
   }
 
-  int get length => $unsafe.length;
+  int get length => $unsafe['length'];
 
-  void append(String text) { $unsafe.append(text); }
-  String get text => $unsafe.getText();
-  void insertString(int index, String text) { $unsafe.insertString(index, text); }
-  IndexReference registerReference(int index, bool canBeDeleted) => IndexReference.cast($unsafe.registerReference(index, canBeDeleted));
-  void removeRange(int startIndex, int endIndex) { $unsafe.removeRange(startIndex, endIndex); }
-  void set text(String text) { $unsafe.setText(text); }
+  void append(String text) { $unsafe['append'](text); }
+  String get text => $unsafe['getText']();
+  void insertString(int index, String text) { $unsafe['insertString'](index, text); }
+  IndexReference registerReference(int index, bool canBeDeleted) => IndexReference.cast($unsafe['registerReference'](index, canBeDeleted));
+  void removeRange(int startIndex, int endIndex) { $unsafe['removeRange'](startIndex, endIndex); }
+  void set text(String text) { $unsafe['setText'](text); }
 
   Stream<TextInsertedEvent> get onTextInserted => _onTextInserted;
   Stream<TextDeletedEvent> get onTextDeleted => _onTextDeleted;

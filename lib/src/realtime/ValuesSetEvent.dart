@@ -19,7 +19,7 @@ class ValuesSetEvent extends BaseModelEvent {
 
   ValuesSetEvent.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
-  int get index => $unsafe.index;
-  List<dynamic> get newValues => jsw.JsArrayToListAdapter.cast($unsafe.newValues);
-  List<dynamic> get oldValues => jsw.JsArrayToListAdapter.cast($unsafe.oldValues);
+  int get index => $unsafe['index'];
+  List<dynamic> get newValues => jsw.JsArrayToListAdapter.cast($unsafe['newValues']);
+  List<dynamic> get oldValues => jsw.JsArrayToListAdapter.cast($unsafe['oldValues']);
 }

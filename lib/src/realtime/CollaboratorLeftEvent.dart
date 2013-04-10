@@ -15,10 +15,10 @@
 part of google_drive_realtime;
 
 class CollaboratorLeftEvent extends jsw.TypedProxy {
-  static CollaboratorLeftEvent deserialize(Document source, dynamic serialized) => CollaboratorLeftEvent.cast(js.context.CollaboratorJoined.deserialize(source, serialized));
+  static CollaboratorLeftEvent deserialize(Document source, dynamic serialized) => CollaboratorLeftEvent.cast(js.context['CollaboratorJoined']['deserialize'](source, serialized));
   static CollaboratorLeftEvent cast(js.Proxy proxy) => proxy == null ? null : new CollaboratorLeftEvent.fromProxy(proxy);
 
   CollaboratorLeftEvent.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
-  Collaborator get collaborator => Collaborator.cast($unsafe.collaborator);
+  Collaborator get collaborator => Collaborator.cast($unsafe['collaborator']);
 }

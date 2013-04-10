@@ -15,13 +15,13 @@
 part of google_drive_realtime;
 
 class ErrorType extends IsEnum<String> {
-  static final CLIENT_ERROR = new ErrorType._(realtime.ErrorType.CLIENT_ERROR);
-  static final CONCURRENT_CREATION = new ErrorType._(realtime.ErrorType.CONCURRENT_CREATION);
-  static final FORBIDDEN = new ErrorType._(realtime.ErrorType.FORBIDDEN);
-  static final INVALID_COMPOUND_OPERATION = new ErrorType._(realtime.ErrorType.INVALID_COMPOUND_OPERATION);
-  static final NOT_FOUND = new ErrorType._(realtime.ErrorType.NOT_FOUND);
-  static final SERVER_ERROR = new ErrorType._(realtime.ErrorType.SERVER_ERROR);
-  static final TOKEN_REFRESH_REQUIRED = new ErrorType._(realtime.ErrorType.TOKEN_REFRESH_REQUIRED);
+  static final CLIENT_ERROR = new ErrorType._(realtime['ErrorType']['CLIENT_ERROR']);
+  static final CONCURRENT_CREATION = new ErrorType._(realtime['ErrorType']['CONCURRENT_CREATION']);
+  static final FORBIDDEN = new ErrorType._(realtime['ErrorType']['FORBIDDEN']);
+  static final INVALID_COMPOUND_OPERATION = new ErrorType._(realtime['ErrorType']['INVALID_COMPOUND_OPERATION']);
+  static final NOT_FOUND = new ErrorType._(realtime['ErrorType']['NOT_FOUND']);
+  static final SERVER_ERROR = new ErrorType._(realtime['ErrorType']['SERVER_ERROR']);
+  static final TOKEN_REFRESH_REQUIRED = new ErrorType._(realtime['ErrorType']['TOKEN_REFRESH_REQUIRED']);
 
   static final _INSTANCES = [CLIENT_ERROR, CONCURRENT_CREATION, FORBIDDEN, INVALID_COMPOUND_OPERATION, NOT_FOUND, SERVER_ERROR, TOKEN_REFRESH_REQUIRED];
 

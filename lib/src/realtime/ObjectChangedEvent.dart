@@ -19,5 +19,5 @@ class ObjectChangedEvent extends BaseModelEvent {
 
   ObjectChangedEvent.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
-  List<BaseModelEvent> get events => jsw.JsArrayToListAdapter.castListOfSerializables($unsafe.events, BaseModelEvent.cast);
+  List<BaseModelEvent> get events => jsw.JsArrayToListAdapter.castListOfSerializables($unsafe['events'], BaseModelEvent.cast);
 }

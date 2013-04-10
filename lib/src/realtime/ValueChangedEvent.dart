@@ -19,7 +19,7 @@ class ValueChangedEvent extends BaseModelEvent {
 
   ValueChangedEvent.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
-  dynamic get newValue => $unsafe.newValue;
-  dynamic get oldValue => $unsafe.oldValue;
-  String get property => $unsafe.property;
+  dynamic get newValue => $unsafe['newValue'];
+  dynamic get oldValue => $unsafe['oldValue'];
+  String get property => $unsafe['property'];
 }

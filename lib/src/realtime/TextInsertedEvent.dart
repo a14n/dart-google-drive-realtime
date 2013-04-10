@@ -19,6 +19,6 @@ class TextInsertedEvent extends BaseModelEvent {
 
   TextInsertedEvent.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
-  int get index => $unsafe.index;
-  String get text => $unsafe.text;
+  int get index => $unsafe['index'];
+  String get text => $unsafe['text'];
 }

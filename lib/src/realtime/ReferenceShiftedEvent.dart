@@ -19,6 +19,6 @@ class ReferenceShiftedEvent extends BaseModelEvent {
 
   ReferenceShiftedEvent.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
-  int get newIndex => $unsafe.newIndex;
-  int get oldIndex => $unsafe.oldIndex;
+  int get newIndex => $unsafe['newIndex'];
+  int get oldIndex => $unsafe['oldIndex'];
 }

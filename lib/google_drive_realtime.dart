@@ -49,13 +49,13 @@ part 'src/realtime/error_type.dart';
 part 'src/realtime/event_type.dart';
 
 // js.Proxy for "gapi.drive.realtime"
-final realtime = js.retain(js.context.gapi.drive.realtime);
+final realtime = js.retain(js.context['gapi']['drive']['realtime']);
 
-String get token => realtime.getToken();
+String get token => realtime['getToken']();
 
 Future<Document> load(String docId, [void initializerFn(Model model), void errorFn(Error error)]) {
   final completer = new Completer();
-  realtime.load(docId,
+  realtime['load'](docId,
       new js.Callback.once((js.Proxy p) => completer.complete(Document.cast(p))),
       initializerFn == null ? null : new js.Callback.once((js.Proxy p) => initializerFn(Model.cast(p))),
       errorFn == null ? null : new js.Callback.once((js.Proxy p) => errorFn(Error.cast(p)))

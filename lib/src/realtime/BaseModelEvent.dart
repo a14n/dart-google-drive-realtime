@@ -19,9 +19,9 @@ class BaseModelEvent extends jsw.TypedProxy {
 
   BaseModelEvent.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
-  bool get bubbles => $unsafe.bubbles;
-  bool get isLocal => $unsafe.isLocal;
-  String get sessionId => $unsafe.sessionId;
-  String get type => $unsafe.type;
-  String get userId => $unsafe.userId;
+  bool get bubbles => $unsafe['bubbles'];
+  bool get isLocal => $unsafe['isLocal'];
+  String get sessionId => $unsafe['sessionId'];
+  String get type => $unsafe['type'];
+  String get userId => $unsafe['userId'];
 }

@@ -23,7 +23,7 @@ class CollaborativeObject extends EventTarget {
     _onObjectChanged = _getStreamFor(EventType.OBJECT_CHANGED, ObjectChangedEvent.cast);
   }
 
-  String get id => $unsafe.id;
+  String get id => $unsafe['id'];
 
   String toString() => $unsafe["toString"]();
 

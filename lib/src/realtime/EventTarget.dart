@@ -19,8 +19,8 @@ class EventTarget extends jsw.TypedProxy {
 
   EventTarget.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
-  void _addEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.addEventListener(type, handler, capture);
-  void _removeEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.removeEventListener(type, handler, capture);
+  void _addEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe['addEventListener'](type, handler, capture);
+  void _removeEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe['removeEventListener'](type, handler, capture);
 
   Stream _getStreamFor(EventType eventType, [transformEvent(e)]) {
     StreamController streamController;

@@ -19,19 +19,19 @@ class Model extends jsw.TypedProxy {
 
   Model.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
-  bool get isReadOnly => $unsafe.isReadOnly;
+  bool get isReadOnly => $unsafe['isReadOnly'];
 
-  void beginCreationCompoundOperation() { $unsafe.beginCreationCompoundOperation(); }
-  void endCompoundOperation() { $unsafe.endCompoundOperation(); }
-  CollaborativeMap get root => CollaborativeMap.cast($unsafe.getRoot());
-  bool get isInitialized => $unsafe.isInitialized();
+  void beginCreationCompoundOperation() { $unsafe['beginCreationCompoundOperation'](); }
+  void endCompoundOperation() { $unsafe['endCompoundOperation'](); }
+  CollaborativeMap get root => CollaborativeMap.cast($unsafe['getRoot']());
+  bool get isInitialized => $unsafe['isInitialized']();
 
-  void beginCompoundOperation([String name]) => $unsafe.beginCompoundOperation(name);
+  void beginCompoundOperation([String name]) => $unsafe['beginCompoundOperation'](name);
   CollaborativeObject create(dynamic/*function(*)|string*/ ref, List args) {
     final params = [ref]..addAll(args);
-    return CollaborativeObject.cast($unsafe.create.apply($unsafe, js.array(params)));
+    return CollaborativeObject.cast($unsafe['create']['apply']($unsafe, js.array(params)));
   }
-  CollaborativeList createList([List initialValue]) => CollaborativeList.cast($unsafe.createList(initialValue == null ? null : initialValue is js.Serializable<js.Proxy> ? initialValue : js.array(initialValue)));
-  CollaborativeMap createMap([Map initialValue]) => CollaborativeMap.cast($unsafe.createMap(initialValue == null ? null : initialValue is js.Serializable<js.Proxy> ? initialValue : js.map(initialValue)));
-  CollaborativeString createString([String initialValue]) => CollaborativeString.cast($unsafe.createString(initialValue));
+  CollaborativeList createList([List initialValue]) => CollaborativeList.cast($unsafe['createList'](initialValue == null ? null : initialValue is js.Serializable<js.Proxy> ? initialValue : js.array(initialValue)));
+  CollaborativeMap createMap([Map initialValue]) => CollaborativeMap.cast($unsafe['createMap'](initialValue == null ? null : initialValue is js.Serializable<js.Proxy> ? initialValue : js.map(initialValue)));
+  CollaborativeString createString([String initialValue]) => CollaborativeString.cast($unsafe['createString'](initialValue));
 }

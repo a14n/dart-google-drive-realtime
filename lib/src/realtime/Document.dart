@@ -27,11 +27,11 @@ class Document extends EventTarget {
     _onDocumentSaveStateChanged = _getStreamFor(EventType.DOCUMENT_SAVE_STATE_CHANGED, DocumentSaveStateChangedEvent.cast);
   }
 
-  void close() { $unsafe.close(); }
-  List<Collaborator> get collaborators => jsw.JsArrayToListAdapter.castListOfSerializables($unsafe.getCollaborators(), Collaborator.cast);
-  Model get model => Model.cast($unsafe.getModel());
+  void close() { $unsafe['close'](); }
+  List<Collaborator> get collaborators => jsw.JsArrayToListAdapter.castListOfSerializables($unsafe['getCollaborators'](), Collaborator.cast);
+  Model get model => Model.cast($unsafe['getModel']());
 
-  void exportDocument(void successFn([dynamic _]), void failureFn([dynamic _])) => $unsafe.exportDocument(new js.Callback.once(successFn), new js.Callback.once(failureFn));
+  void exportDocument(void successFn([dynamic _]), void failureFn([dynamic _])) => $unsafe['exportDocument'](new js.Callback.once(successFn), new js.Callback.once(failureFn));
 
   Stream<CollaboratorLeftEvent> get onCollaboratorLeft => _onCollaboratorLeft;
   Stream<CollaboratorJoinedEvent> get onCollaboratorJoined => _onCollaboratorJoined;

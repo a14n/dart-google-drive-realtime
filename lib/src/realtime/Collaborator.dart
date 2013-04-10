@@ -19,11 +19,11 @@ class Collaborator extends jsw.TypedProxy {
 
   Collaborator.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
-  String get color => $unsafe.color;
-  String get displayName => $unsafe.displayName;
-  bool get isAnonymous => $unsafe.isAnonymous;
-  bool get isMe => $unsafe.isMe;
-  String get photoUrl => $unsafe.photoUrl;
-  String get sessionId => $unsafe.sessionId;
-  String get userId => $unsafe.userId;
+  String get color => $unsafe['color'];
+  String get displayName => $unsafe['displayName'];
+  bool get isAnonymous => $unsafe['isAnonymous'];
+  bool get isMe => $unsafe['isMe'];
+  String get photoUrl => $unsafe['photoUrl'];
+  String get sessionId => $unsafe['sessionId'];
+  String get userId => $unsafe['userId'];
 }

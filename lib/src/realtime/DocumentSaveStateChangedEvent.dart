@@ -19,6 +19,6 @@ class DocumentSaveStateChangedEvent extends jsw.TypedProxy {
 
   DocumentSaveStateChangedEvent.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
 
-  bool get isPending => $unsafe.isPending;
-  bool get isSaving => $unsafe.isSaving;
+  bool get isPending => $unsafe['isPending'];
+  bool get isSaving => $unsafe['isSaving'];
 }
