@@ -27,7 +27,7 @@ class EventTarget extends jsw.TypedProxy {
     js.Callback handler = null;
     final listener = () {
       js.scoped((){
-        if (!streamController.hasSubscribers || streamController.isPaused || streamController.isClosed) {
+        if (!streamController.hasListener || streamController.isPaused || streamController.isClosed) {
           if (handler != null) {
             _removeEventListener(eventType, handler);
             handler.dispose();
@@ -43,7 +43,7 @@ class EventTarget extends jsw.TypedProxy {
         }
       });
     };
-    streamController = new StreamController.broadcast(onPauseStateChange: listener, onSubscriptionStateChange: listener);
-    return streamController.stream;
+    streamController = new StreamController(onListen: listener, onPause: listener, onResume: listener, onCancel: listener);
+    return streamController.stream.asBroadcastStream();
   }
 }
