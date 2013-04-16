@@ -27,7 +27,7 @@ class Model extends jsw.TypedProxy {
   bool get isInitialized => $unsafe['isInitialized']();
 
   void beginCompoundOperation([String name]) => $unsafe['beginCompoundOperation'](name);
-  CollaborativeObject create(dynamic/*function(*)|string*/ ref, List args) {
+  CollaborativeObject create(dynamic/*function(*)|string*/ ref, [List args = const []]) {
     final params = [ref]..addAll(args);
     return CollaborativeObject.cast($unsafe['create']['apply']($unsafe, js.array(params)));
   }
