@@ -25,7 +25,7 @@ void _assertKnownPath() {
 
 Future<List<String>> _getLibs() {
   return new Directory('lib').list()
-      .where((FileSystemEntity fse) => fse is File && fse.path.endsWith("client.dart"))
+      .where((FileSystemEntity fse) => fse is File && fse.path.endsWith(".dart"))
       .map((File file) => file.path)
       .toList();
 }
