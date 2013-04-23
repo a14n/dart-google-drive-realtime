@@ -28,4 +28,4 @@ part 'src/databinding/binding.dart';
 
 final realtimeDatabinding = js.retain(realtime['databinding']);
 
-Binding bindString(CollaborativeString string, TextInputElement textInputElement) => Binding.cast(realtimeDatabinding['bindString'](string, textInputElement));
+Binding bindString(CollaborativeString string, TextInputElement textInputElement) => Binding.cast(realtimeDatabinding.bindString(string, textInputElement));

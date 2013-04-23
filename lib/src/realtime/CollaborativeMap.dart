@@ -25,15 +25,15 @@ class CollaborativeMap extends CollaborativeObject {
 
   int get size => $unsafe['size'];
 
-  void clear() { $unsafe['clear'](); }
-  dynamic delete(String key) => $unsafe['delete'](key);
-  dynamic get(String key) => $unsafe['get'](key);
-  bool has(String key) => $unsafe['has'](key);
-  bool isEmpty() => $unsafe['isEmpty']();
-  List<List<dynamic>> items() => jsw.JsArrayToListAdapter.castListOfSerializables($unsafe['items'](), (e) => jsw.JsArrayToListAdapter.cast(e));
-  List<String> keys() => jsw.JsArrayToListAdapter.cast($unsafe['keys']());
-  dynamic set(String key, dynamic value) => $unsafe['set'](key, value);
-  List<dynamic> values() => jsw.JsArrayToListAdapter.cast($unsafe['values']());
+  void clear() { $unsafe.clear(); }
+  dynamic delete(String key) => $unsafe.delete(key);
+  dynamic get(String key) => $unsafe.get(key);
+  bool has(String key) => $unsafe.has(key);
+  bool isEmpty() => $unsafe.isEmpty();
+  List<List<dynamic>> items() => jsw.JsArrayToListAdapter.castListOfSerializables($unsafe.items(), (e) => jsw.JsArrayToListAdapter.cast(e));
+  List<String> keys() => jsw.JsArrayToListAdapter.cast($unsafe.keys());
+  dynamic set(String key, dynamic value) => $unsafe.set(key, value);
+  List<dynamic> values() => jsw.JsArrayToListAdapter.cast($unsafe.values());
 
   Stream<ValueChangedEvent> get onValueChanged => _onValueChanged;
 }

@@ -19,7 +19,7 @@ import 'package:js/js_wrapping.dart' as jsw;
 import 'package:meta/meta.dart';
 
 // utility to get js.Proxy even if out of scope
-dynamic findIn(List elements, Object o) => elements.where((e) => e == o).fold(null, (previousValue, e) => (previousValue != null ? previousValue : e));
+dynamic findIn(List elements, Object o) => elements.firstWhere((e) => e == o, orElse: () => null);
 
 class IsEnum<E> implements js.Serializable<E> {
   E value;

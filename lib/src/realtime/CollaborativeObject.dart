@@ -25,7 +25,7 @@ class CollaborativeObject extends EventTarget {
 
   String get id => $unsafe['id'];
 
-  String toString() => $unsafe["toString"]();
+  String toString() => $unsafe.toString();
 
   Stream<ObjectChangedEvent> get onObjectChanged => _onObjectChanged;
 }
