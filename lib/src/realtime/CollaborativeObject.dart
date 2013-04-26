@@ -18,9 +18,11 @@ class CollaborativeObject extends EventTarget {
   static CollaborativeObject cast(js.Proxy proxy) => proxy == null ? null : new CollaborativeObject.fromProxy(proxy);
 
   Stream<ObjectChangedEvent> _onObjectChanged;
+  Stream<ValueChangedEvent> _onValueChanged;
 
   CollaborativeObject.fromProxy(js.Proxy proxy) : super.fromProxy(proxy) {
     _onObjectChanged = _getStreamFor(EventType.OBJECT_CHANGED, ObjectChangedEvent.cast);
+    _onValueChanged = _getStreamFor(EventType.VALUE_CHANGED, ValueChangedEvent.cast);
   }
 
   String get id => $unsafe['id'];
@@ -28,4 +30,5 @@ class CollaborativeObject extends EventTarget {
   String toString() => $unsafe.toString();
 
   Stream<ObjectChangedEvent> get onObjectChanged => _onObjectChanged;
+  Stream<ValueChangedEvent> get onValueChanged => _onValueChanged;
 }
