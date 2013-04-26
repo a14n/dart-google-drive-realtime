@@ -14,26 +14,36 @@
 
 part of google_drive_realtime;
 
-class CollaborativeMap extends CollaborativeObject {
-  static CollaborativeMap cast(js.Proxy proxy) => proxy == null ? null : new CollaborativeMap.fromProxy(proxy);
+class CollaborativeMap<V> extends CollaborativeObject {
+  static CollaborativeMap cast(js.Proxy proxy, [jsw.Translator translator]) => proxy == null ? null : new CollaborativeMap.fromProxy(proxy, translator);
+
+  static CollaborativeMap castMapOfSerializables(js.Proxy proxy, jsw.Mapper<dynamic, js.Serializable> fromJs, {mapOnlyNotNull: false}) => proxy == null ? null : new CollaborativeMap.fromProxy(proxy, new jsw.TranslatorForSerializable(fromJs, mapOnlyNotNull: mapOnlyNotNull));
+
+  final jsw.Translator<V> _translator;
 
   Stream<ValueChangedEvent> _onValueChanged;
 
-  CollaborativeMap.fromProxy(js.Proxy proxy) : super.fromProxy(proxy) {
+  CollaborativeMap.fromProxy(js.Proxy proxy, [jsw.Translator<V> translator])
+      : this._translator = translator,
+        super.fromProxy(proxy) {
     _onValueChanged = _getStreamFor(EventType.VALUE_CHANGED, ValueChangedEvent.cast);
   }
+
+  dynamic _toJs(V e) => _translator == null ? e : _translator.toJs(e);
+  V _fromJs(dynamic value) => _translator == null ? value :
+      _translator.fromJs(value);
 
   int get size => $unsafe['size'];
 
   void clear() { $unsafe.clear(); }
-  dynamic delete(String key) => $unsafe.delete(key);
-  dynamic get(String key) => $unsafe.get(key);
+  V delete(String key) => _fromJs($unsafe.delete(key));
+  V get(String key) => _fromJs($unsafe.get(key));
   bool has(String key) => $unsafe.has(key);
   bool isEmpty() => $unsafe.isEmpty();
-  List<List<dynamic>> items() => jsw.JsArrayToListAdapter.castListOfSerializables($unsafe.items(), (e) => jsw.JsArrayToListAdapter.cast(e));
+  List<List<V>> items() => jsw.JsArrayToListAdapter.castListOfSerializables($unsafe.items(), (e) => jsw.JsArrayToListAdapter.cast(e, _translator));
   List<String> keys() => jsw.JsArrayToListAdapter.cast($unsafe.keys());
-  dynamic set(String key, dynamic value) => $unsafe.set(key, value);
-  List<dynamic> values() => jsw.JsArrayToListAdapter.cast($unsafe.values());
+  V set(String key, V value) => _fromJs($unsafe.set(key, _toJs(value)));
+  List<V> values() => jsw.JsArrayToListAdapter.cast($unsafe.values(), _translator);
 
   Stream<ValueChangedEvent> get onValueChanged => _onValueChanged;
 }
