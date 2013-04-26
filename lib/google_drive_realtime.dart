@@ -15,6 +15,7 @@
 library google_drive_realtime;
 
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:js/js.dart' as js;
 import 'package:js/js_wrapping.dart' as jsw;

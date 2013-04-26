@@ -7,7 +7,7 @@ import 'package:google_drive_realtime/google_drive_realtime.dart' as rt;
 initializeModel(js.Proxy modelProxy) {
   var model = rt.Model.cast(modelProxy);
   var string = model.createString('Hello Realtime World!');
-  model.root.set('text', string);
+  model.root['text'] = string;
 }
 
 /**
@@ -19,7 +19,7 @@ initializeModel(js.Proxy modelProxy) {
  */
 onFileLoaded(docProxy) {
   var doc = rt.Document.cast(docProxy);
-  var string = rt.CollaborativeString.cast(doc.model.root.get('text'));
+  var string = rt.CollaborativeString.cast(doc.model.root['text']);
 
   doc.onCollaboratorJoined.listen((rt.CollaboratorJoinedEvent e){
     print("user joined : ${e.collaborator.displayName}");

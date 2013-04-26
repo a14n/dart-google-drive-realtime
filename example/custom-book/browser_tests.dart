@@ -36,7 +36,7 @@ class Book extends rt.CollaborativeObject {
 initializeModel(js.Proxy modelProxy) {
   var model = rt.Model.cast(modelProxy);
   var book = model.create(Book.NAME);
-  model.root.set('book', book);
+  model.root['book'] = book;
 }
 
 /**
@@ -48,7 +48,7 @@ initializeModel(js.Proxy modelProxy) {
  */
 onFileLoaded(docProxy) {
   var doc = rt.Document.cast(docProxy);
-  var book = Book.cast(doc.model.root.get('book'));
+  var book = Book.cast(doc.model.root['book']);
   js.retain(book);
 
   // collaborators listener

@@ -30,7 +30,7 @@ class Task extends rt.CollaborativeObject {
 initializeModel(js.Proxy modelProxy) {
   var model = rt.Model.cast(modelProxy);
   var tasks = model.createList();
-  model.root.set('tasks', tasks);
+  model.root['tasks'] = tasks;
 }
 
 /**
@@ -43,7 +43,7 @@ initializeModel(js.Proxy modelProxy) {
 onFileLoaded(docProxy) {
   final doc = rt.Document.cast(docProxy);
   js.retain(doc);
-  final rt.CollaborativeList<Task> tasks = rt.CollaborativeList.castListOfSerializables(doc.model.root.get('tasks'), Task.cast);
+  final rt.CollaborativeList<Task> tasks = rt.CollaborativeList.castListOfSerializables(doc.model.root['tasks'], Task.cast);
   js.retain(tasks);
 
   // collaborators listener
