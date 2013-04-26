@@ -49,7 +49,7 @@ class CollaborativeList<E> extends CollaborativeObject /* with ListMixin<E> */ {
   void clear() { $unsafe.clear(); }
   @deprecated E get(int index) => _fromJs($unsafe.get(index));
   void insert(int index, E value) { $unsafe.insert(index, _toJs(value)); }
-  @deprecated int push(E value) => $unsafe.push(_toJs(value));
+  int push(E value) => $unsafe.push(_toJs(value));
   IndexReference registerReference(int index, bool canBeDeleted) => IndexReference.cast($unsafe.registerReference(index, canBeDeleted));
   void remove(int index) { $unsafe.remove(index); }
   void removeRange(int startIndex, int endIndex) { $unsafe.removeRange(startIndex, endIndex); }
