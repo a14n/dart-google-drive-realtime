@@ -14,7 +14,8 @@
 
 part of google_drive_realtime;
 
-class CollaborativeList<E> extends CollaborativeObject {
+// TODO(aa) make this class mixin ListMixin
+class CollaborativeList<E> extends CollaborativeObject /* with ListMixin<E> */ {
   static CollaborativeList cast(js.Proxy proxy, [jsw.Translator translator]) => proxy == null ? null : new CollaborativeList.fromProxy(proxy, translator);
 
   static CollaborativeList castListOfSerializables(js.Proxy proxy, jsw.Mapper<dynamic, js.Serializable> fromJs, {mapOnlyNotNull: false}) => proxy == null ? null : new CollaborativeList.fromProxy(proxy, new jsw.TranslatorForSerializable(fromJs, mapOnlyNotNull: mapOnlyNotNull));
@@ -36,15 +37,24 @@ class CollaborativeList<E> extends CollaborativeObject {
 
   int get length => $unsafe['length'];
 
+  /*@override*/ E operator [](int index) {
+    if (index < 0 || index >= this.length) throw new RangeError.value(index);
+    return _fromJs($unsafe.get(index));
+  }
+  /*@override*/ void operator []=(int index, E value) {
+    if (index < 0 || index >= this.length) throw new RangeError.value(index);
+    $unsafe.set(index, _toJs(value));
+  }
+
   void clear() { $unsafe.clear(); }
-  E get(int index) => _fromJs($unsafe.get(index));
+  @deprecated E get(int index) => _fromJs($unsafe.get(index));
   void insert(int index, E value) { $unsafe.insert(index, _toJs(value)); }
-  int push(E value) => $unsafe.push(_toJs(value));
+  @deprecated int push(E value) => $unsafe.push(_toJs(value));
   IndexReference registerReference(int index, bool canBeDeleted) => IndexReference.cast($unsafe.registerReference(index, canBeDeleted));
   void remove(int index) { $unsafe.remove(index); }
   void removeRange(int startIndex, int endIndex) { $unsafe.removeRange(startIndex, endIndex); }
   bool removeValue(E value) => $unsafe.removeValue(_toJs(value));
-  void set(int index, E value) { $unsafe.set(index, _toJs(value)); }
+  @deprecated void set(int index, E value) { $unsafe.set(index, _toJs(value)); }
 
   List<E> asArray() => jsw.JsArrayToListAdapter.cast($unsafe.asArray(), _translator);
   int indexOf(E value, [Comparator comparator]) {

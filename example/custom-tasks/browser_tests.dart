@@ -61,7 +61,7 @@ onFileLoaded(docProxy) {
   final updateTasksList = (){
     ulTasks.children.clear();
     for(int i = 0; i < tasks.length; i++) {
-      ulTasks.children.add(new LIElement()..text = tasks.get(i).title);
+      ulTasks.children.add(new LIElement()..text = tasks[i].title);
     }
   };
 
