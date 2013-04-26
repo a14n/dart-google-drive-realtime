@@ -45,7 +45,8 @@ class CollaborativeMap<V> extends CollaborativeObject implements Map<String, V> 
   @override V remove(String key) => _fromJs($unsafe.delete(key));
   @deprecated V delete(String key) => _fromJs($unsafe.delete(key));
   @deprecated V get(String key) => _fromJs($unsafe.get(key));
-  bool has(String key) => $unsafe.has(key);
+  @override bool containsKey(String key) => $unsafe.has(key);
+  @deprecated bool has(String key) => $unsafe.has(key);
   @override bool get isEmpty => $unsafe.isEmpty();
   List<List<V>> get items => jsw.JsArrayToListAdapter.castListOfSerializables($unsafe.items(), (e) => jsw.JsArrayToListAdapter.cast(e, _translator));
   @override List<String> get keys => jsw.JsArrayToListAdapter.cast($unsafe.keys());
@@ -54,7 +55,6 @@ class CollaborativeMap<V> extends CollaborativeObject implements Map<String, V> 
 
   // use Maps to implement functions
   @override bool containsValue(V value) => Maps.containsValue(this, value);
-  @override bool containsKey(String key) => Maps.containsKey(this, key);
   @override V putIfAbsent(String key, V ifAbsent()) => Maps.putIfAbsent(this, key, ifAbsent);
   @override void forEach(void f(String key, V value)) => Maps.forEach(this, f);
 
