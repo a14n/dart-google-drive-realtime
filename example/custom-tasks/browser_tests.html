@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Drive Realtime quickstart</title>
+
+  <!-- Load the Realtime libraries. -->
+  <script type="text/javascript"
+          src="https://apis.google.com/js/api.js"></script>
+
+  <!-- Load the utility library. -->
+  <script type="text/javascript"
+          src="realtime-client-utils.js"></script>
+</head>
+
+<!-- Start Realtime when the body has loaded. -->
+<body>
+
+  <h1>Drive Realtime API :: a task list</h1>
+
+  <button id="authorizeButton" disabled>You must authorize</button>
+
+  <p>You can also <a target="_blank" href="#">open them on separate users'
+  browsers</a> and they will remain synchronized.</p>
+
+  <ul id='tasks'>
+  </ul>
+
+  <label>New Task</label> <input id="task" size="30" disabled="true"></input> <button id='add' disabled="true">Add</button>
+
+<script type="application/dart" src="browser_tests.dart"></script>
+<script src="packages/browser/dart.js"></script>
+</body>
+</html>
+
