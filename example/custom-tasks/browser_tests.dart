@@ -12,17 +12,19 @@ class Task extends rt.CollaborativeObject {
     js.context.Task = new js.Callback.many((){});
     rtc.registerType(js.context.Task, NAME);
     js.context.Task.prototype.title = rtc.collaborativeField('title');
-    js.context.Task.prototype.date = rtc.collaborativeField('date');
+    js.context.Task.prototype.done = rtc.collaborativeField('done');
   }
   static Task cast(js.Proxy proxy) => proxy == null ? null : new Task.fromProxy(proxy);
 
   Task(rt.Model model) : this.fromProxy(model.create(NAME).$unsafe);
-  Task.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+  Task.fromProxy(js.Proxy proxy) : super.fromProxy(proxy) {
+    done = false;
+  }
 
   String get title => $unsafe.title;
-  DateTime get date => jsw.JsDateToDateTimeAdapter.cast($unsafe.date);
+  bool get done => $unsafe.done;
   set title(String title) => $unsafe.title = title;
-  set date(DateTime date) => $unsafe.date = new jsw.JsDateToDateTimeAdapter(date);
+  set done(bool done) => $unsafe.done = done;
 }
 
 initializeModel(js.Proxy modelProxy) {
@@ -39,8 +41,9 @@ initializeModel(js.Proxy modelProxy) {
  * @param doc {gapi.drive.realtime.Document} the Realtime document.
  */
 onFileLoaded(docProxy) {
-  var doc = rt.Document.cast(js.retain(docProxy));
-  var tasks = rt.CollaborativeList.cast(doc.model.root.get('tasks'));
+  final doc = rt.Document.cast(docProxy);
+  js.retain(doc);
+  final rt.CollaborativeList<Task> tasks = rt.CollaborativeList.castListOfSerializables(doc.model.root.get('tasks'), Task.cast);
   js.retain(tasks);
 
   // collaborators listener
@@ -63,7 +66,9 @@ onFileLoaded(docProxy) {
   };
 
   document.getElementById('add').onClick.listen((_){
-    tasks.push(new Task(doc.model)..title = task.value);
+    tasks.push(new Task(doc.model)
+      ..title = task.value
+    );
     task.value = "";
     task.focus();
   });
