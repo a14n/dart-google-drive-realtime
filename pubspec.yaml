@@ -8,4 +8,4 @@ dev_dependencies:
   meta: any
   browser: any
 dependencies:
-  js: '>=0.0.21 <1.0.0'
+  js: '>=0.0.22 <1.0.0'
