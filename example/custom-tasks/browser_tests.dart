@@ -8,14 +8,21 @@ import 'package:google_drive_realtime/google_drive_realtime_custom.dart' as rtc;
 
 class Task extends rt.CollaborativeObject {
   static const NAME = 'Task';
+
+  /**
+   * Register type as described in https://developers.google.com/drive/realtime/build-model#registering_and_creating_custom_objects
+   * This method must be call only one time before the document is load.
+   */
   static void registerType() {
     js.context.Task = new js.Callback.many((){});
     rtc.registerType(js.context.Task, NAME);
     js.context.Task.prototype.title = rtc.collaborativeField('title');
     js.context.Task.prototype.done = rtc.collaborativeField('done');
   }
+
   static Task cast(js.Proxy proxy) => proxy == null ? null : new Task.fromProxy(proxy);
 
+  /// create new collaborative object from model
   Task(rt.Model model) : this.fromProxy(model.create(NAME).$unsafe);
   Task.fromProxy(js.Proxy proxy) : super.fromProxy(proxy) {
     done = false;
