@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tests</title>
+
+  <!-- Load the Realtime libraries. -->
+  <script type="text/javascript"
+          src="https://apis.google.com/js/api.js"></script>
+
+  <!-- Load the utility library. -->
+  <script type="text/javascript"
+          src="realtime-client-utils.js"></script>
+  <style type="text/css">
+    .unittest-table { font-family: monospace; border: 1px; }
+    .unittest-pass { background: #6b3;}
+    .unittest-fail { background: #d55;}
+    .unittest-error { background: #a11;}
+    .unittest-xml-log {opacity:0; color: white;}
+    .test-area { display: none; }
+    body { overflow: visible; }
+  </style>
+</head>
+
+<!-- Start Realtime when the body has loaded. -->
+<body>
+
+  <h1>Drive Realtime API :: a custom object example</h1>
+
+  <button id="authorizeButton" disabled>You must authorize</button>
+
+<script type="application/dart" src="browser_tests.dart"></script>
+<script src="packages/browser/dart.js"></script>
+</body>
+</html>
+
