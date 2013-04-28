@@ -6,6 +6,7 @@ It uses [JS Interop library](https://github.com/dart-lang/js-interop) and its sc
 
 ## Usage ##
 To use this library in your code :
+
 * add a dependency in your `pubspec.yaml` :
 
 ```yaml
