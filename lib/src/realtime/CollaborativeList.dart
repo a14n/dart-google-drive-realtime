@@ -35,7 +35,7 @@ class CollaborativeList<E> extends CollaborativeObject /* with ListMixin<E> */ {
   dynamic _toJs(E e) => _translator == null ? e : _translator.toJs(e);
   E _fromJs(dynamic value) => _translator == null ? value : _translator.fromJs(value);
 
-  int get length => $unsafe['length'];
+  /*@override*/ int get length => $unsafe['length'];
 
   /*@override*/ E operator [](int index) {
     if (index < 0 || index >= this.length) throw new RangeError.value(index);
@@ -47,13 +47,15 @@ class CollaborativeList<E> extends CollaborativeObject /* with ListMixin<E> */ {
   }
 
   void clear() { $unsafe.clear(); }
-  @deprecated E get(int index) => _fromJs($unsafe.get(index));
+  /// Deprecated : use `xxx[index]` instead
+  @deprecated E get(int index) => this[index];
   void insert(int index, E value) { $unsafe.insert(index, _toJs(value)); }
   int push(E value) => $unsafe.push(_toJs(value));
   IndexReference registerReference(int index, bool canBeDeleted) => IndexReference.cast($unsafe.registerReference(index, canBeDeleted));
   void remove(int index) { $unsafe.remove(index); }
   void removeRange(int startIndex, int endIndex) { $unsafe.removeRange(startIndex, endIndex); }
   bool removeValue(E value) => $unsafe.removeValue(_toJs(value));
+  /// Deprecated : use `xxx[index] = value` instead
   @deprecated void set(int index, E value) { $unsafe.set(index, _toJs(value)); }
 
   List<E> asArray() => jsw.JsArrayToListAdapter.cast($unsafe.asArray(), _translator);

@@ -34,7 +34,8 @@ class CollaborativeMap<V> extends CollaborativeObject implements Map<String, V> 
       _translator.fromJs(value);
 
   @override int get length => $unsafe['size'];
-  @deprecated int get size => $unsafe['size'];
+  /// deprecated : use `xxx.length`
+  @deprecated int get size => length;
 
   @override V operator [](String key) => _fromJs($unsafe.get(key));
   @override void operator []=(String key, V value) {
@@ -43,13 +44,17 @@ class CollaborativeMap<V> extends CollaborativeObject implements Map<String, V> 
 
   void clear() { $unsafe.clear(); }
   @override V remove(String key) => _fromJs($unsafe.delete(key));
-  @deprecated V delete(String key) => _fromJs($unsafe.delete(key));
-  @deprecated V get(String key) => _fromJs($unsafe.get(key));
+  /// deprecated : use `xxx.remove(key)`
+  @deprecated V delete(String key) => remove(key);
+  /// deprecated : use `xxx[key]`
+  @deprecated V get(String key) => this[key];
   @override bool containsKey(String key) => $unsafe.has(key);
-  @deprecated bool has(String key) => $unsafe.has(key);
+  /// deprecated : use `xxx.containsKey(key)`
+  @deprecated bool has(String key) => containsKey(key);
   @override bool get isEmpty => $unsafe.isEmpty();
   List<List<V>> get items => jsw.JsArrayToListAdapter.castListOfSerializables($unsafe.items(), (e) => jsw.JsArrayToListAdapter.cast(e, _translator));
   @override List<String> get keys => jsw.JsArrayToListAdapter.cast($unsafe.keys());
+  /// deprecated : use `xxx[key] = value`
   @deprecated V set(String key, V value) => _fromJs($unsafe.set(key, _toJs(value)));
   @override List<V> get values => jsw.JsArrayToListAdapter.cast($unsafe.values(), _translator);
 
