@@ -17,14 +17,14 @@ part of google_drive_realtime;
 class Document extends EventTarget {
   static Document cast(js.Proxy proxy) => proxy == null ? null : new Document.fromProxy(proxy);
 
-  Stream<CollaboratorLeftEvent> _onCollaboratorLeft;
-  Stream<CollaboratorJoinedEvent> _onCollaboratorJoined;
-  Stream<DocumentSaveStateChangedEvent> _onDocumentSaveStateChanged;
+  SubscribeStreamProvider<CollaboratorLeftEvent> _onCollaboratorLeft;
+  SubscribeStreamProvider<CollaboratorJoinedEvent> _onCollaboratorJoined;
+  SubscribeStreamProvider<DocumentSaveStateChangedEvent> _onDocumentSaveStateChanged;
 
   Document.fromProxy(js.Proxy proxy) : super.fromProxy(proxy) {
-    _onCollaboratorLeft = _getStreamFor(EventType.COLLABORATOR_LEFT, CollaboratorLeftEvent.cast);
-    _onCollaboratorJoined = _getStreamFor(EventType.COLLABORATOR_JOINED, CollaboratorJoinedEvent.cast);
-    _onDocumentSaveStateChanged = _getStreamFor(EventType.DOCUMENT_SAVE_STATE_CHANGED, DocumentSaveStateChangedEvent.cast);
+    _onCollaboratorLeft = _getStreamProviderFor(EventType.COLLABORATOR_LEFT, CollaboratorLeftEvent.cast);
+    _onCollaboratorJoined = _getStreamProviderFor(EventType.COLLABORATOR_JOINED, CollaboratorJoinedEvent.cast);
+    _onDocumentSaveStateChanged = _getStreamProviderFor(EventType.DOCUMENT_SAVE_STATE_CHANGED, DocumentSaveStateChangedEvent.cast);
   }
 
   void close() { $unsafe.close(); }
@@ -33,7 +33,7 @@ class Document extends EventTarget {
 
   void exportDocument(void successFn([dynamic _]), void failureFn([dynamic _])) => $unsafe.exportDocument(new js.Callback.once(successFn), new js.Callback.once(failureFn));
 
-  Stream<CollaboratorLeftEvent> get onCollaboratorLeft => _onCollaboratorLeft;
-  Stream<CollaboratorJoinedEvent> get onCollaboratorJoined => _onCollaboratorJoined;
-  Stream<DocumentSaveStateChangedEvent> get onDocumentSaveStateChanged => _onDocumentSaveStateChanged;
+  Stream<CollaboratorLeftEvent> get onCollaboratorLeft => _onCollaboratorLeft.stream;
+  Stream<CollaboratorJoinedEvent> get onCollaboratorJoined => _onCollaboratorJoined.stream;
+  Stream<DocumentSaveStateChangedEvent> get onDocumentSaveStateChanged => _onDocumentSaveStateChanged.stream;
 }

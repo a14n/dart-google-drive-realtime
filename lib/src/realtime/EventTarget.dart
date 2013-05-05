@@ -22,26 +22,19 @@ class EventTarget extends jsw.TypedProxy {
   void _addEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.addEventListener(type, handler, capture);
   void _removeEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.removeEventListener(type, handler, capture);
 
-  Stream _getStreamFor(EventType eventType, [transformEvent(e)]) {
-    StreamController streamController;
-    js.Callback handler = null;
-    final listener = () {
-      if (!streamController.hasListener || streamController.isPaused || streamController.isClosed) {
-        if (handler != null) {
-          _removeEventListener(eventType, handler);
-          handler.dispose();
-          handler = null;
-        }
-      } else {
-        if (handler == null) {
+  SubscribeStreamProvider _getStreamProviderFor(EventType eventType, [transformEvent(e)]) {
+    js.Callback handler;
+    return new SubscribeStreamProvider(
+        subscribe: (EventSink eventSink) {
           handler = new js.Callback.many((e) {
-            streamController.add(transformEvent == null ? e : transformEvent(e));
+            eventSink.add(transformEvent == null ? e : transformEvent(e));
           });
           _addEventListener(eventType, handler);
+        },
+        unsubscribe: (EventSink eventSink) {
+          _removeEventListener(eventType, handler);
+          handler.dispose();
         }
-      }
-    };
-    streamController = new StreamController(onListen: listener, onPause: listener, onResume: listener, onCancel: listener);
-    return streamController.stream.asBroadcastStream();
+    );
   }
 }

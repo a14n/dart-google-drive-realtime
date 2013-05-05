@@ -21,12 +21,12 @@ class CollaborativeMap<V> extends CollaborativeObject implements Map<String, V> 
 
   final jsw.Translator<V> _translator;
 
-  Stream<ValueChangedEvent> _onValueChanged;
+  SubscribeStreamProvider<ValueChangedEvent> _onValueChanged;
 
   CollaborativeMap.fromProxy(js.Proxy proxy, [jsw.Translator<V> translator])
       : this._translator = translator,
         super.fromProxy(proxy) {
-    _onValueChanged = _getStreamFor(EventType.VALUE_CHANGED, ValueChangedEvent.cast);
+    _onValueChanged = _getStreamProviderFor(EventType.VALUE_CHANGED, ValueChangedEvent.cast);
   }
 
   dynamic _toJs(V e) => _translator == null ? e : _translator.toJs(e);
@@ -63,5 +63,5 @@ class CollaborativeMap<V> extends CollaborativeObject implements Map<String, V> 
   @override V putIfAbsent(String key, V ifAbsent()) => Maps.putIfAbsent(this, key, ifAbsent);
   @override void forEach(void f(String key, V value)) => Maps.forEach(this, f);
 
-  Stream<ValueChangedEvent> get onValueChanged => _onValueChanged;
+  Stream<ValueChangedEvent> get onValueChanged => _onValueChanged.stream;
 }

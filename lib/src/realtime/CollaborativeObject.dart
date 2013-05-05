@@ -17,18 +17,18 @@ part of google_drive_realtime;
 class CollaborativeObject extends EventTarget {
   static CollaborativeObject cast(js.Proxy proxy) => proxy == null ? null : new CollaborativeObject.fromProxy(proxy);
 
-  Stream<ObjectChangedEvent> _onObjectChanged;
-  Stream<ValueChangedEvent> _onValueChanged;
+  SubscribeStreamProvider<ObjectChangedEvent> _onObjectChanged;
+  SubscribeStreamProvider<ValueChangedEvent> _onValueChanged;
 
   CollaborativeObject.fromProxy(js.Proxy proxy) : super.fromProxy(proxy) {
-    _onObjectChanged = _getStreamFor(EventType.OBJECT_CHANGED, ObjectChangedEvent.cast);
-    _onValueChanged = _getStreamFor(EventType.VALUE_CHANGED, ValueChangedEvent.cast);
+    _onObjectChanged = _getStreamProviderFor(EventType.OBJECT_CHANGED, ObjectChangedEvent.cast);
+    _onValueChanged = _getStreamProviderFor(EventType.VALUE_CHANGED, ValueChangedEvent.cast);
   }
 
   String get id => $unsafe['id'];
 
   String toString() => $unsafe.toString();
 
-  Stream<ObjectChangedEvent> get onObjectChanged => _onObjectChanged;
-  Stream<ValueChangedEvent> get onValueChanged => _onValueChanged;
+  Stream<ObjectChangedEvent> get onObjectChanged => _onObjectChanged.stream;
+  Stream<ValueChangedEvent> get onValueChanged => _onValueChanged.stream;
 }

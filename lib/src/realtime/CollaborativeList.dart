@@ -22,14 +22,14 @@ class CollaborativeList<E> extends CollaborativeObject /* with ListMixin<E> */ {
 
   final jsw.Translator<E> _translator;
 
-  Stream<ValuesAddedEvent> _onValuesAdded;
-  Stream<ValuesRemovedEvent> _onValuesRemoved;
-  Stream<ValuesSetEvent> _onValuesSet;
+  SubscribeStreamProvider<ValuesAddedEvent> _onValuesAdded;
+  SubscribeStreamProvider<ValuesRemovedEvent> _onValuesRemoved;
+  SubscribeStreamProvider<ValuesSetEvent> _onValuesSet;
 
   CollaborativeList.fromProxy(js.Proxy proxy, [jsw.Translator<E> translator]) : this._translator = translator, super.fromProxy(proxy) {
-    _onValuesAdded = _getStreamFor(EventType.VALUES_ADDED, ValuesAddedEvent.cast);
-    _onValuesRemoved = _getStreamFor(EventType.VALUES_REMOVED, ValuesRemovedEvent.cast);
-    _onValuesSet = _getStreamFor(EventType.VALUES_SET, ValuesSetEvent.cast);
+    _onValuesAdded = _getStreamProviderFor(EventType.VALUES_ADDED, ValuesAddedEvent.cast);
+    _onValuesRemoved = _getStreamProviderFor(EventType.VALUES_REMOVED, ValuesRemovedEvent.cast);
+    _onValuesSet = _getStreamProviderFor(EventType.VALUES_SET, ValuesSetEvent.cast);
   }
 
   dynamic _toJs(E e) => _translator == null ? e : _translator.toJs(e);
@@ -89,7 +89,7 @@ class CollaborativeList<E> extends CollaborativeObject /* with ListMixin<E> */ {
   void pushAll(List<E> values) { $unsafe.pushAll(values is js.Serializable<js.Proxy> ? values : js.array(values.map(_toJs))); }
   void replaceRange(int index, List<E> values) { $unsafe.replaceRange(index, values is js.Serializable<js.Proxy> ? values : js.array(values.map(_toJs))); }
 
-  Stream<ValuesAddedEvent> get onValuesAdded => _onValuesAdded;
-  Stream<ValuesRemovedEvent> get onValuesRemoved => _onValuesRemoved;
-  Stream<ValuesSetEvent> get onValuesSet => _onValuesSet;
+  Stream<ValuesAddedEvent> get onValuesAdded => _onValuesAdded.stream;
+  Stream<ValuesRemovedEvent> get onValuesRemoved => _onValuesRemoved.stream;
+  Stream<ValuesSetEvent> get onValuesSet => _onValuesSet.stream;
 }
