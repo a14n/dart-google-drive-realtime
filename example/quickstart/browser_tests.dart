@@ -29,11 +29,11 @@ onFileLoaded(docProxy) {
   });
 
   // Keeping one box updated with a String binder.
-  var textArea1 = document.getElementById('editor1');
+  final TextAreaElement textArea1 = document.getElementById('editor1');
   js.context.gapi.drive.realtime.databinding.bindString(string, textArea1);
 
   // Keeping one box updated with a custom EventListener.
-  var textArea2 = document.getElementById('editor2');
+  final TextAreaElement textArea2 = document.getElementById('editor2');
   var updateTextArea2 = (e) {
     textArea2.value = string.text;
   };
@@ -44,9 +44,7 @@ onFileLoaded(docProxy) {
   string.onTextDeleted.listen(updateTextArea2);
   js.retain(string);
   textArea2.onKeyUp.listen((e) {
-    js.scoped((){
-      string.text = textArea2.value;
-    });
+    string.text = textArea2.value;
   });
   updateTextArea2(null);
 
@@ -99,7 +97,5 @@ startRealtime() {
 }
 
 main() {
-  js.scoped((){
-    startRealtime();
-  });
+  startRealtime();
 }
