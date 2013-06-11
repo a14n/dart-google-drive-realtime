@@ -57,6 +57,7 @@ class CollaborativeMap<V> extends CollaborativeObject implements Map<String, V> 
   /// deprecated : use `xxx[key] = value`
   @deprecated V set(String key, V value) => _fromJs($unsafe.set(key, _toJs(value)));
   @override List<V> get values => jsw.JsArrayToListAdapter.cast($unsafe.values(), _translator);
+  @override bool get isNotEmpty => !isEmpty;
 
   // use Maps to implement functions
   @override bool containsValue(V value) => Maps.containsValue(this, value);
