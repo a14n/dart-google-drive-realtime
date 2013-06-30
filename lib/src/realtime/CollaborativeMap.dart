@@ -65,4 +65,8 @@ class CollaborativeMap<V> extends CollaborativeObject implements Map<String, V> 
   @override void forEach(void f(String key, V value)) => Maps.forEach(this, f);
 
   Stream<ValueChangedEvent> get onValueChanged => _onValueChanged.stream;
+
+  void addAll(Map<String, V> other) {
+    other.forEach((key, value) => this[key] = value);
+  }
 }
