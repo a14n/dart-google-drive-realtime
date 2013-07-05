@@ -39,8 +39,8 @@ onFileLoaded(docProxy) {
     test('string state after undo', () {
       expect(doc.model.root['text'].getText(), 'Hello Realtime World!');
     });
-    var sub;
     test('string state after redo and event/model state matching', () {
+      var sub;
       sub = doc.model.onUndoRedoStateChanged.listen(expectAsync1((event) {
         // test that event properties match model
         expect(doc.model.canUndo, event.canUndo);
@@ -49,7 +49,7 @@ onFileLoaded(docProxy) {
         expect(doc.model.canUndo, true);
         expect(doc.model.canRedo, false);
         sub.cancel();
-        }));
+      }));
       doc.model.redo();
       expect(doc.model.root['text'].getText(), 'redid');
       doc.model.undo();

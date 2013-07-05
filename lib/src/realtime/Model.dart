@@ -24,6 +24,8 @@ class Model extends EventTarget {
   }
 
   bool get isReadOnly => $unsafe['isReadOnly'];
+  bool get canUndo => $unsafe['canUndo'];
+  bool get canRedo => $unsafe['canRedo'];
 
   void beginCreationCompoundOperation() { $unsafe.beginCreationCompoundOperation(); }
   void endCompoundOperation() { $unsafe.endCompoundOperation(); }
@@ -39,8 +41,6 @@ class Model extends EventTarget {
   CollaborativeMap createMap([Map initialValue]) => CollaborativeMap.cast($unsafe.createMap(initialValue == null ? null : initialValue is js.Serializable<js.Proxy> ? initialValue : js.map(initialValue)));
   CollaborativeString createString([String initialValue]) => CollaborativeString.cast($unsafe.createString(initialValue));
 
-  bool get canUndo => $unsafe.canUndo;
-  bool get canRedo => $unsafe.canRedo;
   void undo() { $unsafe.undo(); }
   void redo() { $unsafe.redo(); }
 
