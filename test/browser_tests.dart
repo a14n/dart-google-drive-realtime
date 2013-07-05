@@ -21,6 +21,41 @@ onFileLoaded(docProxy) {
 
   useHtmlConfiguration();
 
+  group('Undo', () {
+    test("start undo state", () {
+      expect(doc.model.canUndo, false);
+      expect(doc.model.canRedo, false);
+    });
+    test('undo state after change', () {
+      doc.model.root['text'].setText('redid');
+      expect(doc.model.canUndo, true);
+      expect(doc.model.canRedo, false);
+    });
+    test('undo state after undo', () {
+      doc.model.undo();
+      expect(doc.model.canUndo, false);
+      expect(doc.model.canRedo, true);
+    });
+    test('string state after undo', () {
+      expect(doc.model.root['text'].getText(), 'Hello Realtime World!');
+    });
+    test('string state after redo and event/model state matching', () {
+      StreamSubscription ssUndo;
+      ssUndo = doc.model.onUndoRedoStateChanged.listen(expectAsync1((event) {
+        // test that event properties match model
+        expect(doc.model.canUndo, event.canUndo);
+        expect(doc.model.canRedo, event.canRedo);
+        // test that undo/redo state is what we expect
+        expect(doc.model.canUndo, true);
+        expect(doc.model.canRedo, false);
+        ssUndo.cancel();
+      }));
+      doc.model.redo();
+      expect(doc.model.root['text'].getText(), 'redid');
+      doc.model.undo();
+    });
+  });
+
   group('CollaborativeString', () {
     var string = rt.CollaborativeString.cast(doc.model.root['text']);
     js.retain(string);

@@ -14,12 +14,18 @@
 
 part of google_drive_realtime;
 
-class Model extends jsw.TypedProxy {
+class Model extends EventTarget {
   static Model cast(js.Proxy proxy) => proxy == null ? null : new Model.fromProxy(proxy);
 
-  Model.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+  SubscribeStreamProvider<UndoRedoStateChangedEvent> _onUndoRedoStateChanged;
+
+  Model.fromProxy(js.Proxy proxy) : super.fromProxy(proxy) {
+    _onUndoRedoStateChanged = _getStreamProviderFor(EventType.UNDO_REDO_STATE_CHANGED, UndoRedoStateChangedEvent.cast);
+  }
 
   bool get isReadOnly => $unsafe['isReadOnly'];
+  bool get canUndo => $unsafe['canUndo'];
+  bool get canRedo => $unsafe['canRedo'];
 
   void beginCreationCompoundOperation() { $unsafe.beginCreationCompoundOperation(); }
   void endCompoundOperation() { $unsafe.endCompoundOperation(); }
@@ -34,4 +40,9 @@ class Model extends jsw.TypedProxy {
   CollaborativeList createList([List initialValue]) => CollaborativeList.cast($unsafe.createList(initialValue == null ? null : initialValue is js.Serializable<js.Proxy> ? initialValue : js.array(initialValue)));
   CollaborativeMap createMap([Map initialValue]) => CollaborativeMap.cast($unsafe.createMap(initialValue == null ? null : initialValue is js.Serializable<js.Proxy> ? initialValue : js.map(initialValue)));
   CollaborativeString createString([String initialValue]) => CollaborativeString.cast($unsafe.createString(initialValue));
+
+  void undo() { $unsafe.undo(); }
+  void redo() { $unsafe.redo(); }
+
+  Stream<UndoRedoStateChangedEvent> get onUndoRedoStateChanged => _onUndoRedoStateChanged.stream;
 }
