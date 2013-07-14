@@ -19,12 +19,13 @@ import 'dart:html';
 
 import 'package:js/js.dart' as js;
 import 'package:js/js_wrapping.dart' as jsw;
+import 'package:js_wrapping/generator.dart';
 import 'package:meta/meta.dart';
 
 import 'google_drive_realtime.dart';
 
-part 'src/generated/databinding/already_bound_error.dart';
-part 'src/generated/databinding/binding.dart';
+part 'src/databinding/already_bound_error.dart';
+part 'src/databinding/binding.dart';
 
 final realtimeDatabinding = js.retain(realtime['databinding']);
 

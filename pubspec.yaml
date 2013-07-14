@@ -8,4 +8,8 @@ dependencies:
   meta: any
 dev_dependencies:
   browser: any
+  editor_build: any
+  js_wrapping:
+    git: https://github.com/a14n/dart-js-wrapping.git
+  pathos: any
   unittest: any

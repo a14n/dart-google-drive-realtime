@@ -12,20 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library google_drive_realtime_databinding;
+part of google_drive_realtime;
 
-import 'dart:async';
-import 'dart:html';
-
-import 'package:js/js.dart' as js;
-import 'package:js/js_wrapping.dart' as jsw;
-import 'package:meta/meta.dart';
-
-import 'google_drive_realtime.dart';
-
-part 'src/generated/databinding/already_bound_error.dart';
-part 'src/generated/databinding/binding.dart';
-
-final realtimeDatabinding = js.retain(realtime['databinding']);
-
-Binding bindString(CollaborativeString string, TextInputElement textInputElement) => Binding.cast(realtimeDatabinding.bindString(string, textInputElement));
+class Error extends jsw.TypedProxy {
+  static Error cast(js.Proxy proxy) => proxy == null ? null : new Error.fromProxy(proxy);
+  Error.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+  bool get isFatal => $unsafe['isFatal'];
+  String get message => $unsafe['message'];
+  ErrorType get type => ErrorType.find($unsafe['type']);
+}
