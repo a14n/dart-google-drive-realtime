@@ -42,11 +42,11 @@ part 'src/realtime/ObjectChangedEvent.dart';
 part 'src/realtime/ReferenceShiftedEvent.dart';
 part 'src/realtime/TextDeletedEvent.dart';
 part 'src/realtime/TextInsertedEvent.dart';
+part 'src/realtime/UndoRedoStateChangedEvent.dart';
 part 'src/realtime/ValueChangedEvent.dart';
 part 'src/realtime/ValuesAddedEvent.dart';
 part 'src/realtime/ValuesRemovedEvent.dart';
 part 'src/realtime/ValuesSetEvent.dart';
-part 'src/realtime/UndoRedoStateChangedEvent.dart';
 part 'src/realtime/error_type.dart';
 part 'src/realtime/event_type.dart';
 
