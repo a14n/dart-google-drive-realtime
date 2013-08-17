@@ -65,6 +65,15 @@ Future<Document> load(String docId, [void initializerFn(Model model), void error
   return completer.future;
 }
 
+Future<Document> loadAppDataDocument([void initializerFn(Model model), void errorFn(Error error)]) {
+  final completer = new Completer();
+  realtime.loadAppDataDocument(
+      new js.Callback.once((js.Proxy p) => completer.complete(js.retain(Document.cast(p)))),
+      initializerFn == null ? null : new js.Callback.once((js.Proxy p) => initializerFn(Model.cast(p))),
+      errorFn == null ? null : new js.Callback.once((js.Proxy p) => errorFn(Error.cast(p)))
+  );
+}
+
 
 
 
