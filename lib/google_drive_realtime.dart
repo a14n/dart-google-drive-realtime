@@ -56,9 +56,9 @@ final realtime = js.retain(js.context['gapi']['drive']['realtime']);
 String get token => realtime['getToken']();
 
 Future<Document> load(String docId, [void initializerFn(Model model), void errorFn(Error error)]) {
-  final completer = new Completer();
+  final completer = new Completer.sync();
   realtime.load(docId,
-      new js.Callback.once((js.Proxy p) => completer.complete(js.retain(Document.cast(p)))),
+      new js.Callback.once((js.Proxy p) => completer.complete(Document.cast(p))),
       initializerFn == null ? null : new js.Callback.once((js.Proxy p) => initializerFn(Model.cast(p))),
       errorFn == null ? null : new js.Callback.once((js.Proxy p) => errorFn(Error.cast(p)))
   );
@@ -66,12 +66,13 @@ Future<Document> load(String docId, [void initializerFn(Model model), void error
 }
 
 Future<Document> loadAppDataDocument([void initializerFn(Model model), void errorFn(Error error)]) {
-  final completer = new Completer();
+  final completer = new Completer.sync();
   realtime.loadAppDataDocument(
-      new js.Callback.once((js.Proxy p) => completer.complete(js.retain(Document.cast(p)))),
+      new js.Callback.once((js.Proxy p) => completer.complete(Document.cast(p))),
       initializerFn == null ? null : new js.Callback.once((js.Proxy p) => initializerFn(Model.cast(p))),
       errorFn == null ? null : new js.Callback.once((js.Proxy p) => errorFn(Error.cast(p)))
   );
+  return completer.future;
 }
 
 
