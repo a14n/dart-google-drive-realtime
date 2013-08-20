@@ -14,11 +14,7 @@
 
 library google_drive_realtime_custom;
 
-import 'dart:async';
-
 import 'package:js/js.dart' as js;
-import 'package:js/js_wrapping.dart' as jsw;
-import 'package:meta/meta.dart';
 
 import 'google_drive_realtime.dart';
 
