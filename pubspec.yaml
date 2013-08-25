@@ -5,11 +5,12 @@ description: With that package you will be able to use Google Drive Realtime API
 homepage: https://github.com/a14n/dart-google-drive-realtime
 dependencies:
   js: '>=0.0.22 <1.0.0'
+  js_wrapping:
+    #path: ../dart-js-wrapping
+    git: https://github.com/a14n/dart-js-wrapping.git
   meta: any
 dev_dependencies:
   browser: any
   editor_build: any
-  js_wrapping:
-    git: https://github.com/a14n/dart-js-wrapping.git
   pathos: any
   unittest: any

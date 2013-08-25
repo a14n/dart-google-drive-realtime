@@ -19,9 +19,8 @@ import 'dart:collection';
 
 import 'package:js/js.dart' as js;
 import 'package:js/js_wrapping.dart' as jsw;
+import 'package:js_wrapping/utils.dart';
 import 'package:meta/meta.dart';
-
-import 'src/generated/utils.dart';
 
 part 'src/generated/realtime/BaseModelEvent.dart';
 part 'src/generated/realtime/CollaborativeList.dart';
@@ -56,7 +55,7 @@ final realtime = js.retain(js.context['gapi']['drive']['realtime']);
 String get token => realtime['getToken']();
 
 Future<Document> load(String docId, [void initializerFn(Model model), void errorFn(Error error)]) {
-  final completer = new Completer();
+  final completer = new Completer.sync();
   realtime.load(docId,
       new js.Callback.once((js.Proxy p) => completer.complete(Document.cast(p))),
       initializerFn == null ? null : new js.Callback.once((js.Proxy p) => initializerFn(Model.cast(p))),
@@ -65,6 +64,15 @@ Future<Document> load(String docId, [void initializerFn(Model model), void error
   return completer.future;
 }
 
+Future<Document> loadAppDataDocument([void initializerFn(Model model), void errorFn(Error error)]) {
+  final completer = new Completer.sync();
+  realtime.loadAppDataDocument(
+      new js.Callback.once((js.Proxy p) => completer.complete(Document.cast(p))),
+      initializerFn == null ? null : new js.Callback.once((js.Proxy p) => initializerFn(Model.cast(p))),
+      errorFn == null ? null : new js.Callback.once((js.Proxy p) => errorFn(Error.cast(p)))
+  );
+  return completer.future;
+}
 
 
 

@@ -28,11 +28,9 @@ class EventType extends IsEnum<String> {
   static final VALUES_SET = new EventType._(realtime['EventType']['VALUES_SET']);
   static final VALUE_CHANGED = new EventType._(realtime['EventType']['VALUE_CHANGED']);
 
-  static final _INSTANCES = [COLLABORATOR_JOINED, COLLABORATOR_LEFT, DOCUMENT_SAVE_STATE_CHANGED, OBJECT_CHANGED, REFERENCE_SHIFTED, TEXT_DELETED, TEXT_INSERTED, UNDO_REDO_STATE_CHANGED, VALUES_ADDED, VALUES_REMOVED, VALUES_SET, VALUE_CHANGED];
+  static final _FINDER = new EnumFinder<String, EventType>([COLLABORATOR_JOINED, COLLABORATOR_LEFT, DOCUMENT_SAVE_STATE_CHANGED, OBJECT_CHANGED, REFERENCE_SHIFTED, TEXT_DELETED, TEXT_INSERTED, UNDO_REDO_STATE_CHANGED, VALUES_ADDED, VALUES_REMOVED, VALUES_SET, VALUE_CHANGED]);
 
-  static EventType find(Object o) => findIn(_INSTANCES, o);
+  static EventType find(o) => _FINDER.find(o);
 
   EventType._(String value) : super(value);
-
-  bool operator ==(Object other) => value == (other is EventType ? (other as EventType).value : other);
 }

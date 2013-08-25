@@ -23,11 +23,9 @@ class ErrorType extends IsEnum<String> {
   static final SERVER_ERROR = new ErrorType._(realtime['ErrorType']['SERVER_ERROR']);
   static final TOKEN_REFRESH_REQUIRED = new ErrorType._(realtime['ErrorType']['TOKEN_REFRESH_REQUIRED']);
 
-  static final _INSTANCES = [CLIENT_ERROR, CONCURRENT_CREATION, FORBIDDEN, INVALID_COMPOUND_OPERATION, NOT_FOUND, SERVER_ERROR, TOKEN_REFRESH_REQUIRED];
+  static final _FINDER = new EnumFinder<String, ErrorType>([CLIENT_ERROR, CONCURRENT_CREATION, FORBIDDEN, INVALID_COMPOUND_OPERATION, NOT_FOUND, SERVER_ERROR, TOKEN_REFRESH_REQUIRED]);
 
-  static ErrorType find(Object o) => findIn(_INSTANCES, o);
+  static ErrorType find(o) => _FINDER.find(o);
 
   ErrorType._(String value) : super(value);
-
-  bool operator ==(Object other) => value == (other is ErrorType ? (other as ErrorType).value : other);
 }
