@@ -15,13 +15,13 @@
 part of google_drive_realtime;
 
 @wrapper @skipConstructor abstract class Document extends EventTarget {
-  static Document cast(js.Proxy proxy) {}
+  static Document cast(js.JsObject jsObject) {}
 
   SubscribeStreamProvider<CollaboratorLeftEvent> _onCollaboratorLeft;
   SubscribeStreamProvider<CollaboratorJoinedEvent> _onCollaboratorJoined;
   SubscribeStreamProvider<DocumentSaveStateChangedEvent> _onDocumentSaveStateChanged;
 
-  Document.fromProxy(js.Proxy proxy) : super.fromProxy(proxy) {
+  Document.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
     _onCollaboratorLeft = _getStreamProviderFor(EventType.COLLABORATOR_LEFT, CollaboratorLeftEvent.cast);
     _onCollaboratorJoined = _getStreamProviderFor(EventType.COLLABORATOR_JOINED, CollaboratorJoinedEvent.cast);
     _onDocumentSaveStateChanged = _getStreamProviderFor(EventType.DOCUMENT_SAVE_STATE_CHANGED, DocumentSaveStateChangedEvent.cast);

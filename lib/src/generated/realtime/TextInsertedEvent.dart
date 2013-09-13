@@ -15,8 +15,8 @@
 part of google_drive_realtime;
 
 class TextInsertedEvent extends BaseModelEvent {
-  static TextInsertedEvent cast(js.Proxy proxy) => proxy == null ? null : new TextInsertedEvent.fromProxy(proxy);
-  TextInsertedEvent.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+  static TextInsertedEvent cast(js.JsObject jsObject) => jsObject == null ? null : new TextInsertedEvent.fromJsObject(jsObject);
+  TextInsertedEvent.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
   int get index => $unsafe['index'];
   String get text => $unsafe['text'];
 }

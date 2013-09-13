@@ -15,20 +15,20 @@
 part of google_drive_realtime;
 
 class Document extends EventTarget {
-  static Document cast(js.Proxy proxy) => proxy == null ? null : new Document.fromProxy(proxy);
+  static Document cast(js.JsObject jsObject) => jsObject == null ? null : new Document.fromJsObject(jsObject);
   SubscribeStreamProvider<CollaboratorLeftEvent> _onCollaboratorLeft;
   SubscribeStreamProvider<CollaboratorJoinedEvent> _onCollaboratorJoined;
   SubscribeStreamProvider<DocumentSaveStateChangedEvent> _onDocumentSaveStateChanged;
 
-  Document.fromProxy(js.Proxy proxy) : super.fromProxy(proxy) {
+  Document.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
     _onCollaboratorLeft = _getStreamProviderFor(EventType.COLLABORATOR_LEFT, CollaboratorLeftEvent.cast);
     _onCollaboratorJoined = _getStreamProviderFor(EventType.COLLABORATOR_JOINED, CollaboratorJoinedEvent.cast);
     _onDocumentSaveStateChanged = _getStreamProviderFor(EventType.DOCUMENT_SAVE_STATE_CHANGED, DocumentSaveStateChangedEvent.cast);
   }
 
-  void close() { $unsafe.close(); }
-  List<Collaborator> get collaborators => jsw.JsArrayToListAdapter.castListOfSerializables($unsafe.getCollaborators(), Collaborator.cast);
-  Model get model => Model.cast($unsafe.getModel());
+  void close() { $unsafe.callMethod('close'); }
+  List<Collaborator> get collaborators => jsw.TypedJsArray.castListOfSerializables($unsafe.callMethod('getCollaborators'), Collaborator.cast);
+  Model get model => Model.cast($unsafe.callMethod('getModel'));
 
   Stream<CollaboratorLeftEvent> get onCollaboratorLeft => _onCollaboratorLeft.stream;
   Stream<CollaboratorJoinedEvent> get onCollaboratorJoined => _onCollaboratorJoined.stream;

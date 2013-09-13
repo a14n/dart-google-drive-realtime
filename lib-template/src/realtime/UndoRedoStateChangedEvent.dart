@@ -15,7 +15,7 @@
 part of google_drive_realtime;
 
 @wrapper abstract class UndoRedoStateChangedEvent extends BaseModelEvent {
-  static UndoRedoStateChangedEvent cast(js.Proxy proxy) {}
+  static UndoRedoStateChangedEvent cast(js.JsObject jsObject) {}
   bool get canRedo;
   bool get canUndo;
 }

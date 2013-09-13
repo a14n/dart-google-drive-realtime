@@ -15,7 +15,7 @@
 part of google_drive_realtime;
 
 @wrapper abstract class ValuesAddedEvent extends BaseModelEvent {
-  static ValuesAddedEvent cast(js.Proxy proxy) {}
+  static ValuesAddedEvent cast(js.JsObject jsObject) {}
   int get index;
   List<dynamic> get values;
 }

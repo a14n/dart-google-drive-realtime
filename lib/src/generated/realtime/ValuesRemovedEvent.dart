@@ -15,8 +15,8 @@
 part of google_drive_realtime;
 
 class ValuesRemovedEvent extends BaseModelEvent {
-  static ValuesRemovedEvent cast(js.Proxy proxy) => proxy == null ? null : new ValuesRemovedEvent.fromProxy(proxy);
-  ValuesRemovedEvent.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+  static ValuesRemovedEvent cast(js.JsObject jsObject) => jsObject == null ? null : new ValuesRemovedEvent.fromJsObject(jsObject);
+  ValuesRemovedEvent.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
   int get index => $unsafe['index'];
-  List<dynamic> get values => jsw.JsArrayToListAdapter.cast($unsafe['values']);
+  List<dynamic> get values => jsw.TypedJsArray.cast($unsafe['values']);
 }

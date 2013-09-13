@@ -14,7 +14,7 @@
 
 part of google_drive_realtime;
 
-@wrapper abstract class Collaborator extends jsw.TypedProxy {
+@wrapper abstract class Collaborator extends jsw.TypedJsObject {
   String get color;
   String get displayName;
   bool get isAnonymous;

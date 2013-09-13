@@ -14,9 +14,9 @@
 
 part of google_drive_realtime;
 
-class Error extends jsw.TypedProxy {
-  static Error cast(js.Proxy proxy) => proxy == null ? null : new Error.fromProxy(proxy);
-  Error.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+class Error extends jsw.TypedJsObject {
+  static Error cast(js.JsObject jsObject) => jsObject == null ? null : new Error.fromJsObject(jsObject);
+  Error.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
   bool get isFatal => $unsafe['isFatal'];
   String get message => $unsafe['message'];
   ErrorType get type => ErrorType.find($unsafe['type']);

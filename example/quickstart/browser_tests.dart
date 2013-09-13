@@ -1,11 +1,11 @@
-import 'dart:html';
 import 'dart:async';
+import 'dart:html';
+import 'dart:js' as js;
 
-import 'package:js/js.dart' as js;
 import 'package:google_drive_realtime/google_drive_realtime.dart' as rt;
 
-initializeModel(js.Proxy modelProxy) {
-  var model = rt.Model.cast(modelProxy);
+initializeModel(js.JsObject modelJsObject) {
+  var model = rt.Model.cast(modelJsObject);
   var string = model.createString('Hello Realtime World!');
   model.root['text'] = string;
 }
@@ -17,8 +17,8 @@ initializeModel(js.Proxy modelProxy) {
  * and bind it to our string model that we created in initializeModel.
  * @param doc {gapi.drive.realtime.Document} the Realtime document.
  */
-onFileLoaded(docProxy) {
-  var doc = rt.Document.cast(docProxy);
+onFileLoaded(docJsObject) {
+  var doc = rt.Document.cast(docJsObject);
   var string = rt.CollaborativeString.cast(doc.model.root['text']);
 
   doc.onCollaboratorJoined.listen((rt.CollaboratorJoinedEvent e){
@@ -30,7 +30,7 @@ onFileLoaded(docProxy) {
 
   // Keeping one box updated with a String binder.
   final TextAreaElement textArea1 = document.getElementById('editor1');
-  js.context.gapi.drive.realtime.databinding.bindString(string, textArea1);
+  js.context['gapi']['drive']['realtime']['databinding'].callMethod('bindString', [string, textArea1]);
 
   // Keeping one box updated with a custom EventListener.
   final TextAreaElement textArea2 = document.getElementById('editor2');
@@ -42,7 +42,6 @@ onFileLoaded(docProxy) {
   });
   string.onTextInserted.listen(updateTextArea2);
   string.onTextDeleted.listen(updateTextArea2);
-  js.retain(string);
   textArea2.onKeyUp.listen((e) {
     string.text = textArea2.value;
   });
@@ -56,7 +55,7 @@ onFileLoaded(docProxy) {
 /**
  * Options for the Realtime loader.
  */
-get realtimeOptions => js.map({
+get realtimeOptions => js.jsify({
    /**
   * Client ID from the APIs Console.
   */
@@ -70,7 +69,7 @@ get realtimeOptions => js.map({
    /**
   * Function to be called when a Realtime model is first created.
   */
-   'initializeModel': new js.Callback.once(initializeModel),
+   'initializeModel': initializeModel,
 
    /**
   * Autocreate files right after auth automatically.
@@ -85,15 +84,15 @@ get realtimeOptions => js.map({
    /**
   * Function to be called every time a Realtime file is loaded.
   */
-   'onFileLoaded': new js.Callback.many(onFileLoaded)
+   'onFileLoaded': onFileLoaded
 });
 
 /**
  * Start the Realtime loader with the options.
  */
 startRealtime() {
-  var realtimeLoader = new js.Proxy(js.context.rtclient.RealtimeLoader, realtimeOptions);
-  realtimeLoader.start();
+  var realtimeLoader = new js.JsObject(js.context['rtclient']['RealtimeLoader'], [realtimeOptions]);
+  realtimeLoader.callMethod('start');
 }
 
 main() {

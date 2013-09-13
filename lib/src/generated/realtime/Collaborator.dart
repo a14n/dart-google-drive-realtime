@@ -14,9 +14,9 @@
 
 part of google_drive_realtime;
 
-class Collaborator extends jsw.TypedProxy {
-  static Collaborator cast(js.Proxy proxy) => proxy == null ? null : new Collaborator.fromProxy(proxy);
-  Collaborator.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+class Collaborator extends jsw.TypedJsObject {
+  static Collaborator cast(js.JsObject jsObject) => jsObject == null ? null : new Collaborator.fromJsObject(jsObject);
+  Collaborator.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
   String get color => $unsafe['color'];
   String get displayName => $unsafe['displayName'];
   bool get isAnonymous => $unsafe['isAnonymous'];

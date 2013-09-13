@@ -18,7 +18,7 @@ part of google_drive_realtime;
   SubscribeStreamProvider<TextInsertedEvent> _onTextInserted;
   SubscribeStreamProvider<TextDeletedEvent> _onTextDeleted;
 
-  CollaborativeString.fromProxy(js.Proxy proxy) : super.fromProxy(proxy) {
+  CollaborativeString.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
     _onTextInserted = _getStreamProviderFor(EventType.TEXT_INSERTED, TextInsertedEvent.cast);
     _onTextDeleted = _getStreamProviderFor(EventType.TEXT_DELETED, TextDeletedEvent.cast);
   }

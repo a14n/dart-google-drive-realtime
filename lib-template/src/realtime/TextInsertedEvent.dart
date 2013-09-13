@@ -15,7 +15,7 @@
 part of google_drive_realtime;
 
 @wrapper abstract class TextInsertedEvent extends BaseModelEvent {
-  static TextInsertedEvent cast(js.Proxy proxy) {}
+  static TextInsertedEvent cast(js.JsObject jsObject) {}
   int get index;
   String get text;
 }

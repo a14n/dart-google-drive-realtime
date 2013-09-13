@@ -14,32 +14,24 @@
 
 part of google_drive_realtime;
 
-class EventTarget extends jsw.TypedProxy {
-  static EventTarget cast(js.Proxy proxy) => proxy == null ? null : new EventTarget.fromProxy(proxy);
-  EventTarget.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+class EventTarget extends jsw.TypedJsObject {
+  static EventTarget cast(js.JsObject jsObject) => jsObject == null ? null : new EventTarget.fromJsObject(jsObject);
+  EventTarget.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
 
-  void _addEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.addEventListener(type, handler, capture);
-  void _removeEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.removeEventListener(type, handler, capture);
+  void _addEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.callMethod('addEventListener', [type, handler, capture]);
+  void _removeEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.callMethod('removeEventListener', [type, handler, capture]);
 
   SubscribeStreamProvider _getStreamProviderFor(EventType eventType, [transformEvent(e)]) {
     js.Callback handler;
-    // TODO remove jsFunction when https://github.com/dart-lang/js-interop/issues/95 is fixed
-    js.FunctionProxy jsFunction;
     return new SubscribeStreamProvider(
         subscribe: (EventSink eventSink) {
-          handler = new js.Callback.many((e) {
+          handler = new js.Callback((e) {
             eventSink.add(transformEvent == null ? e : transformEvent(e));
           });
-          js.context['hackForJsInterop95'] = handler;
-          jsFunction = js.context['hackForJsInterop95'];
-          js.retain(jsFunction);
-          js.deleteProperty(js.context, "hackForJsInterop95");
-          _addEventListener(eventType, /*handler */ jsFunction);
+          _addEventListener(eventType, handler);
         },
         unsubscribe: (EventSink eventSink) {
-          _removeEventListener(eventType, /*handler */ jsFunction);
-          js.release(jsFunction);
-          handler.dispose();
+          _removeEventListener(eventType, handler);
         }
     );
   }

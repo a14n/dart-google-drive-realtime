@@ -14,9 +14,9 @@
 
 part of google_drive_realtime;
 
-class CollaboratorJoinedEvent extends jsw.TypedProxy {
-  static CollaboratorJoinedEvent cast(js.Proxy proxy) => proxy == null ? null : new CollaboratorJoinedEvent.fromProxy(proxy);
-  CollaboratorJoinedEvent.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+class CollaboratorJoinedEvent extends jsw.TypedJsObject {
+  static CollaboratorJoinedEvent cast(js.JsObject jsObject) => jsObject == null ? null : new CollaboratorJoinedEvent.fromJsObject(jsObject);
+  CollaboratorJoinedEvent.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
   static CollaboratorJoinedEvent deserialize(Document source, dynamic serialized) => CollaboratorJoinedEvent.cast(js.context['CollaboratorJoinedEvent'].deserialize(source, serialized));
   Collaborator get collaborator => Collaborator.cast($unsafe['collaborator']);
 }

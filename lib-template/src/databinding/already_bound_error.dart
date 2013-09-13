@@ -14,7 +14,7 @@
 
 part of google_drive_realtime_databinding;
 
-@wrapper abstract class AlreadyBoundError extends jsw.TypedProxy {
+@wrapper abstract class AlreadyBoundError extends jsw.TypedJsObject {
   Element get domElement => $unsafe['domElement'];
   String get name;
 }

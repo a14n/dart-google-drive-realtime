@@ -15,7 +15,7 @@
 part of google_drive_realtime;
 
 @wrapper abstract class ValueChangedEvent extends BaseModelEvent {
-  static ValueChangedEvent cast(js.Proxy proxy) {}
+  static ValueChangedEvent cast(js.JsObject jsObject) {}
   dynamic get newValue;
   dynamic get oldValue;
   String get property;

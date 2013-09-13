@@ -15,6 +15,6 @@
 part of google_drive_realtime;
 
 @wrapper abstract class ObjectChangedEvent extends BaseModelEvent {
-  static ObjectChangedEvent cast(js.Proxy proxy) {}
+  static ObjectChangedEvent cast(js.JsObject jsObject) {}
   List<BaseModelEvent> get events;
 }

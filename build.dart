@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:js_wrapping/generator.dart';
 import 'package:editor_build/editor_build.dart';
-import 'package:pathos/path.dart' as path;
+import 'package:path/path.dart' as path;
 
 main() {
   final arguments = new Options().arguments;

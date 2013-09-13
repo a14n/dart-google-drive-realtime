@@ -14,9 +14,9 @@
 
 part of google_drive_realtime;
 
-@wrapper abstract class CollaboratorJoinedEvent extends jsw.TypedProxy {
+@wrapper abstract class CollaboratorJoinedEvent extends jsw.TypedJsObject {
   static CollaboratorJoinedEvent deserialize(Document source, dynamic serialized) => CollaboratorJoinedEvent.cast(js.context['CollaboratorJoinedEvent'].deserialize(source, serialized));
-  static CollaboratorJoinedEvent cast(js.Proxy proxy) {}
+  static CollaboratorJoinedEvent cast(js.JsObject jsObject) {}
 
   Collaborator get collaborator;
 }

@@ -15,10 +15,10 @@
 part of google_drive_realtime;
 
 class Model extends EventTarget {
-  static Model cast(js.Proxy proxy) => proxy == null ? null : new Model.fromProxy(proxy);
+  static Model cast(js.JsObject jsObject) => jsObject == null ? null : new Model.fromJsObject(jsObject);
   SubscribeStreamProvider<UndoRedoStateChangedEvent> _onUndoRedoStateChanged;
 
-  Model.fromProxy(js.Proxy proxy) : super.fromProxy(proxy) {
+  Model.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
     _onUndoRedoStateChanged = _getStreamProviderFor(EventType.UNDO_REDO_STATE_CHANGED, UndoRedoStateChangedEvent.cast);
   }
 
@@ -26,22 +26,22 @@ class Model extends EventTarget {
   bool get canUndo => $unsafe['canUndo'];
   bool get canRedo => $unsafe['canRedo'];
 
-  void beginCreationCompoundOperation() { $unsafe.beginCreationCompoundOperation(); }
-  void endCompoundOperation() { $unsafe.endCompoundOperation(); }
-  CollaborativeMap get root => CollaborativeMap.cast($unsafe.getRoot());
-  bool get isInitialized => $unsafe.isInitialized();
+  void beginCreationCompoundOperation() { $unsafe.callMethod('beginCreationCompoundOperation'); }
+  void endCompoundOperation() { $unsafe.callMethod('endCompoundOperation'); }
+  CollaborativeMap get root => CollaborativeMap.cast($unsafe.callMethod('getRoot'));
+  bool get isInitialized => $unsafe.callMethod('isInitialized');
 
-  void beginCompoundOperation([String name]) { $unsafe.beginCompoundOperation(name); }
+  void beginCompoundOperation([String name]) { $unsafe.callMethod('beginCompoundOperation', [name]); }
   CollaborativeObject create(dynamic/*function(*)|string*/ ref, [List args = const []]) {
     final params = [ref]..addAll(args);
-    return CollaborativeObject.cast($unsafe['create'].apply($unsafe, js.array(params)));
+    return CollaborativeObject.cast($unsafe['create'].apply($unsafe, js.jsify(params)));
   }
-  CollaborativeList createList([List initialValue]) => CollaborativeList.cast($unsafe.createList(initialValue == null ? null : initialValue is js.Serializable<js.Proxy> ? initialValue : js.array(initialValue)));
-  CollaborativeMap createMap([Map initialValue]) => CollaborativeMap.cast($unsafe.createMap(initialValue == null ? null : initialValue is js.Serializable<js.Proxy> ? initialValue : js.map(initialValue)));
-  CollaborativeString createString([String initialValue]) => CollaborativeString.cast($unsafe.createString(initialValue));
+  CollaborativeList createList([List initialValue]) => CollaborativeList.cast($unsafe.callMethod('createList', [initialValue == null ? null : initialValue is js.Serializable<js.JsObject> ? initialValue : js.jsify(initialValue)]));
+  CollaborativeMap createMap([Map initialValue]) => CollaborativeMap.cast($unsafe.callMethod('createMap', [initialValue == null ? null : initialValue is js.Serializable<js.JsObject> ? initialValue : js.jsify(initialValue)]));
+  CollaborativeString createString([String initialValue]) => CollaborativeString.cast($unsafe.callMethod('createString', [initialValue]));
 
-  void undo() { $unsafe.undo(); }
-  void redo() { $unsafe.redo(); }
+  void undo() { $unsafe.callMethod('undo'); }
+  void redo() { $unsafe.callMethod('redo'); }
 
   Stream<UndoRedoStateChangedEvent> get onUndoRedoStateChanged => _onUndoRedoStateChanged.stream;
 }

@@ -14,7 +14,7 @@
 
 part of google_drive_realtime;
 
-class DocumentClosedError extends jsw.TypedProxy {
-  static DocumentClosedError cast(js.Proxy proxy) => proxy == null ? null : new DocumentClosedError.fromProxy(proxy);
-  DocumentClosedError.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+class DocumentClosedError extends jsw.TypedJsObject {
+  static DocumentClosedError cast(js.JsObject jsObject) => jsObject == null ? null : new DocumentClosedError.fromJsObject(jsObject);
+  DocumentClosedError.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
 }

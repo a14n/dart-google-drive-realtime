@@ -15,7 +15,7 @@
 part of google_drive_realtime;
 
 @wrapper abstract class TextDeletedEvent extends BaseModelEvent {
-  static TextDeletedEvent cast(js.Proxy proxy) {}
+  static TextDeletedEvent cast(js.JsObject jsObject) {}
   int get index;
   String get text;
 }

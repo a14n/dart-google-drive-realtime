@@ -14,8 +14,8 @@
 
 part of google_drive_realtime;
 
-@wrapper abstract class DocumentSaveStateChangedEvent extends jsw.TypedProxy {
-  static DocumentSaveStateChangedEvent cast(js.Proxy proxy) {}
+@wrapper abstract class DocumentSaveStateChangedEvent extends jsw.TypedJsObject {
+  static DocumentSaveStateChangedEvent cast(js.JsObject jsObject) {}
   bool get isPending;
   bool get isSaving;
 }

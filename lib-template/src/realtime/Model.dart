@@ -15,11 +15,11 @@
 part of google_drive_realtime;
 
 @wrapper @skipConstructor abstract class Model extends EventTarget {
-  static Model cast(js.Proxy proxy) {}
+  static Model cast(js.JsObject jsObject) {}
 
   SubscribeStreamProvider<UndoRedoStateChangedEvent> _onUndoRedoStateChanged;
 
-  Model.fromProxy(js.Proxy proxy) : super.fromProxy(proxy) {
+  Model.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
     _onUndoRedoStateChanged = _getStreamProviderFor(EventType.UNDO_REDO_STATE_CHANGED, UndoRedoStateChangedEvent.cast);
   }
 
@@ -30,12 +30,12 @@ part of google_drive_realtime;
   void beginCreationCompoundOperation();
   void endCompoundOperation();
   @forMethods CollaborativeMap get root;
-  bool get isInitialized => $unsafe.isInitialized();
+  bool get isInitialized => $unsafe.callMethod('isInitialized');
 
   void beginCompoundOperation([String name]);
   CollaborativeObject create(dynamic/*function(*)|string*/ ref, [List args = const []]) {
     final params = [ref]..addAll(args);
-    return CollaborativeObject.cast($unsafe['create'].apply($unsafe, js.array(params)));
+    return CollaborativeObject.cast($unsafe['create'].apply($unsafe, js.jsify(params)));
   }
   CollaborativeList createList([List initialValue]);
   CollaborativeMap createMap([Map initialValue]);

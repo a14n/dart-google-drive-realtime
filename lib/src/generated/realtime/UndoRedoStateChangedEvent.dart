@@ -15,8 +15,8 @@
 part of google_drive_realtime;
 
 class UndoRedoStateChangedEvent extends BaseModelEvent {
-  static UndoRedoStateChangedEvent cast(js.Proxy proxy) => proxy == null ? null : new UndoRedoStateChangedEvent.fromProxy(proxy);
-  UndoRedoStateChangedEvent.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+  static UndoRedoStateChangedEvent cast(js.JsObject jsObject) => jsObject == null ? null : new UndoRedoStateChangedEvent.fromJsObject(jsObject);
+  UndoRedoStateChangedEvent.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
   bool get canRedo => $unsafe['canRedo'];
   bool get canUndo => $unsafe['canUndo'];
 }

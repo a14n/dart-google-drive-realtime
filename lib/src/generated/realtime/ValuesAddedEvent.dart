@@ -15,8 +15,8 @@
 part of google_drive_realtime;
 
 class ValuesAddedEvent extends BaseModelEvent {
-  static ValuesAddedEvent cast(js.Proxy proxy) => proxy == null ? null : new ValuesAddedEvent.fromProxy(proxy);
-  ValuesAddedEvent.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+  static ValuesAddedEvent cast(js.JsObject jsObject) => jsObject == null ? null : new ValuesAddedEvent.fromJsObject(jsObject);
+  ValuesAddedEvent.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
   int get index => $unsafe['index'];
-  List<dynamic> get values => jsw.JsArrayToListAdapter.cast($unsafe['values']);
+  List<dynamic> get values => jsw.TypedJsArray.cast($unsafe['values']);
 }

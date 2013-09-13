@@ -16,9 +16,9 @@ part of google_drive_realtime;
 
 // TODO(aa) make this class mixin ListMixin
 @wrapper @skipCast @skipConstructor class CollaborativeList<E> extends CollaborativeObject /* with ListMixin<E> */ {
-  static CollaborativeList cast(js.Proxy proxy, [jsw.Translator translator]) => proxy == null ? null : new CollaborativeList.fromProxy(proxy, translator);
+  static CollaborativeList cast(js.JsObject jsObject, [jsw.Translator translator]) => jsObject == null ? null : new CollaborativeList.fromJsObject(jsObject, translator);
 
-  static CollaborativeList castListOfSerializables(js.Proxy proxy, jsw.Mapper<dynamic, js.Serializable> fromJs, {mapOnlyNotNull: false}) => proxy == null ? null : new CollaborativeList.fromProxy(proxy, new jsw.TranslatorForSerializable(fromJs, mapOnlyNotNull: mapOnlyNotNull));
+  static CollaborativeList castListOfSerializables(js.JsObject jsObject, jsw.Mapper<dynamic, js.Serializable> fromJs, {mapOnlyNotNull: false}) => jsObject == null ? null : new CollaborativeList.fromJsObject(jsObject, new jsw.TranslatorForSerializable(fromJs, mapOnlyNotNull: mapOnlyNotNull));
 
   final jsw.Translator<E> _translator;
 
@@ -26,7 +26,7 @@ part of google_drive_realtime;
   SubscribeStreamProvider<ValuesRemovedEvent> _onValuesRemoved;
   SubscribeStreamProvider<ValuesSetEvent> _onValuesSet;
 
-  CollaborativeList.fromProxy(js.Proxy proxy, [jsw.Translator<E> translator]) : this._translator = translator, super.fromProxy(proxy) {
+  CollaborativeList.fromJsObject(js.JsObject jsObject, [jsw.Translator<E> translator]) : this._translator = translator, super.fromJsObject(jsObject) {
     _onValuesAdded = _getStreamProviderFor(EventType.VALUES_ADDED, ValuesAddedEvent.cast);
     _onValuesRemoved = _getStreamProviderFor(EventType.VALUES_REMOVED, ValuesRemovedEvent.cast);
     _onValuesSet = _getStreamProviderFor(EventType.VALUES_SET, ValuesSetEvent.cast);
@@ -39,55 +39,43 @@ part of google_drive_realtime;
 
   /*@override*/ E operator [](int index) {
     if (index < 0 || index >= this.length) throw new RangeError.value(index);
-    return _fromJs($unsafe.get(index));
+    return _fromJs($unsafe.callMethod('get', [index]));
   }
   /*@override*/ void operator []=(int index, E value) {
     if (index < 0 || index >= this.length) throw new RangeError.value(index);
-    $unsafe.set(index, _toJs(value));
+    $unsafe.callMethod('set', [index, _toJs(value)]);
   }
 
   @generate void clear() {}
   /// Deprecated : use `xxx[index]` instead
   @deprecated E get(int index) => this[index];
-  void insert(int index, E value) { $unsafe.insert(index, _toJs(value)); }
-  int push(E value) => $unsafe.push(_toJs(value));
+  void insert(int index, E value) { $unsafe.callMethod('insert', [index, _toJs(value)]); }
+  int push(E value) => $unsafe.callMethod('push', [_toJs(value)]);
   @generate IndexReference registerReference(int index, bool canBeDeleted) {}
   @generate void remove(int index) {}
   @generate void removeRange(int startIndex, int endIndex) {}
-  bool removeValue(E value) => $unsafe.removeValue(_toJs(value));
+  bool removeValue(E value) => $unsafe.callMethod('removeValue', [_toJs(value)]);
   /// Deprecated : use `xxx[index] = value` instead
-  @deprecated void set(int index, E value) { $unsafe.set(index, _toJs(value)); }
+  @deprecated void set(int index, E value) { $unsafe.callMethod('set', [index, _toJs(value)]); }
 
-  List<E> asArray() => jsw.JsArrayToListAdapter.cast($unsafe.asArray(), _translator);
-  int indexOf(E value, [Comparator comparator]) {
-    js.Callback comparatorCallback = null;
+  List<E> asArray() => jsw.TypedJsArray.cast($unsafe.callMethod('asArray'), _translator);
+  int indexOf(E value, [Comparator<E> comparator]) {
     if (comparator != null) {
-      comparatorCallback = new js.Callback.many(comparator);
-    }
-    try {
-      return $unsafe.indexOf(_toJs(value), comparatorCallback);
-    } finally {
-      if (comparatorCallback != null) {
-        comparatorCallback.dispose();
-      }
+      return $unsafe.callMethod('indexOf', [_toJs(value), (a, b) => comparator(_fromJs(a), _fromJs(b))]);
+    } else {
+      return $unsafe.callMethod('indexOf', [_toJs(value)]);
     }
   }
-  void insertAll(int index, List<E> values) { $unsafe.insertAll(index, values is js.Serializable<js.Proxy> ? values : js.array(values.map(_toJs))); }
+  void insertAll(int index, List<E> values) { $unsafe.callMethod('insertAll', [index, values is js.Serializable<js.JsObject> ? values : js.jsify(values.map(_toJs))]); }
   int lastIndexOf(E value, [Comparator comparator]) {
-    js.Callback comparatorCallback = null;
     if (comparator != null) {
-      comparatorCallback = new js.Callback.many(comparator);
-    }
-    try {
-      return $unsafe.lastIndexOf(_toJs(value), comparatorCallback);
-    } finally {
-      if (comparatorCallback != null) {
-        comparatorCallback.dispose();
-      }
+      return $unsafe.callMethod('lastIndexOf', [_toJs(value), (a, b) => comparator(_fromJs(a), _fromJs(b))]);
+    } else {
+      return $unsafe.callMethod('lastIndexOf', [_toJs(value)]);
     }
   }
-  void pushAll(List<E> values) { $unsafe.pushAll(values is js.Serializable<js.Proxy> ? values : js.array(values.map(_toJs))); }
-  void replaceRange(int index, List<E> values) { $unsafe.replaceRange(index, values is js.Serializable<js.Proxy> ? values : js.array(values.map(_toJs))); }
+  void pushAll(List<E> values) { $unsafe.callMethod('pushAll', [values is js.Serializable<js.JsObject> ? values : js.jsify(values.map(_toJs))]); }
+  void replaceRange(int index, List<E> values) { $unsafe.callMethod('replaceRange', [index, values is js.Serializable<js.JsObject> ? values : js.jsify(values.map(_toJs))]); }
 
   Stream<ValuesAddedEvent> get onValuesAdded => _onValuesAdded.stream;
   Stream<ValuesRemovedEvent> get onValuesRemoved => _onValuesRemoved.stream;

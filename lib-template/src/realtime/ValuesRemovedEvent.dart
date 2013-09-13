@@ -15,7 +15,7 @@
 part of google_drive_realtime;
 
 @wrapper abstract class ValuesRemovedEvent extends BaseModelEvent {
-  static ValuesRemovedEvent cast(js.Proxy proxy) {}
+  static ValuesRemovedEvent cast(js.JsObject jsObject) {}
   int get index;
   List<dynamic> get values;
 }

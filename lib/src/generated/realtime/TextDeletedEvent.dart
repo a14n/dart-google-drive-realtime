@@ -15,8 +15,8 @@
 part of google_drive_realtime;
 
 class TextDeletedEvent extends BaseModelEvent {
-  static TextDeletedEvent cast(js.Proxy proxy) => proxy == null ? null : new TextDeletedEvent.fromProxy(proxy);
-  TextDeletedEvent.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+  static TextDeletedEvent cast(js.JsObject jsObject) => jsObject == null ? null : new TextDeletedEvent.fromJsObject(jsObject);
+  TextDeletedEvent.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
   int get index => $unsafe['index'];
   String get text => $unsafe['text'];
 }

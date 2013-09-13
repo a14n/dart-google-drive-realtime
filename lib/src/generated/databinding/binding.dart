@@ -14,11 +14,11 @@
 
 part of google_drive_realtime_databinding;
 
-class Binding extends jsw.TypedProxy {
-  static Binding cast(js.Proxy proxy) => proxy == null ? null : new Binding.fromProxy(proxy);
-  Binding.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+class Binding extends jsw.TypedJsObject {
+  static Binding cast(js.JsObject jsObject) => jsObject == null ? null : new Binding.fromJsObject(jsObject);
+  Binding.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
   CollaborativeObject get collaborativeObject => CollaborativeObject.cast($unsafe['collaborativeObject']);
   Element get domElement => $unsafe['domElement'];
 
-  void unbind() { $unsafe.unbind(); }
+  void unbind() { $unsafe.callMethod('unbind'); }
 }

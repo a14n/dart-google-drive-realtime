@@ -14,5 +14,5 @@
 
 part of google_drive_realtime;
 
-@wrapper class DocumentClosedError extends jsw.TypedProxy {
+@wrapper class DocumentClosedError extends jsw.TypedJsObject {
 }

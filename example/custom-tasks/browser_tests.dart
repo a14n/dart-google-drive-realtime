@@ -1,8 +1,7 @@
-import 'dart:html';
 import 'dart:async';
+import 'dart:html';
+import 'dart:js' as js;
 
-import 'package:js/js.dart' as js;
-import 'package:js/js_wrapping.dart' as jsw;
 import 'package:google_drive_realtime/google_drive_realtime.dart' as rt;
 import 'package:google_drive_realtime/google_drive_realtime_custom.dart' as rtc;
 
@@ -14,28 +13,28 @@ class Task extends rt.CollaborativeObject {
    * This method must be call only one time before the document is load.
    */
   static void registerType() {
-    js.context.Task = new js.Callback.many((){});
-    rtc.registerType(js.context.Task, NAME);
-    js.context.Task.prototype.title = rtc.collaborativeField('title');
-    js.context.Task.prototype.done = rtc.collaborativeField('done');
+    js.context['Task'] = (){};
+    rtc.registerType(js.context['Task'], NAME);
+    js.context['Task']['prototype']['title'] = rtc.collaborativeField('title');
+    js.context['Task']['prototype']['done'] = rtc.collaborativeField('done');
   }
 
-  static Task cast(js.Proxy proxy) => proxy == null ? null : new Task.fromProxy(proxy);
+  static Task cast(js.JsObject proxy) => proxy == null ? null : new Task.fromJsObject(proxy);
 
   /// create new collaborative object from model
-  Task(rt.Model model) : this.fromProxy(model.create(NAME).$unsafe);
-  Task.fromProxy(js.Proxy proxy) : super.fromProxy(proxy) {
+  Task(rt.Model model) : this.fromJsObject(model.create(NAME).$unsafe);
+  Task.fromJsObject(js.JsObject proxy) : super.fromJsObject(proxy) {
     done = false;
   }
 
-  String get title => $unsafe.title;
-  bool get done => $unsafe.done;
-  set title(String title) => $unsafe.title = title;
-  set done(bool done) => $unsafe.done = done;
+  String get title => $unsafe['title'];
+  bool get done => $unsafe['done'];
+  set title(String title) => $unsafe['title'] = title;
+  set done(bool done) => $unsafe['done'] = done;
 }
 
-initializeModel(js.Proxy modelProxy) {
-  var model = rt.Model.cast(modelProxy);
+initializeModel(js.JsObject modelJsObject) {
+  var model = rt.Model.cast(modelJsObject);
   var tasks = model.createList();
   model.root['tasks'] = tasks;
 }
@@ -47,11 +46,9 @@ initializeModel(js.Proxy modelProxy) {
  * and bind it to our string model that we created in initializeModel.
  * @param doc {gapi.drive.realtime.Document} the Realtime document.
  */
-onFileLoaded(docProxy) {
-  final doc = rt.Document.cast(docProxy);
-  js.retain(doc);
+onFileLoaded(docJsObject) {
+  final doc = rt.Document.cast(docJsObject);
   final rt.CollaborativeList<Task> tasks = rt.CollaborativeList.castListOfSerializables(doc.model.root['tasks'], Task.cast);
-  js.retain(tasks);
 
   // collaborators listener
   doc.onCollaboratorJoined.listen((rt.CollaboratorJoinedEvent e){
@@ -96,7 +93,7 @@ onFileLoaded(docProxy) {
 /**
  * Options for the Realtime loader.
  */
-get realtimeOptions => js.map({
+get realtimeOptions => js.jsify({
    /**
   * Client ID from the APIs Console.
   */
@@ -110,7 +107,7 @@ get realtimeOptions => js.map({
    /**
   * Function to be called when a Realtime model is first created.
   */
-   'initializeModel': new js.Callback.once(initializeModel),
+   'initializeModel': initializeModel,
 
    /**
   * Autocreate files right after auth automatically.
@@ -125,13 +122,11 @@ get realtimeOptions => js.map({
    /**
   * Function to be called every time a Realtime file is loaded.
   */
-   'onFileLoaded': new js.Callback.many(onFileLoaded)
+   'onFileLoaded': onFileLoaded
 });
 
 
 main() {
-  var realtimeLoader = new js.Proxy(js.context.rtclient.RealtimeLoader, realtimeOptions);
-  realtimeLoader.start(new js.Callback.once((){
-    Task.registerType();
-  }));
+  var realtimeLoader = new js.JsObject(js.context['rtclient']['RealtimeLoader'], [realtimeOptions]);
+  realtimeLoader.callMethod('start', [Task.registerType]);
 }
