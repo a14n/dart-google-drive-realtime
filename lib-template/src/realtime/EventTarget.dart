@@ -22,20 +22,15 @@ part of google_drive_realtime;
 
   SubscribeStreamProvider _getStreamProviderFor(EventType eventType, [transformEvent(e)]) {
     js.Callback handler;
-    // TODO remove jsFunction when https://github.com/dart-lang/js-interop/issues/95 is fixed
-    js.JsFunction jsFunction;
     return new SubscribeStreamProvider(
         subscribe: (EventSink eventSink) {
           handler = new js.Callback((e) {
             eventSink.add(transformEvent == null ? e : transformEvent(e));
           });
-          js.context['hackForJsInterop95'] = handler;
-          jsFunction = js.context['hackForJsInterop95'];
-          js.context.deleteProperty("hackForJsInterop95");
-          _addEventListener(eventType, /*handler */ jsFunction);
+          _addEventListener(eventType, handler);
         },
         unsubscribe: (EventSink eventSink) {
-          _removeEventListener(eventType, /*handler */ jsFunction);
+          _removeEventListener(eventType, handler);
         }
     );
   }

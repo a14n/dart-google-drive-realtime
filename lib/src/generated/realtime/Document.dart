@@ -26,7 +26,9 @@ class Document extends EventTarget {
     _onDocumentSaveStateChanged = _getStreamProviderFor(EventType.DOCUMENT_SAVE_STATE_CHANGED, DocumentSaveStateChangedEvent.cast);
   }
 
-  void close() { $unsafe.callMethod('close'); }
+  void close() {
+    $unsafe.callMethod('close');
+  }
   List<Collaborator> get collaborators => jsw.TypedJsArray.castListOfSerializables($unsafe.callMethod('getCollaborators'), Collaborator.cast);
   Model get model => Model.cast($unsafe.callMethod('getModel'));
 

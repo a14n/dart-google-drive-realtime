@@ -5,10 +5,10 @@ description: A package to use Google Drive Realtime API from Dart scripts.
 homepage: https://github.com/a14n/dart-google-drive-realtime
 dependencies:
   js_wrapping:
-    #path: ../dart-js-wrapping
-    git:
-      url: https://github.com/a14n/dart-js-wrapping.git
-      ref: dart-js
+    path: ../dart-js-wrapping
+    #git:
+    #  url: https://github.com/a14n/dart-js-wrapping.git
+    #  ref: dart-js
   meta: any
 dev_dependencies:
   browser: any

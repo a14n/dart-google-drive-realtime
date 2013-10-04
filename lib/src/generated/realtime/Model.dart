@@ -26,22 +26,32 @@ class Model extends EventTarget {
   bool get canUndo => $unsafe['canUndo'];
   bool get canRedo => $unsafe['canRedo'];
 
-  void beginCreationCompoundOperation() { $unsafe.callMethod('beginCreationCompoundOperation'); }
-  void endCompoundOperation() { $unsafe.callMethod('endCompoundOperation'); }
+  void beginCreationCompoundOperation() {
+    $unsafe.callMethod('beginCreationCompoundOperation');
+  }
+  void endCompoundOperation() {
+    $unsafe.callMethod('endCompoundOperation');
+  }
   CollaborativeMap get root => CollaborativeMap.cast($unsafe.callMethod('getRoot'));
   bool get isInitialized => $unsafe.callMethod('isInitialized');
 
-  void beginCompoundOperation([String name]) { $unsafe.callMethod('beginCompoundOperation', [name]); }
-  CollaborativeObject create(dynamic/*function(*)|string*/ ref, [List args = const []]) {
+  void beginCompoundOperation([String name]) {
+    $unsafe.callMethod('beginCompoundOperation', [name]);
+  }
+  CollaborativeObject create(dynamic /*function(*)|string*/ ref, [List args = const []]) {
     final params = [ref]..addAll(args);
     return CollaborativeObject.cast($unsafe['create'].apply($unsafe, js.jsify(params)));
   }
-  CollaborativeList createList([List initialValue]) => CollaborativeList.cast($unsafe.callMethod('createList', [initialValue == null ? null : initialValue is js.Serializable<js.JsObject> ? initialValue : js.jsify(initialValue)]));
-  CollaborativeMap createMap([Map initialValue]) => CollaborativeMap.cast($unsafe.callMethod('createMap', [initialValue == null ? null : initialValue is js.Serializable<js.JsObject> ? initialValue : js.jsify(initialValue)]));
+  CollaborativeList createList([List initialValue]) => CollaborativeList.cast($unsafe.callMethod('createList', [initialValue == null ? null : initialValue is js.Serializable ? initialValue : js.jsify(initialValue)]));
+  CollaborativeMap createMap([Map initialValue]) => CollaborativeMap.cast($unsafe.callMethod('createMap', [initialValue == null ? null : initialValue is js.Serializable ? initialValue : js.jsify(initialValue)]));
   CollaborativeString createString([String initialValue]) => CollaborativeString.cast($unsafe.callMethod('createString', [initialValue]));
 
-  void undo() { $unsafe.callMethod('undo'); }
-  void redo() { $unsafe.callMethod('redo'); }
+  void undo() {
+    $unsafe.callMethod('undo');
+  }
+  void redo() {
+    $unsafe.callMethod('redo');
+  }
 
   Stream<UndoRedoStateChangedEvent> get onUndoRedoStateChanged => _onUndoRedoStateChanged.stream;
 }

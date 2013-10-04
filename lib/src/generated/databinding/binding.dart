@@ -20,5 +20,7 @@ class Binding extends jsw.TypedJsObject {
   CollaborativeObject get collaborativeObject => CollaborativeObject.cast($unsafe['collaborativeObject']);
   Element get domElement => $unsafe['domElement'];
 
-  void unbind() { $unsafe.callMethod('unbind'); }
+  void unbind() {
+    $unsafe.callMethod('unbind');
+  }
 }

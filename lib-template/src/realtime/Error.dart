@@ -18,5 +18,5 @@ part of google_drive_realtime;
   static Error cast(js.JsObject jsObject) {}
   bool get isFatal;
   String get message;
-  ErrorType get type => ErrorType.find($unsafe['type']);
+  @isEnum ErrorType get type;
 }

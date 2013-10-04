@@ -18,21 +18,21 @@ class EventTarget extends jsw.TypedJsObject {
   static EventTarget cast(js.JsObject jsObject) => jsObject == null ? null : new EventTarget.fromJsObject(jsObject);
   EventTarget.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
 
-  void _addEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.callMethod('addEventListener', [type, handler, capture]);
-  void _removeEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.callMethod('removeEventListener', [type, handler, capture]);
+  void _addEventListener(EventType type, dynamic /*Function|Object*/ handler, [bool capture]) => $unsafe.callMethod('addEventListener', [type, handler, capture]);
+  void _removeEventListener(EventType type, dynamic /*Function|Object*/ handler, [bool capture]) => $unsafe.callMethod('removeEventListener', [type, handler, capture]);
 
   SubscribeStreamProvider _getStreamProviderFor(EventType eventType, [transformEvent(e)]) {
     js.Callback handler;
     return new SubscribeStreamProvider(
-        subscribe: (EventSink eventSink) {
-          handler = new js.Callback((e) {
-            eventSink.add(transformEvent == null ? e : transformEvent(e));
-          });
-          _addEventListener(eventType, handler);
-        },
-        unsubscribe: (EventSink eventSink) {
-          _removeEventListener(eventType, handler);
-        }
+    subscribe: (EventSink eventSink) {
+      handler = new js.Callback((e) {
+        eventSink.add(transformEvent == null ? e : transformEvent(e));
+      });
+      _addEventListener(eventType, handler);
+    }, 
+    unsubscribe: (EventSink eventSink) {
+      _removeEventListener(eventType, handler);
+    }
     );
   }
 }
