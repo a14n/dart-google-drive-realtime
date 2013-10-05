@@ -19,8 +19,7 @@ import 'dart:collection';
 import 'dart:js' as js;
 
 import 'package:js_wrapping/generator.dart';
-import 'package:js_wrapping/utils.dart';
-import 'package:js_wrapping/wrapping.dart' as jsw;
+import 'package:js_wrapping/js_wrapping.dart' as jsw;
 import 'package:meta/meta.dart';
 
 part 'src/realtime/BaseModelEvent.dart';

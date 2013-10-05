@@ -18,7 +18,7 @@ import 'dart:html';
 
 import 'dart:js' as js;
 
-import 'package:js_wrapping/wrapping.dart' as jsw;
+import 'package:js_wrapping/js_wrapping.dart' as jsw;
 
 import 'google_drive_realtime.dart';
 

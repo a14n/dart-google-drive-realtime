@@ -14,7 +14,7 @@
 
 part of google_drive_realtime;
 
-class EventType extends IsEnum<String> {
+class EventType extends jsw.IsEnum<String> {
   static final COLLABORATOR_JOINED = new EventType._(realtime['EventType']['COLLABORATOR_JOINED']);
   static final COLLABORATOR_LEFT = new EventType._(realtime['EventType']['COLLABORATOR_LEFT']);
   static final DOCUMENT_SAVE_STATE_CHANGED = new EventType._(realtime['EventType']['DOCUMENT_SAVE_STATE_CHANGED']);
@@ -28,7 +28,7 @@ class EventType extends IsEnum<String> {
   static final VALUES_SET = new EventType._(realtime['EventType']['VALUES_SET']);
   static final VALUE_CHANGED = new EventType._(realtime['EventType']['VALUE_CHANGED']);
 
-  static final _FINDER = new EnumFinder<String, EventType>([COLLABORATOR_JOINED, COLLABORATOR_LEFT, DOCUMENT_SAVE_STATE_CHANGED, OBJECT_CHANGED, REFERENCE_SHIFTED, TEXT_DELETED, TEXT_INSERTED, UNDO_REDO_STATE_CHANGED, VALUES_ADDED, VALUES_REMOVED, VALUES_SET, VALUE_CHANGED]);
+  static final _FINDER = new jsw.EnumFinder<String, EventType>([COLLABORATOR_JOINED, COLLABORATOR_LEFT, DOCUMENT_SAVE_STATE_CHANGED, OBJECT_CHANGED, REFERENCE_SHIFTED, TEXT_DELETED, TEXT_INSERTED, UNDO_REDO_STATE_CHANGED, VALUES_ADDED, VALUES_REMOVED, VALUES_SET, VALUE_CHANGED]);
 
   static EventType find(o) => _FINDER.find(o);
 

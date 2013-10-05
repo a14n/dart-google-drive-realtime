@@ -16,9 +16,9 @@ part of google_drive_realtime;
 
 class Document extends EventTarget {
   static Document cast(js.JsObject jsObject) => jsObject == null ? null : new Document.fromJsObject(jsObject);
-  SubscribeStreamProvider<CollaboratorLeftEvent> _onCollaboratorLeft;
-  SubscribeStreamProvider<CollaboratorJoinedEvent> _onCollaboratorJoined;
-  SubscribeStreamProvider<DocumentSaveStateChangedEvent> _onDocumentSaveStateChanged;
+  jsw.SubscribeStreamProvider<CollaboratorLeftEvent> _onCollaboratorLeft;
+  jsw.SubscribeStreamProvider<CollaboratorJoinedEvent> _onCollaboratorJoined;
+  jsw.SubscribeStreamProvider<DocumentSaveStateChangedEvent> _onDocumentSaveStateChanged;
 
   Document.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
     _onCollaboratorLeft = _getStreamProviderFor(EventType.COLLABORATOR_LEFT, CollaboratorLeftEvent.cast);

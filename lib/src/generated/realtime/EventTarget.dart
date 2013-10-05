@@ -21,9 +21,9 @@ class EventTarget extends jsw.TypedJsObject {
   void _addEventListener(EventType type, dynamic /*Function|Object*/ handler, [bool capture]) => $unsafe.callMethod('addEventListener', [type, handler, capture]);
   void _removeEventListener(EventType type, dynamic /*Function|Object*/ handler, [bool capture]) => $unsafe.callMethod('removeEventListener', [type, handler, capture]);
 
-  SubscribeStreamProvider _getStreamProviderFor(EventType eventType, [transformEvent(e)]) {
+  jsw.SubscribeStreamProvider _getStreamProviderFor(EventType eventType, [transformEvent(e)]) {
     js.Callback handler;
-    return new SubscribeStreamProvider(
+    return new jsw.SubscribeStreamProvider(
     subscribe: (EventSink eventSink) {
       handler = new js.Callback((e) {
         eventSink.add(transformEvent == null ? e : transformEvent(e));

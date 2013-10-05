@@ -16,7 +16,7 @@ part of google_drive_realtime;
 
 class IndexReference extends CollaborativeObject {
   static IndexReference cast(js.JsObject jsObject) => jsObject == null ? null : new IndexReference.fromJsObject(jsObject);
-  SubscribeStreamProvider<ReferenceShiftedEvent> _onReferenceShifted;
+  jsw.SubscribeStreamProvider<ReferenceShiftedEvent> _onReferenceShifted;
 
   IndexReference.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
     _onReferenceShifted = _getStreamProviderFor(EventType.REFERENCE_SHIFTED, ReferenceShiftedEvent.cast);

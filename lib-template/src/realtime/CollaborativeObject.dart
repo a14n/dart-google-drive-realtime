@@ -17,8 +17,8 @@ part of google_drive_realtime;
 @wrapper @skipConstructor class CollaborativeObject extends EventTarget {
   static CollaborativeObject cast(js.JsObject proxy) {}
 
-  SubscribeStreamProvider<ObjectChangedEvent> _onObjectChanged;
-  SubscribeStreamProvider<ValueChangedEvent> _onValueChanged;
+  jsw.SubscribeStreamProvider<ObjectChangedEvent> _onObjectChanged;
+  jsw.SubscribeStreamProvider<ValueChangedEvent> _onValueChanged;
 
   CollaborativeObject.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
     _onObjectChanged = _getStreamProviderFor(EventType.OBJECT_CHANGED, ObjectChangedEvent.cast);

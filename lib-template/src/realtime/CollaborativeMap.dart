@@ -21,7 +21,7 @@ class CollaborativeMap<V> extends CollaborativeObject implements Map<String, V> 
 
   final jsw.Translator<V> _translator;
 
-  SubscribeStreamProvider<ValueChangedEvent> _onValueChanged;
+  jsw.SubscribeStreamProvider<ValueChangedEvent> _onValueChanged;
 
   CollaborativeMap.fromJsObject(js.JsObject jsObject, [jsw.Translator<V> translator])
       : this._translator = translator,

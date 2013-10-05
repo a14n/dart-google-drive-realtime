@@ -15,8 +15,8 @@
 part of google_drive_realtime;
 
 @wrapper @skipConstructor abstract class CollaborativeString extends CollaborativeObject {
-  SubscribeStreamProvider<TextInsertedEvent> _onTextInserted;
-  SubscribeStreamProvider<TextDeletedEvent> _onTextDeleted;
+  jsw.SubscribeStreamProvider<TextInsertedEvent> _onTextInserted;
+  jsw.SubscribeStreamProvider<TextDeletedEvent> _onTextDeleted;
 
   CollaborativeString.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
     _onTextInserted = _getStreamProviderFor(EventType.TEXT_INSERTED, TextInsertedEvent.cast);

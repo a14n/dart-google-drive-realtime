@@ -22,9 +22,9 @@ part of google_drive_realtime;
 
   final jsw.Translator<E> _translator;
 
-  SubscribeStreamProvider<ValuesAddedEvent> _onValuesAdded;
-  SubscribeStreamProvider<ValuesRemovedEvent> _onValuesRemoved;
-  SubscribeStreamProvider<ValuesSetEvent> _onValuesSet;
+  jsw.SubscribeStreamProvider<ValuesAddedEvent> _onValuesAdded;
+  jsw.SubscribeStreamProvider<ValuesRemovedEvent> _onValuesRemoved;
+  jsw.SubscribeStreamProvider<ValuesSetEvent> _onValuesSet;
 
   CollaborativeList.fromJsObject(js.JsObject jsObject, [jsw.Translator<E> translator]) : this._translator = translator, super.fromJsObject(jsObject) {
     _onValuesAdded = _getStreamProviderFor(EventType.VALUES_ADDED, ValuesAddedEvent.cast);

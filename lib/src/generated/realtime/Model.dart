@@ -16,7 +16,7 @@ part of google_drive_realtime;
 
 class Model extends EventTarget {
   static Model cast(js.JsObject jsObject) => jsObject == null ? null : new Model.fromJsObject(jsObject);
-  SubscribeStreamProvider<UndoRedoStateChangedEvent> _onUndoRedoStateChanged;
+  jsw.SubscribeStreamProvider<UndoRedoStateChangedEvent> _onUndoRedoStateChanged;
 
   Model.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
     _onUndoRedoStateChanged = _getStreamProviderFor(EventType.UNDO_REDO_STATE_CHANGED, UndoRedoStateChangedEvent.cast);

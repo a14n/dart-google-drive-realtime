@@ -17,7 +17,7 @@ library google_drive_realtime_databinding;
 import 'dart:html';
 import 'dart:js' as js;
 
-import 'package:js_wrapping/wrapping.dart' as jsw;
+import 'package:js_wrapping/js_wrapping.dart' as jsw;
 import 'package:js_wrapping/generator.dart';
 
 import 'google_drive_realtime.dart';
