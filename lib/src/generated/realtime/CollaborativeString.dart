@@ -19,7 +19,8 @@ class CollaborativeString extends CollaborativeObject {
   jsw.SubscribeStreamProvider<TextInsertedEvent> _onTextInserted;
   jsw.SubscribeStreamProvider<TextDeletedEvent> _onTextDeleted;
 
-  CollaborativeString.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
+  CollaborativeString.fromJsObject(js.JsObject jsObject)
+      : super.fromJsObject(jsObject) {
     _onTextInserted = _getStreamProviderFor(EventType.TEXT_INSERTED, TextInsertedEvent.cast);
     _onTextDeleted = _getStreamProviderFor(EventType.TEXT_DELETED, TextDeletedEvent.cast);
   }

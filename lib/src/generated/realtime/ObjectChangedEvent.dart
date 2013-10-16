@@ -16,6 +16,7 @@ part of google_drive_realtime;
 
 class ObjectChangedEvent extends BaseModelEvent {
   static ObjectChangedEvent cast(js.JsObject jsObject) => jsObject == null ? null : new ObjectChangedEvent.fromJsObject(jsObject);
-  ObjectChangedEvent.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
+  ObjectChangedEvent.fromJsObject(js.JsObject jsObject)
+      : super.fromJsObject(jsObject);
   List<BaseModelEvent> get events => jsw.TypedJsArray.castListOfSerializables($unsafe['events'], BaseModelEvent.cast);
 }

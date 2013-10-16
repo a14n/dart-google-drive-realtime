@@ -16,7 +16,8 @@ part of google_drive_realtime;
 
 class Error extends jsw.TypedJsObject {
   static Error cast(js.JsObject jsObject) => jsObject == null ? null : new Error.fromJsObject(jsObject);
-  Error.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
+  Error.fromJsObject(js.JsObject jsObject)
+      : super.fromJsObject(jsObject);
   bool get isFatal => $unsafe['isFatal'];
   String get message => $unsafe['message'];
   ErrorType get type => ErrorType.find($unsafe['type']);

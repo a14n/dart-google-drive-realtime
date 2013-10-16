@@ -16,7 +16,8 @@ part of google_drive_realtime;
 
 class DocumentSaveStateChangedEvent extends jsw.TypedJsObject {
   static DocumentSaveStateChangedEvent cast(js.JsObject jsObject) => jsObject == null ? null : new DocumentSaveStateChangedEvent.fromJsObject(jsObject);
-  DocumentSaveStateChangedEvent.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
+  DocumentSaveStateChangedEvent.fromJsObject(js.JsObject jsObject)
+      : super.fromJsObject(jsObject);
   bool get isPending => $unsafe['isPending'];
   bool get isSaving => $unsafe['isSaving'];
 }

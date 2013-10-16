@@ -18,7 +18,8 @@ class IndexReference extends CollaborativeObject {
   static IndexReference cast(js.JsObject jsObject) => jsObject == null ? null : new IndexReference.fromJsObject(jsObject);
   jsw.SubscribeStreamProvider<ReferenceShiftedEvent> _onReferenceShifted;
 
-  IndexReference.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
+  IndexReference.fromJsObject(js.JsObject jsObject)
+      : super.fromJsObject(jsObject) {
     _onReferenceShifted = _getStreamProviderFor(EventType.REFERENCE_SHIFTED, ReferenceShiftedEvent.cast);
   }
 

@@ -16,7 +16,8 @@ part of google_drive_realtime;
 
 class ValueChangedEvent extends BaseModelEvent {
   static ValueChangedEvent cast(js.JsObject jsObject) => jsObject == null ? null : new ValueChangedEvent.fromJsObject(jsObject);
-  ValueChangedEvent.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
+  ValueChangedEvent.fromJsObject(js.JsObject jsObject)
+      : super.fromJsObject(jsObject);
   dynamic get newValue => $unsafe['newValue'];
   dynamic get oldValue => $unsafe['oldValue'];
   String get property => $unsafe['property'];

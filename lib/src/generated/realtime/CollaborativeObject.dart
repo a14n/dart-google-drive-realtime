@@ -19,7 +19,8 @@ class CollaborativeObject extends EventTarget {
   jsw.SubscribeStreamProvider<ObjectChangedEvent> _onObjectChanged;
   jsw.SubscribeStreamProvider<ValueChangedEvent> _onValueChanged;
 
-  CollaborativeObject.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
+  CollaborativeObject.fromJsObject(js.JsObject jsObject)
+      : super.fromJsObject(jsObject) {
     _onObjectChanged = _getStreamProviderFor(EventType.OBJECT_CHANGED, ObjectChangedEvent.cast);
     _onValueChanged = _getStreamProviderFor(EventType.VALUE_CHANGED, ValueChangedEvent.cast);
   }

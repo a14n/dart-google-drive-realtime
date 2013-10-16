@@ -16,7 +16,8 @@ part of google_drive_realtime;
 
 class EventTarget extends jsw.TypedJsObject {
   static EventTarget cast(js.JsObject jsObject) => jsObject == null ? null : new EventTarget.fromJsObject(jsObject);
-  EventTarget.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
+  EventTarget.fromJsObject(js.JsObject jsObject)
+      : super.fromJsObject(jsObject);
 
   void _addEventListener(EventType type, dynamic /*Function|Object*/ handler, [bool capture]) => $unsafe.callMethod('addEventListener', [type, handler, capture]);
   void _removeEventListener(EventType type, dynamic /*Function|Object*/ handler, [bool capture]) => $unsafe.callMethod('removeEventListener', [type, handler, capture]);
@@ -29,8 +30,8 @@ class EventTarget extends jsw.TypedJsObject {
         eventSink.add(transformEvent == null ? e : transformEvent(e));
       });
       _addEventListener(eventType, handler);
-    }, 
-    unsubscribe: (EventSink eventSink) {
+    },
+     unsubscribe: (EventSink eventSink) {
       _removeEventListener(eventType, handler);
     }
     );

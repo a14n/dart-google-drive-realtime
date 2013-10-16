@@ -16,7 +16,8 @@ part of google_drive_realtime;
 
 class ReferenceShiftedEvent extends BaseModelEvent {
   static ReferenceShiftedEvent cast(js.JsObject jsObject) => jsObject == null ? null : new ReferenceShiftedEvent.fromJsObject(jsObject);
-  ReferenceShiftedEvent.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
+  ReferenceShiftedEvent.fromJsObject(js.JsObject jsObject)
+      : super.fromJsObject(jsObject);
   int get newIndex => $unsafe['newIndex'];
   int get oldIndex => $unsafe['oldIndex'];
 }

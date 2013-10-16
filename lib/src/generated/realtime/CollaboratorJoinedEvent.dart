@@ -16,7 +16,8 @@ part of google_drive_realtime;
 
 class CollaboratorJoinedEvent extends jsw.TypedJsObject {
   static CollaboratorJoinedEvent cast(js.JsObject jsObject) => jsObject == null ? null : new CollaboratorJoinedEvent.fromJsObject(jsObject);
-  CollaboratorJoinedEvent.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
+  CollaboratorJoinedEvent.fromJsObject(js.JsObject jsObject)
+      : super.fromJsObject(jsObject);
   static CollaboratorJoinedEvent deserialize(Document source, dynamic serialized) => CollaboratorJoinedEvent.cast(js.context['CollaboratorJoinedEvent'].deserialize(source, serialized));
   Collaborator get collaborator => Collaborator.cast($unsafe['collaborator']);
 }

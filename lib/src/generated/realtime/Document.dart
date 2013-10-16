@@ -20,7 +20,8 @@ class Document extends EventTarget {
   jsw.SubscribeStreamProvider<CollaboratorJoinedEvent> _onCollaboratorJoined;
   jsw.SubscribeStreamProvider<DocumentSaveStateChangedEvent> _onDocumentSaveStateChanged;
 
-  Document.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
+  Document.fromJsObject(js.JsObject jsObject)
+      : super.fromJsObject(jsObject) {
     _onCollaboratorLeft = _getStreamProviderFor(EventType.COLLABORATOR_LEFT, CollaboratorLeftEvent.cast);
     _onCollaboratorJoined = _getStreamProviderFor(EventType.COLLABORATOR_JOINED, CollaboratorJoinedEvent.cast);
     _onDocumentSaveStateChanged = _getStreamProviderFor(EventType.DOCUMENT_SAVE_STATE_CHANGED, DocumentSaveStateChangedEvent.cast);

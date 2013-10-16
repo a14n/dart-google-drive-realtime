@@ -27,5 +27,6 @@ class ErrorType extends jsw.IsEnum<String> {
 
   static ErrorType find(o) => _FINDER.find(o);
 
-  ErrorType._(String value) : super(value);
+  ErrorType._(String value)
+      : super(value);
 }

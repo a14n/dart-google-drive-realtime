@@ -16,5 +16,6 @@ part of google_drive_realtime;
 
 class DocumentClosedError extends jsw.TypedJsObject {
   static DocumentClosedError cast(js.JsObject jsObject) => jsObject == null ? null : new DocumentClosedError.fromJsObject(jsObject);
-  DocumentClosedError.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
+  DocumentClosedError.fromJsObject(js.JsObject jsObject)
+      : super.fromJsObject(jsObject);
 }

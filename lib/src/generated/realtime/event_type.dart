@@ -32,5 +32,6 @@ class EventType extends jsw.IsEnum<String> {
 
   static EventType find(o) => _FINDER.find(o);
 
-  EventType._(String value) : super(value);
+  EventType._(String value)
+      : super(value);
 }

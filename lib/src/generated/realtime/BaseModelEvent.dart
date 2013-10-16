@@ -16,7 +16,8 @@ part of google_drive_realtime;
 
 class BaseModelEvent extends jsw.TypedJsObject {
   static BaseModelEvent cast(js.JsObject jsObject) => jsObject == null ? null : new BaseModelEvent.fromJsObject(jsObject);
-  BaseModelEvent.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
+  BaseModelEvent.fromJsObject(js.JsObject jsObject)
+      : super.fromJsObject(jsObject);
   bool get bubbles => $unsafe['bubbles'];
   bool get isLocal => $unsafe['isLocal'];
   String get sessionId => $unsafe['sessionId'];
