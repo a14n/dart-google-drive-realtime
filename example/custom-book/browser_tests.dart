@@ -1,5 +1,4 @@
 import 'dart:html';
-import 'dart:async';
 
 import 'package:js/js.dart' as js;
 import 'package:js/js_wrapping.dart' as jsw;
@@ -9,7 +8,7 @@ import 'package:google_drive_realtime/google_drive_realtime_custom.dart' as rtc;
 class Book extends rt.CollaborativeObject {
   static const NAME = 'Book';
   static void registerType() {
-    js.context.Book = new js.Callback.many((){});
+    js.context.Book = (){};
     rtc.registerType(js.context.Book, NAME);
     js.context.Book.prototype.title = rtc.collaborativeField('title');
     js.context.Book.prototype.author = rtc.collaborativeField('author');
@@ -49,7 +48,6 @@ initializeModel(js.Proxy modelProxy) {
 onFileLoaded(docProxy) {
   var doc = rt.Document.cast(docProxy);
   var book = Book.cast(doc.model.root['book']);
-  js.retain(book);
 
   // collaborators listener
   doc.onCollaboratorJoined.listen((rt.CollaboratorJoinedEvent e){
@@ -96,7 +94,7 @@ get realtimeOptions => js.map({
    /**
   * Function to be called when a Realtime model is first created.
   */
-   'initializeModel': new js.Callback.once(initializeModel),
+   'initializeModel': initializeModel,
 
    /**
   * Autocreate files right after auth automatically.
@@ -111,13 +109,13 @@ get realtimeOptions => js.map({
    /**
   * Function to be called every time a Realtime file is loaded.
   */
-   'onFileLoaded': new js.Callback.many(onFileLoaded)
+   'onFileLoaded': onFileLoaded
 });
 
 
 main() {
   var realtimeLoader = new js.Proxy(js.context.rtclient.RealtimeLoader, realtimeOptions);
-  realtimeLoader.start(new js.Callback.once((){
+  realtimeLoader.start((){
     Book.registerType();
-  }));
+  });
 }

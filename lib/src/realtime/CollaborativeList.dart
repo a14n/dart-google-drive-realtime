@@ -59,33 +59,9 @@ class CollaborativeList<E> extends CollaborativeObject /* with ListMixin<E> */ {
   @deprecated void set(int index, E value) { $unsafe.set(index, _toJs(value)); }
 
   List<E> asArray() => jsw.JsArrayToListAdapter.cast($unsafe.asArray(), _translator);
-  int indexOf(E value, [Comparator comparator]) {
-    js.Callback comparatorCallback = null;
-    if (comparator != null) {
-      comparatorCallback = new js.Callback.many(comparator);
-    }
-    try {
-      return $unsafe.indexOf(_toJs(value), comparatorCallback);
-    } finally {
-      if (comparatorCallback != null) {
-        comparatorCallback.dispose();
-      }
-    }
-  }
+  int indexOf(E value, [Comparator comparator]) => $unsafe.indexOf(_toJs(value), comparator);
   void insertAll(int index, List<E> values) { $unsafe.insertAll(index, values is js.Serializable<js.Proxy> ? values : js.array(values.map(_toJs))); }
-  int lastIndexOf(E value, [Comparator comparator]) {
-    js.Callback comparatorCallback = null;
-    if (comparator != null) {
-      comparatorCallback = new js.Callback.many(comparator);
-    }
-    try {
-      return $unsafe.lastIndexOf(_toJs(value), comparatorCallback);
-    } finally {
-      if (comparatorCallback != null) {
-        comparatorCallback.dispose();
-      }
-    }
-  }
+  int lastIndexOf(E value, [Comparator comparator]) => $unsafe.lastIndexOf(_toJs(value), comparator);
   void pushAll(List<E> values) { $unsafe.pushAll(values is js.Serializable<js.Proxy> ? values : js.array(values.map(_toJs))); }
   void replaceRange(int index, List<E> values) { $unsafe.replaceRange(index, values is js.Serializable<js.Proxy> ? values : js.array(values.map(_toJs))); }
 

@@ -42,7 +42,6 @@ onFileLoaded(docProxy) {
   });
   string.onTextInserted.listen(updateTextArea2);
   string.onTextDeleted.listen(updateTextArea2);
-  js.retain(string);
   textArea2.onKeyUp.listen((e) {
     string.text = textArea2.value;
   });
@@ -70,7 +69,7 @@ get realtimeOptions => js.map({
    /**
   * Function to be called when a Realtime model is first created.
   */
-   'initializeModel': new js.Callback.once(initializeModel),
+   'initializeModel': initializeModel,
 
    /**
   * Autocreate files right after auth automatically.
@@ -85,7 +84,7 @@ get realtimeOptions => js.map({
    /**
   * Function to be called every time a Realtime file is loaded.
   */
-   'onFileLoaded': new js.Callback.many(onFileLoaded)
+   'onFileLoaded': onFileLoaded
 });
 
 /**

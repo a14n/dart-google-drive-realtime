@@ -23,24 +23,16 @@ class EventTarget extends jsw.TypedProxy {
   void _removeEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.removeEventListener(type, handler, capture);
 
   SubscribeStreamProvider _getStreamProviderFor(EventType eventType, [transformEvent(e)]) {
-    js.Callback handler;
-    // TODO remove jsFunction when https://github.com/dart-lang/js-interop/issues/95 is fixed
-    js.FunctionProxy jsFunction;
+    Function handler;
     return new SubscribeStreamProvider(
         subscribe: (EventSink eventSink) {
-          handler = new js.Callback.many((e) {
+          handler = (e) {
             eventSink.add(transformEvent == null ? e : transformEvent(e));
-          });
-          js.context['hackForJsInterop95'] = handler;
-          jsFunction = js.context['hackForJsInterop95'];
-          js.retain(jsFunction);
-          js.deleteProperty(js.context, "hackForJsInterop95");
-          _addEventListener(eventType, /*handler */ jsFunction);
+          };
+          _addEventListener(eventType, handler);
         },
         unsubscribe: (EventSink eventSink) {
-          _removeEventListener(eventType, /*handler */ jsFunction);
-          js.release(jsFunction);
-          handler.dispose();
+          _removeEventListener(eventType, handler);
         }
     );
   }

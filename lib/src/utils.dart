@@ -17,7 +17,6 @@ library utils;
 import 'dart:async';
 
 import 'package:js/js.dart' as js;
-import 'package:meta/meta.dart';
 
 // utility to get js.Proxy even if out of scope
 dynamic findIn(List elements, Object o) => elements.firstWhere((e) => e == o, orElse: () => null);
@@ -62,6 +61,6 @@ class SubscribeStreamProvider<T> implements EventSink<T> {
   }
 
   void add(T event) => _controllers.toList().forEach((controller) => controller.add(event));
-  void addError(errorEvent) => _controllers.toList().forEach((controller) => controller.addError(errorEvent));
+  void addError(errorEvent, [StackTrace stackTrace]) => _controllers.toList().forEach((controller) => controller.addError(errorEvent, stackTrace));
   void close() => _controllers.toList().forEach((controller) => controller.close());
 }

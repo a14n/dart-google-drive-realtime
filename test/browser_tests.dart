@@ -14,7 +14,6 @@ initializeModel(js.Proxy modelProxy) {
 
 onFileLoaded(docProxy) {
   var doc = rt.Document.cast(docProxy);
-  js.retain(doc);
 
   useHtmlConfiguration();
 
@@ -55,7 +54,6 @@ onFileLoaded(docProxy) {
 
   group('CollaborativeString', () {
     var string = rt.CollaborativeString.cast(doc.model.root['text']);
-    js.retain(string);
     setUp((){
       string.text = 'unittest';
     });
@@ -113,7 +111,6 @@ onFileLoaded(docProxy) {
 
   group('CollaborativeList', () {
     var list = rt.CollaborativeList.cast(doc.model.root['list']);
-    js.retain(list);
     setUp((){
       list.clear();
       list.push('s1');
@@ -194,7 +191,7 @@ get realtimeOptions => js.map({
    /**
   * Function to be called when a Realtime model is first created.
   */
-   'initializeModel': new js.Callback.once(initializeModel),
+   'initializeModel': initializeModel,
 
    /**
   * Autocreate files right after auth automatically.
@@ -209,7 +206,7 @@ get realtimeOptions => js.map({
    /**
   * Function to be called every time a Realtime file is loaded.
   */
-   'onFileLoaded': new js.Callback.many(onFileLoaded)
+   'onFileLoaded': onFileLoaded
 });
 
 

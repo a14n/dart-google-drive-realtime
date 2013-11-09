@@ -24,6 +24,6 @@ import 'google_drive_realtime.dart';
 part 'src/databinding/already_bound_error.dart';
 part 'src/databinding/binding.dart';
 
-final realtimeDatabinding = js.retain(realtime['databinding']);
+final realtimeDatabinding = realtime['databinding'];
 
 Binding bindString(CollaborativeString string, TextInputElement textInputElement) => Binding.cast(realtimeDatabinding.bindString(string, textInputElement));

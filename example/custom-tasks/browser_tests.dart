@@ -14,7 +14,7 @@ class Task extends rt.CollaborativeObject {
    * This method must be call only one time before the document is load.
    */
   static void registerType() {
-    js.context.Task = new js.Callback.many((){});
+    js.context.Task = (){};
     rtc.registerType(js.context.Task, NAME);
     js.context.Task.prototype.title = rtc.collaborativeField('title');
     js.context.Task.prototype.done = rtc.collaborativeField('done');
@@ -49,9 +49,7 @@ initializeModel(js.Proxy modelProxy) {
  */
 onFileLoaded(docProxy) {
   final doc = rt.Document.cast(docProxy);
-  js.retain(doc);
   final rt.CollaborativeList<Task> tasks = rt.CollaborativeList.castListOfSerializables(doc.model.root['tasks'], Task.cast);
-  js.retain(tasks);
 
   // collaborators listener
   doc.onCollaboratorJoined.listen((rt.CollaboratorJoinedEvent e){
@@ -110,7 +108,7 @@ get realtimeOptions => js.map({
    /**
   * Function to be called when a Realtime model is first created.
   */
-   'initializeModel': new js.Callback.once(initializeModel),
+   'initializeModel': initializeModel,
 
    /**
   * Autocreate files right after auth automatically.
@@ -125,13 +123,13 @@ get realtimeOptions => js.map({
    /**
   * Function to be called every time a Realtime file is loaded.
   */
-   'onFileLoaded': new js.Callback.many(onFileLoaded)
+   'onFileLoaded': onFileLoaded
 });
 
 
 main() {
   var realtimeLoader = new js.Proxy(js.context.rtclient.RealtimeLoader, realtimeOptions);
-  realtimeLoader.start(new js.Callback.once((){
+  realtimeLoader.start((){
     Task.registerType();
-  }));
+  });
 }
