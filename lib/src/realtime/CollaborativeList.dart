@@ -36,6 +36,7 @@ class CollaborativeList<E> extends CollaborativeObject /* with ListMixin<E> */ {
   E _fromJs(dynamic value) => _translator == null ? value : _translator.fromJs(value);
 
   /*@override*/ int get length => $unsafe['length'];
+  set length(int l) => $unsafe['length'] = l;
 
   /*@override*/ E operator [](int index) {
     if (index < 0 || index >= this.length) throw new RangeError.value(index);
