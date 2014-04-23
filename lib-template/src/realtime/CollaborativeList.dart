@@ -40,6 +40,7 @@ part of google_drive_realtime;
   }
 
   @generate /*@override*/ int get length => null;
+  @generate set length(int l) => null;
 
   /*@override*/ E operator [](int index) {
     if (index < 0 || index >= this.length) throw new RangeError.value(index);
