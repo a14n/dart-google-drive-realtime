@@ -1,11 +1,11 @@
 import 'dart:html';
-import 'dart:async';
+import 'dart:js' as js;
 
-import 'package:js/js.dart' as js;
 import 'package:google_drive_realtime/google_drive_realtime.dart' as rt;
+import 'package:js_wrapping/js_wrapping.dart' as jsw;
 
-initializeModel(js.Proxy modelProxy) {
-  var model = rt.Model.cast(modelProxy);
+initializeModel(js.JsObject modelJsObject) {
+  var model = rt.Model.$wrap(modelJsObject);
   var string = model.createString('Hello Realtime World!');
   model.root['text'] = string;
 }
@@ -17,9 +17,9 @@ initializeModel(js.Proxy modelProxy) {
  * and bind it to our string model that we created in initializeModel.
  * @param doc {gapi.drive.realtime.Document} the Realtime document.
  */
-onFileLoaded(docProxy) {
-  var doc = rt.Document.cast(docProxy);
-  var string = rt.CollaborativeString.cast(doc.model.root['text']);
+onFileLoaded(docJsObject) {
+  var doc = rt.Document.$wrap(docJsObject);
+  var string = rt.CollaborativeString.$wrap(doc.model.root['text']);
 
   doc.onCollaboratorJoined.listen((rt.CollaboratorJoinedEvent e){
     print("user joined : ${e.collaborator.displayName}");
@@ -30,7 +30,7 @@ onFileLoaded(docProxy) {
 
   // Keeping one box updated with a String binder.
   final TextAreaElement textArea1 = document.getElementById('editor1');
-  js.context.gapi.drive.realtime.databinding.bindString(string, textArea1);
+  js.context['gapi']['drive']['realtime']['databinding'].callMethod('bindString', [string, textArea1]);
 
   // Keeping one box updated with a custom EventListener.
   final TextAreaElement textArea2 = document.getElementById('editor2');
@@ -55,7 +55,7 @@ onFileLoaded(docProxy) {
 /**
  * Options for the Realtime loader.
  */
-get realtimeOptions => js.map({
+get realtimeOptions => jsw.jsify({
    /**
   * Client ID from the APIs Console.
   */
@@ -91,8 +91,8 @@ get realtimeOptions => js.map({
  * Start the Realtime loader with the options.
  */
 startRealtime() {
-  var realtimeLoader = new js.Proxy(js.context.rtclient.RealtimeLoader, realtimeOptions);
-  realtimeLoader.start();
+  var realtimeLoader = new js.JsObject(js.context['rtclient']['RealtimeLoader'], [realtimeOptions]);
+  realtimeLoader.callMethod('start');
 }
 
 main() {

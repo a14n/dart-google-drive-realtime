@@ -12,19 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library google_drive_realtime_databinding;
+part of google_drive_realtime;
 
-import 'dart:html';
+@wrapper @skipConstructor abstract class IndexReference extends CollaborativeObject {
+  jsw.SubscribeStreamProvider<ReferenceShiftedEvent> _onReferenceShifted;
 
-import 'dart:js' as js;
+  IndexReference.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
+    _onReferenceShifted = _getStreamProviderFor(EventType.REFERENCE_SHIFTED, ReferenceShiftedEvent.$wrap);
+  }
 
-import 'package:js_wrapping/js_wrapping.dart' as jsw;
+  bool get canBeDeleted;
+  int get index;
+  CollaborativeObject get referencedObject;
 
-import 'google_drive_realtime.dart';
-
-part 'src/generated/databinding/already_bound_error.dart';
-part 'src/generated/databinding/binding.dart';
-
-final realtimeDatabinding = realtime['databinding'];
-
-Binding bindString(CollaborativeString string, TextInputElement textInputElement) => Binding.$wrap(realtimeDatabinding.bindString(string, textInputElement));
+  Stream<ReferenceShiftedEvent> get onReferenceShifted => _onReferenceShifted.stream;
+}

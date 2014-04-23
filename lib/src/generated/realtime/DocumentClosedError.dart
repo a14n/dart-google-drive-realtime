@@ -12,19 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library google_drive_realtime_databinding;
+part of google_drive_realtime;
 
-import 'dart:html';
-
-import 'dart:js' as js;
-
-import 'package:js_wrapping/js_wrapping.dart' as jsw;
-
-import 'google_drive_realtime.dart';
-
-part 'src/generated/databinding/already_bound_error.dart';
-part 'src/generated/databinding/binding.dart';
-
-final realtimeDatabinding = realtime['databinding'];
-
-Binding bindString(CollaborativeString string, TextInputElement textInputElement) => Binding.$wrap(realtimeDatabinding.bindString(string, textInputElement));
+class DocumentClosedError extends jsw.TypedJsObject {
+  static DocumentClosedError $wrap(js.JsObject jsObject) => jsObject == null ? null : new DocumentClosedError.fromJsObject(jsObject);
+  DocumentClosedError.fromJsObject(js.JsObject jsObject)
+      : super.fromJsObject(jsObject);
+}

@@ -1,21 +1,26 @@
 import 'dart:async';
+import 'dart:js' as js;
 
-import 'package:js/js.dart' as js;
 import 'package:google_drive_realtime/google_drive_realtime.dart' as rt;
+import 'package:js_wrapping/js_wrapping.dart' as jsw;
 import 'package:unittest/unittest.dart';
 import 'package:unittest/html_config.dart';
-
-initializeModel(js.Proxy modelProxy) {
-  var model = rt.Model.cast(modelProxy);
+var a;
+initializeModel(js.JsObject modelJsObject) {
+  var model = rt.Model.$wrap(modelJsObject);
   model.root['text'] = model.createString('Hello Realtime World!');
   model.root['list'] = model.createList();
   model.root['map'] = model.createMap();
 }
 
-onFileLoaded(docProxy) {
-  var doc = rt.Document.cast(docProxy);
+onFileLoaded(docJsObject) {
+  var doc = rt.Document.$wrap(docJsObject);
 
   useHtmlConfiguration();
+
+  test("initial value", () {
+    expect(rt.CollaborativeString.$wrap(doc.model.root['text']).text, 'Hello Realtime World!');
+  });
 
   group('Undo', () {
     test("start undo state", () {
@@ -23,7 +28,7 @@ onFileLoaded(docProxy) {
       expect(doc.model.canRedo, false);
     });
     test('undo state after change', () {
-      doc.model.root['text'].setText('redid');
+      rt.CollaborativeString.$wrap(doc.model.root['text']).text = 'redid';
       expect(doc.model.canUndo, true);
       expect(doc.model.canRedo, false);
     });
@@ -33,7 +38,7 @@ onFileLoaded(docProxy) {
       expect(doc.model.canRedo, true);
     });
     test('string state after undo', () {
-      expect(doc.model.root['text'].getText(), 'Hello Realtime World!');
+      expect(rt.CollaborativeString.$wrap(doc.model.root['text']).text, 'Hello Realtime World!');
     });
     test('string state after redo and event/model state matching', () {
       StreamSubscription ssUndo;
@@ -47,13 +52,13 @@ onFileLoaded(docProxy) {
         ssUndo.cancel();
       }));
       doc.model.redo();
-      expect(doc.model.root['text'].getText(), 'redid');
+      expect(rt.CollaborativeString.$wrap(doc.model.root['text']).text, 'redid');
       doc.model.undo();
     });
   });
 
   group('CollaborativeString', () {
-    var string = rt.CollaborativeString.cast(doc.model.root['text']);
+    var string = rt.CollaborativeString.$wrap(doc.model.root['text']);
     setUp((){
       string.text = 'unittest';
     });
@@ -110,7 +115,7 @@ onFileLoaded(docProxy) {
   });
 
   group('CollaborativeList', () {
-    var list = rt.CollaborativeList.cast(doc.model.root['list']);
+    var list = rt.CollaborativeList.$wrap(doc.model.root['list']);
     setUp((){
       list.clear();
       list.push('s1');
@@ -177,7 +182,7 @@ onFileLoaded(docProxy) {
 /**
  * Options for the Realtime loader.
  */
-get realtimeOptions => js.map({
+get realtimeOptions => jsw.jsify({
    /**
   * Client ID from the APIs Console.
   */
@@ -211,6 +216,6 @@ get realtimeOptions => js.map({
 
 
 main() {
-  var realtimeLoader = new js.Proxy(js.context.rtclient.RealtimeLoader, realtimeOptions);
-  realtimeLoader.start();
+  var realtimeLoader = new js.JsObject(js.context['rtclient']['RealtimeLoader'], [realtimeOptions]);
+  realtimeLoader.callMethod('start');
 }

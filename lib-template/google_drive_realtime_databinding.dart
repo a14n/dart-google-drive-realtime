@@ -15,15 +15,15 @@
 library google_drive_realtime_databinding;
 
 import 'dart:html';
-
 import 'dart:js' as js;
 
 import 'package:js_wrapping/js_wrapping.dart' as jsw;
+import 'package:js_wrapping_generator/dart_generator.dart';
 
 import 'google_drive_realtime.dart';
 
-part 'src/generated/databinding/already_bound_error.dart';
-part 'src/generated/databinding/binding.dart';
+part 'src/databinding/already_bound_error.dart';
+part 'src/databinding/binding.dart';
 
 final realtimeDatabinding = realtime['databinding'];
 

@@ -12,19 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library google_drive_realtime_databinding;
+part of google_drive_realtime;
 
-import 'dart:html';
-
-import 'dart:js' as js;
-
-import 'package:js_wrapping/js_wrapping.dart' as jsw;
-
-import 'google_drive_realtime.dart';
-
-part 'src/generated/databinding/already_bound_error.dart';
-part 'src/generated/databinding/binding.dart';
-
-final realtimeDatabinding = realtime['databinding'];
-
-Binding bindString(CollaborativeString string, TextInputElement textInputElement) => Binding.$wrap(realtimeDatabinding.bindString(string, textInputElement));
+@wrapper abstract class Collaborator extends jsw.TypedJsObject {
+  String get color;
+  String get displayName;
+  bool get isAnonymous;
+  bool get isMe;
+  String get photoUrl;
+  String get sessionId;
+  String get userId;
+}

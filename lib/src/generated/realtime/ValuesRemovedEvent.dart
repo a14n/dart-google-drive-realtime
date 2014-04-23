@@ -12,19 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library google_drive_realtime_databinding;
+part of google_drive_realtime;
 
-import 'dart:html';
-
-import 'dart:js' as js;
-
-import 'package:js_wrapping/js_wrapping.dart' as jsw;
-
-import 'google_drive_realtime.dart';
-
-part 'src/generated/databinding/already_bound_error.dart';
-part 'src/generated/databinding/binding.dart';
-
-final realtimeDatabinding = realtime['databinding'];
-
-Binding bindString(CollaborativeString string, TextInputElement textInputElement) => Binding.$wrap(realtimeDatabinding.bindString(string, textInputElement));
+class ValuesRemovedEvent extends BaseModelEvent {
+  static ValuesRemovedEvent $wrap(js.JsObject jsObject) => jsObject == null ? null : new ValuesRemovedEvent.fromJsObject(jsObject);
+  ValuesRemovedEvent.fromJsObject(js.JsObject jsObject)
+      : super.fromJsObject(jsObject);
+  int get index => $unsafe['index'];
+  List<dynamic> get values => jsw.TypedJsArray.$wrap($unsafe['values']);
+}

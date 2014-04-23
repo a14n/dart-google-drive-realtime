@@ -19,8 +19,6 @@ import 'dart:js' as js;
 import 'package:js_wrapping/js_wrapping.dart' as jsw;
 import 'package:google_drive_realtime/google_drive_realtime.dart';
 
-import 'google_drive_realtime.dart';
-
 final realtimeCustom = realtime['custom'];
 
 dynamic collaborativeField(String name) => realtimeCustom.collaborativeField(name);

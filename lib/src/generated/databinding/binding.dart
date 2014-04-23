@@ -12,19 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library google_drive_realtime_databinding;
+part of google_drive_realtime_databinding;
 
-import 'dart:html';
+class Binding extends jsw.TypedJsObject {
+  static Binding $wrap(js.JsObject jsObject) => jsObject == null ? null : new Binding.fromJsObject(jsObject);
+  Binding.fromJsObject(js.JsObject jsObject)
+      : super.fromJsObject(jsObject);
+  CollaborativeObject get collaborativeObject => CollaborativeObject.$wrap($unsafe['collaborativeObject']);
+  Element get domElement => $unsafe['domElement'];
 
-import 'dart:js' as js;
-
-import 'package:js_wrapping/js_wrapping.dart' as jsw;
-
-import 'google_drive_realtime.dart';
-
-part 'src/generated/databinding/already_bound_error.dart';
-part 'src/generated/databinding/binding.dart';
-
-final realtimeDatabinding = realtime['databinding'];
-
-Binding bindString(CollaborativeString string, TextInputElement textInputElement) => Binding.$wrap(realtimeDatabinding.bindString(string, textInputElement));
+  void unbind() {
+    $unsafe.callMethod('unbind');
+  }
+}

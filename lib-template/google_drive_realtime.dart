@@ -19,38 +19,39 @@ import 'dart:collection';
 import 'dart:js' as js;
 
 import 'package:js_wrapping/js_wrapping.dart' as jsw;
+import 'package:js_wrapping_generator/dart_generator.dart';
 
-part 'src/generated/realtime/BaseModelEvent.dart';
-part 'src/generated/realtime/CollaborativeList.dart';
-part 'src/generated/realtime/CollaborativeMap.dart';
-part 'src/generated/realtime/CollaborativeObject.dart';
-part 'src/generated/realtime/CollaborativeString.dart';
-part 'src/generated/realtime/Collaborator.dart';
-part 'src/generated/realtime/CollaboratorJoinedEvent.dart';
-part 'src/generated/realtime/CollaboratorLeftEvent.dart';
-part 'src/generated/realtime/Document.dart';
-part 'src/generated/realtime/DocumentClosedError.dart';
-part 'src/generated/realtime/DocumentSaveStateChangedEvent.dart';
-part 'src/generated/realtime/Error.dart';
-part 'src/generated/realtime/EventTarget.dart';
-part 'src/generated/realtime/IndexReference.dart';
-part 'src/generated/realtime/Model.dart';
-part 'src/generated/realtime/ObjectChangedEvent.dart';
-part 'src/generated/realtime/ReferenceShiftedEvent.dart';
-part 'src/generated/realtime/TextDeletedEvent.dart';
-part 'src/generated/realtime/TextInsertedEvent.dart';
-part 'src/generated/realtime/ValueChangedEvent.dart';
-part 'src/generated/realtime/ValuesAddedEvent.dart';
-part 'src/generated/realtime/ValuesRemovedEvent.dart';
-part 'src/generated/realtime/ValuesSetEvent.dart';
-part 'src/generated/realtime/UndoRedoStateChangedEvent.dart';
-part 'src/generated/realtime/error_type.dart';
-part 'src/generated/realtime/event_type.dart';
+part 'src/realtime/BaseModelEvent.dart';
+part 'src/realtime/CollaborativeList.dart';
+part 'src/realtime/CollaborativeMap.dart';
+part 'src/realtime/CollaborativeObject.dart';
+part 'src/realtime/CollaborativeString.dart';
+part 'src/realtime/Collaborator.dart';
+part 'src/realtime/CollaboratorJoinedEvent.dart';
+part 'src/realtime/CollaboratorLeftEvent.dart';
+part 'src/realtime/Document.dart';
+part 'src/realtime/DocumentClosedError.dart';
+part 'src/realtime/DocumentSaveStateChangedEvent.dart';
+part 'src/realtime/Error.dart';
+part 'src/realtime/EventTarget.dart';
+part 'src/realtime/IndexReference.dart';
+part 'src/realtime/Model.dart';
+part 'src/realtime/ObjectChangedEvent.dart';
+part 'src/realtime/ReferenceShiftedEvent.dart';
+part 'src/realtime/TextDeletedEvent.dart';
+part 'src/realtime/TextInsertedEvent.dart';
+part 'src/realtime/UndoRedoStateChangedEvent.dart';
+part 'src/realtime/ValueChangedEvent.dart';
+part 'src/realtime/ValuesAddedEvent.dart';
+part 'src/realtime/ValuesRemovedEvent.dart';
+part 'src/realtime/ValuesSetEvent.dart';
+part 'src/realtime/error_type.dart';
+part 'src/realtime/event_type.dart';
 
 // js.Proxy for "gapi.drive.realtime"
 final realtime = js.context['gapi']['drive']['realtime'];
 
-String get token => realtime.callMethod('getToken');
+String get token => realtime.getToken();
 
 Future<Document> load(String docId, [void initializerFn(Model model), void errorFn(Error error)]) {
   final completer = new Completer.sync();
@@ -71,6 +72,3 @@ Future<Document> loadAppDataDocument([void initializerFn(Model model), void erro
   );
   return completer.future;
 }
-
-
-

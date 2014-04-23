@@ -1,39 +1,39 @@
 import 'dart:html';
+import 'dart:js' as js;
 
-import 'package:js/js.dart' as js;
-import 'package:js/js_wrapping.dart' as jsw;
 import 'package:google_drive_realtime/google_drive_realtime.dart' as rt;
 import 'package:google_drive_realtime/google_drive_realtime_custom.dart' as rtc;
+import 'package:js_wrapping/js_wrapping.dart' as jsw;
 
 class Book extends rt.CollaborativeObject {
   static const NAME = 'Book';
   static void registerType() {
-    js.context.Book = (){};
-    rtc.registerType(js.context.Book, NAME);
-    js.context.Book.prototype.title = rtc.collaborativeField('title');
-    js.context.Book.prototype.author = rtc.collaborativeField('author');
-    js.context.Book.prototype.isbn = rtc.collaborativeField('isbn');
-    js.context.Book.prototype.isCheckedOut = rtc.collaborativeField('isCheckedOut');
-    js.context.Book.prototype.reviews = rtc.collaborativeField('reviews');
+    js.context['Book'] = (){};
+    rtc.registerType(js.context['Book'], NAME);
+    js.context['Book']['prototype']['title'] = rtc.collaborativeField('title');
+    js.context['Book']['prototype']['author'] = rtc.collaborativeField('author');
+    js.context['Book']['prototype']['isbn'] = rtc.collaborativeField('isbn');
+    js.context['Book']['prototype']['isCheckedOut'] = rtc.collaborativeField('isCheckedOut');
+    js.context['Book']['prototype']['reviews'] = rtc.collaborativeField('reviews');
   }
-  static Book cast(js.Proxy proxy) => proxy == null ? null : new Book.fromProxy(proxy);
+  static Book cast(js.JsObject proxy) => proxy == null ? null : new Book.fromJsObject(proxy);
 
-  Book.fromProxy(js.Proxy proxy) : super.fromProxy(proxy);
+  Book.fromJsObject(js.JsObject proxy) : super.fromJsObject(proxy);
 
-  String get title => $unsafe.title;
-  String get author => $unsafe.author;
-  String get isbn => $unsafe.isbn;
-  bool get isCheckedOut => $unsafe.isCheckedOut;
-  String get reviews => $unsafe.reviews;
-  set title(String title) => $unsafe.title = title;
-  set author(String author) => $unsafe.author = author;
-  set isbn(String isbn) => $unsafe.isbn = isbn;
-  set isCheckedOut(bool isCheckedOut) => $unsafe.isCheckedOut = isCheckedOut;
-  set reviews(String reviews) => $unsafe.reviews = reviews;
+  String get title => $unsafe['title'];
+  String get author => $unsafe['author'];
+  String get isbn => $unsafe['isbn'];
+  bool get isCheckedOut => $unsafe['isCheckedOut'];
+  String get reviews => $unsafe['reviews'];
+  set title(String title) => $unsafe['title'] = title;
+  set author(String author) => $unsafe['author'] = author;
+  set isbn(String isbn) => $unsafe['isbn'] = isbn;
+  set isCheckedOut(bool isCheckedOut) => $unsafe['isCheckedOut'] = isCheckedOut;
+  set reviews(String reviews) => $unsafe['reviews'] = reviews;
 }
 
-initializeModel(js.Proxy modelProxy) {
-  var model = rt.Model.cast(modelProxy);
+initializeModel(js.JsObject modelJsObject) {
+  var model = rt.Model.$wrap(modelJsObject);
   var book = model.create(Book.NAME);
   model.root['book'] = book;
 }
@@ -45,8 +45,8 @@ initializeModel(js.Proxy modelProxy) {
  * and bind it to our string model that we created in initializeModel.
  * @param doc {gapi.drive.realtime.Document} the Realtime document.
  */
-onFileLoaded(docProxy) {
-  var doc = rt.Document.cast(docProxy);
+onFileLoaded(docJsObject) {
+  var doc = rt.Document.$wrap(docJsObject);
   var book = Book.cast(doc.model.root['book']);
 
   // collaborators listener
@@ -80,7 +80,7 @@ onFileLoaded(docProxy) {
 /**
  * Options for the Realtime loader.
  */
-get realtimeOptions => js.map({
+get realtimeOptions => jsw.jsify({
    /**
   * Client ID from the APIs Console.
   */
@@ -114,8 +114,6 @@ get realtimeOptions => js.map({
 
 
 main() {
-  var realtimeLoader = new js.Proxy(js.context.rtclient.RealtimeLoader, realtimeOptions);
-  realtimeLoader.start((){
-    Book.registerType();
-  });
+  var realtimeLoader = new js.JsObject(js.context['rtclient']['RealtimeLoader'], [realtimeOptions]);
+  realtimeLoader.callMethod('start', [Book.registerType]);
 }
