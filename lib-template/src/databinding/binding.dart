@@ -15,7 +15,7 @@
 part of google_drive_realtime_databinding;
 
 @wrapper abstract class Binding extends jsw.TypedJsObject {
-  static Binding cast(js.JsObject jsObject) {}
+  static Binding $wrap(js.JsObject jsObject) => null;
 
   CollaborativeObject get collaborativeObject;
   Element get domElement => $unsafe['domElement'];

@@ -15,7 +15,7 @@
 part of google_drive_realtime;
 
 class TextInsertedEvent extends BaseModelEvent {
-  static TextInsertedEvent cast(js.JsObject jsObject) => jsObject == null ? null : new TextInsertedEvent.fromJsObject(jsObject);
+  static TextInsertedEvent $wrap(js.JsObject jsObject) => jsObject == null ? null : new TextInsertedEvent.fromJsObject(jsObject);
   TextInsertedEvent.fromJsObject(js.JsObject jsObject)
       : super.fromJsObject(jsObject);
   int get index => $unsafe['index'];

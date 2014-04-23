@@ -15,35 +15,33 @@
 part of google_drive_realtime;
 
 class CollaborativeMap<V> extends CollaborativeObject implements Map<String, V> {
-  static CollaborativeMap cast(js.JsObject jsObject, [jsw.Translator translator]) => jsObject == null ? null : new CollaborativeMap.fromJsObject(jsObject, translator);
+  static CollaborativeMap $wrap(js.JsObject jsObject, {wrap(js), unwrap(dart)}) => jsObject == null ? null : new CollaborativeMap.fromJsObject(jsObject, wrap: wrap, unwrap: unwrap);
 
-  static CollaborativeMap castMapOfSerializables(js.JsObject jsObject, jsw.Mapper<dynamic, js.Serializable> fromJs, {mapOnlyNotNull: false}) => jsObject == null ? null : new CollaborativeMap.fromJsObject(jsObject, new jsw.TranslatorForSerializable(fromJs, mapOnlyNotNull: mapOnlyNotNull));
+  static CollaborativeMap $wrapSerializables(js.JsObject jsObject, wrap(js)) => jsObject == null ? null : new CollaborativeMap.fromJsObject(jsObject, wrap: wrap, unwrap: jsw.Serializable.$unwrap);
 
-  final jsw.Translator<V> _translator;
+  final jsw.Mapper<V, dynamic> _unwrap;
+  final jsw.Mapper<dynamic, V> _wrap;
 
   jsw.SubscribeStreamProvider<ValueChangedEvent> _onValueChanged;
 
-  CollaborativeMap.fromJsObject(js.JsObject jsObject, [jsw.Translator<V> translator])
-      : this._translator = translator,
+  CollaborativeMap.fromJsObject(js.JsObject jsObject, {jsw.Mapper<dynamic, V> wrap, jsw.Mapper<V, dynamic> unwrap})
+      : _wrap = ((e) => wrap == null ? e : wrap(e)),
+        _unwrap = ((e) => unwrap == null ? e : unwrap(e)),
         super.fromJsObject(jsObject) {
-    _onValueChanged = _getStreamProviderFor(EventType.VALUE_CHANGED, ValueChangedEvent.cast);
+    _onValueChanged = _getStreamProviderFor(EventType.VALUE_CHANGED, ValueChangedEvent.$wrap);
   }
-
-  dynamic _toJs(V e) => _translator == null ? e : _translator.toJs(e);
-  V _fromJs(dynamic value) => _translator == null ? value :
-      _translator.fromJs(value);
 
   @override int get length => $unsafe['size'];
   /// deprecated : use `xxx.length`
   @deprecated int get size => length;
 
-  @override V operator [](String key) => _fromJs($unsafe.callMethod('get', [key]));
+  @override V operator [](String key) => _wrap($unsafe.callMethod('get', [key]));
   @override void operator []=(String key, V value) {
-    $unsafe.callMethod('set', [key, _toJs(value)]);
+    $unsafe.callMethod('set', [key, _unwrap(value)]);
   }
 
   void clear() { $unsafe.callMethod('clear'); }
-  @override V remove(String key) => _fromJs($unsafe.callMethod('delete', [key]));
+  @override V remove(String key) => _wrap($unsafe.callMethod('delete', [key]));
   /// deprecated : use `xxx.remove(key)`
   @deprecated V delete(String key) => remove(key);
   /// deprecated : use `xxx[key]`
@@ -52,11 +50,11 @@ class CollaborativeMap<V> extends CollaborativeObject implements Map<String, V> 
   /// deprecated : use `xxx.containsKey(key)`
   @deprecated bool has(String key) => containsKey(key);
   @override bool get isEmpty => $unsafe.callMethod('isEmpty');
-  List<List<V>> get items => jsw.TypedJsArray.castListOfSerializables($unsafe.callMethod('items'), (e) => jsw.TypedJsArray.cast(e, _translator));
-  @override List<String> get keys => jsw.TypedJsArray.cast($unsafe.callMethod('keys'));
+  List<Pair<V>> get items => jsw.TypedJsArray.$wrapSerializables($unsafe.callMethod('items'), (e) => Pair.$wrap(e, wrap: _wrap, unwrap: _unwrap));
+  @override List<String> get keys => jsw.TypedJsArray.$wrap($unsafe.callMethod('keys'));
   /// deprecated : use `xxx[key] = value`
-  @deprecated V set(String key, V value) => _fromJs($unsafe.callMethod('set', [key, _toJs(value)]));
-  @override List<V> get values => jsw.TypedJsArray.cast($unsafe.callMethod('values'), _translator);
+  @deprecated V set(String key, V value) => _wrap($unsafe.callMethod('set', [key, _unwrap(value)]));
+  @override List<V> get values => jsw.TypedJsArray.$wrap($unsafe.callMethod('values'), wrap: _wrap, unwrap: _unwrap);
   @override bool get isNotEmpty => !isEmpty;
   @override void addAll(Map<String, V> other) {
     if (other != null) {
@@ -70,4 +68,21 @@ class CollaborativeMap<V> extends CollaborativeObject implements Map<String, V> 
   @override void forEach(void f(String key, V value)) => Maps.forEach(this, f);
 
   Stream<ValueChangedEvent> get onValueChanged => _onValueChanged.stream;
+}
+
+class Pair<V> extends jsw.TypedJsObject {
+  static Pair $wrap(js.JsObject jsObject, {wrap(js), unwrap(dart)}) => jsObject == null ? null : new Pair.fromJsObject(jsObject, wrap: wrap, unwrap: unwrap);
+
+  final jsw.Mapper<V, dynamic> _unwrap;
+  final jsw.Mapper<dynamic, V> _wrap;
+
+  Pair.fromJsObject(js.JsObject jsObject, {jsw.Mapper<dynamic, V> wrap, jsw.Mapper<V, dynamic> unwrap})
+      : _wrap = ((e) => wrap == null ? e : wrap(e)),
+        _unwrap = ((e) => unwrap == null ? e : unwrap(e)),
+        super.fromJsObject(jsObject);
+
+  set key(String key) => $unsafe[0] = key;
+  String get key => $unsafe[0];
+  set value(V value) => $unsafe[1] = _unwrap(value);
+  V get value => _wrap($unsafe[1]);
 }

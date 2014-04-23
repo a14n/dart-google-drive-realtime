@@ -19,7 +19,6 @@ import 'dart:collection';
 import 'dart:js' as js;
 
 import 'package:js_wrapping/js_wrapping.dart' as jsw;
-import 'package:meta/meta.dart';
 
 part 'src/generated/realtime/BaseModelEvent.dart';
 part 'src/generated/realtime/CollaborativeList.dart';
@@ -56,9 +55,9 @@ String get token => realtime.callMethod('getToken');
 Future<Document> load(String docId, [void initializerFn(Model model), void errorFn(Error error)]) {
   final completer = new Completer.sync();
   realtime.load(docId,
-      (js.JsObject p) => completer.complete(Document.cast(p)),
-      initializerFn == null ? null : (js.JsObject p) => initializerFn(Model.cast(p)),
-      errorFn == null ? null : (js.JsObject p) => errorFn(Error.cast(p))
+      (js.JsObject p) => completer.complete(Document.$wrap(p)),
+      initializerFn == null ? null : (js.JsObject p) => initializerFn(Model.$wrap(p)),
+      errorFn == null ? null : (js.JsObject p) => errorFn(Error.$wrap(p))
   );
   return completer.future;
 }
@@ -66,9 +65,9 @@ Future<Document> load(String docId, [void initializerFn(Model model), void error
 Future<Document> loadAppDataDocument([void initializerFn(Model model), void errorFn(Error error)]) {
   final completer = new Completer.sync();
   realtime.loadAppDataDocument(
-      (js.JsObject p) => completer.complete(Document.cast(p)),
-      initializerFn == null ? null : (js.JsObject p) => initializerFn(Model.cast(p)),
-      errorFn == null ? null : (js.JsObject p) => errorFn(Error.cast(p))
+      (js.JsObject p) => completer.complete(Document.$wrap(p)),
+      initializerFn == null ? null : (js.JsObject p) => initializerFn(Model.$wrap(p)),
+      errorFn == null ? null : (js.JsObject p) => errorFn(Error.$wrap(p))
   );
   return completer.future;
 }

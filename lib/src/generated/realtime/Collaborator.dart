@@ -15,7 +15,7 @@
 part of google_drive_realtime;
 
 class Collaborator extends jsw.TypedJsObject {
-  static Collaborator cast(js.JsObject jsObject) => jsObject == null ? null : new Collaborator.fromJsObject(jsObject);
+  static Collaborator $wrap(js.JsObject jsObject) => jsObject == null ? null : new Collaborator.fromJsObject(jsObject);
   Collaborator.fromJsObject(js.JsObject jsObject)
       : super.fromJsObject(jsObject);
   String get color => $unsafe['color'];

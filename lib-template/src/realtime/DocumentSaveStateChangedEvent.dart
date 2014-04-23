@@ -15,7 +15,8 @@
 part of google_drive_realtime;
 
 @wrapper abstract class DocumentSaveStateChangedEvent extends jsw.TypedJsObject {
-  static DocumentSaveStateChangedEvent cast(js.JsObject jsObject) {}
+  static DocumentSaveStateChangedEvent $wrap(js.JsObject jsObject) => null;
+
   bool get isPending;
   bool get isSaving;
 }

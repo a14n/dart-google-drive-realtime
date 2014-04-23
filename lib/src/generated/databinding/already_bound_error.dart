@@ -15,7 +15,7 @@
 part of google_drive_realtime_databinding;
 
 class AlreadyBoundError extends jsw.TypedJsObject {
-  static AlreadyBoundError cast(js.JsObject jsObject) => jsObject == null ? null : new AlreadyBoundError.fromJsObject(jsObject);
+  static AlreadyBoundError $wrap(js.JsObject jsObject) => jsObject == null ? null : new AlreadyBoundError.fromJsObject(jsObject);
   AlreadyBoundError.fromJsObject(js.JsObject jsObject)
       : super.fromJsObject(jsObject);
   Element get domElement => $unsafe['domElement'];

@@ -15,12 +15,12 @@
 part of google_drive_realtime;
 
 class Model extends EventTarget {
-  static Model cast(js.JsObject jsObject) => jsObject == null ? null : new Model.fromJsObject(jsObject);
+  static Model $wrap(js.JsObject jsObject) => jsObject == null ? null : new Model.fromJsObject(jsObject);
   jsw.SubscribeStreamProvider<UndoRedoStateChangedEvent> _onUndoRedoStateChanged;
 
   Model.fromJsObject(js.JsObject jsObject)
       : super.fromJsObject(jsObject) {
-    _onUndoRedoStateChanged = _getStreamProviderFor(EventType.UNDO_REDO_STATE_CHANGED, UndoRedoStateChangedEvent.cast);
+    _onUndoRedoStateChanged = _getStreamProviderFor(EventType.UNDO_REDO_STATE_CHANGED, UndoRedoStateChangedEvent.$wrap);
   }
 
   bool get isReadOnly => $unsafe['isReadOnly'];
@@ -33,7 +33,7 @@ class Model extends EventTarget {
   void endCompoundOperation() {
     $unsafe.callMethod('endCompoundOperation');
   }
-  CollaborativeMap get root => CollaborativeMap.cast($unsafe.callMethod('getRoot'));
+  CollaborativeMap get root => CollaborativeMap.$wrap($unsafe.callMethod('getRoot'), unwrap: jsw.mayUnwrap);
   bool get isInitialized => $unsafe.callMethod('isInitialized');
 
   void beginCompoundOperation([String name]) {
@@ -41,11 +41,11 @@ class Model extends EventTarget {
   }
   CollaborativeObject create(dynamic /*function(*)|string*/ ref, [List args = const []]) {
     final params = [ref]..addAll(args);
-    return CollaborativeObject.cast($unsafe['create'].apply($unsafe, js.jsify(params)));
+    return CollaborativeObject.$wrap($unsafe['create'].apply($unsafe, jsw.jsify(params)));
   }
-  CollaborativeList createList([List initialValue]) => CollaborativeList.cast($unsafe.callMethod('createList', [initialValue == null ? null : initialValue is js.Serializable ? initialValue : js.jsify(initialValue)]));
-  CollaborativeMap createMap([Map initialValue]) => CollaborativeMap.cast($unsafe.callMethod('createMap', [initialValue == null ? null : initialValue is js.Serializable ? initialValue : js.jsify(initialValue)]));
-  CollaborativeString createString([String initialValue]) => CollaborativeString.cast($unsafe.callMethod('createString', [initialValue]));
+  CollaborativeList createList([List initialValue]) => CollaborativeList.$wrap($unsafe.callMethod('createList', [jsw.jsify(initialValue)]));
+  CollaborativeMap createMap([Map initialValue]) => CollaborativeMap.$wrap($unsafe.callMethod('createMap', [jsw.jsify(initialValue)]), unwrap: jsw.mayUnwrap);
+  CollaborativeString createString([String initialValue]) => CollaborativeString.$wrap($unsafe.callMethod('createString', [initialValue]));
 
   void undo() {
     $unsafe.callMethod('undo');

@@ -2,23 +2,24 @@ import 'dart:async';
 import 'dart:js' as js;
 
 import 'package:google_drive_realtime/google_drive_realtime.dart' as rt;
+import 'package:js_wrapping/js_wrapping.dart' as jsw;
 import 'package:unittest/unittest.dart';
 import 'package:unittest/html_config.dart';
-
+var a;
 initializeModel(js.JsObject modelJsObject) {
-  var model = rt.Model.cast(modelJsObject);
+  var model = rt.Model.$wrap(modelJsObject);
   model.root['text'] = model.createString('Hello Realtime World!');
   model.root['list'] = model.createList();
   model.root['map'] = model.createMap();
 }
 
 onFileLoaded(docJsObject) {
-  var doc = rt.Document.cast(docJsObject);
+  var doc = rt.Document.$wrap(docJsObject);
 
   useHtmlConfiguration();
 
   test("initial value", () {
-    expect(rt.CollaborativeString.cast(doc.model.root['text']).text, 'Hello Realtime World!');
+    expect(rt.CollaborativeString.$wrap(doc.model.root['text']).text, 'Hello Realtime World!');
   });
 
   group('Undo', () {
@@ -27,7 +28,7 @@ onFileLoaded(docJsObject) {
       expect(doc.model.canRedo, false);
     });
     test('undo state after change', () {
-      rt.CollaborativeString.cast(doc.model.root['text']).text = 'redid';
+      rt.CollaborativeString.$wrap(doc.model.root['text']).text = 'redid';
       expect(doc.model.canUndo, true);
       expect(doc.model.canRedo, false);
     });
@@ -37,7 +38,7 @@ onFileLoaded(docJsObject) {
       expect(doc.model.canRedo, true);
     });
     test('string state after undo', () {
-      expect(rt.CollaborativeString.cast(doc.model.root['text']).text, 'Hello Realtime World!');
+      expect(rt.CollaborativeString.$wrap(doc.model.root['text']).text, 'Hello Realtime World!');
     });
     test('string state after redo and event/model state matching', () {
       StreamSubscription ssUndo;
@@ -51,13 +52,13 @@ onFileLoaded(docJsObject) {
         ssUndo.cancel();
       }));
       doc.model.redo();
-      expect(rt.CollaborativeString.cast(doc.model.root['text']).text, 'redid');
+      expect(rt.CollaborativeString.$wrap(doc.model.root['text']).text, 'redid');
       doc.model.undo();
     });
   });
 
   group('CollaborativeString', () {
-    var string = rt.CollaborativeString.cast(doc.model.root['text']);
+    var string = rt.CollaborativeString.$wrap(doc.model.root['text']);
     setUp((){
       string.text = 'unittest';
     });
@@ -114,7 +115,7 @@ onFileLoaded(docJsObject) {
   });
 
   group('CollaborativeList', () {
-    var list = rt.CollaborativeList.cast(doc.model.root['list']);
+    var list = rt.CollaborativeList.$wrap(doc.model.root['list']);
     setUp((){
       list.clear();
       list.push('s1');
@@ -181,7 +182,7 @@ onFileLoaded(docJsObject) {
 /**
  * Options for the Realtime loader.
  */
-get realtimeOptions => js.jsify({
+get realtimeOptions => jsw.jsify({
    /**
   * Client ID from the APIs Console.
   */

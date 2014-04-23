@@ -1,9 +1,9 @@
-import 'dart:async';
 import 'dart:html';
 import 'dart:js' as js;
 
 import 'package:google_drive_realtime/google_drive_realtime.dart' as rt;
 import 'package:google_drive_realtime/google_drive_realtime_custom.dart' as rtc;
+import 'package:js_wrapping/js_wrapping.dart' as jsw;
 
 class Task extends rt.CollaborativeObject {
   static const NAME = 'Task';
@@ -19,7 +19,7 @@ class Task extends rt.CollaborativeObject {
     js.context['Task']['prototype']['done'] = rtc.collaborativeField('done');
   }
 
-  static Task cast(js.JsObject proxy) => proxy == null ? null : new Task.fromJsObject(proxy);
+  static Task $wrap(js.JsObject proxy) => proxy == null ? null : new Task.fromJsObject(proxy);
 
   /// create new collaborative object from model
   Task(rt.Model model) : this.fromJsObject(model.create(NAME).$unsafe);
@@ -34,7 +34,7 @@ class Task extends rt.CollaborativeObject {
 }
 
 initializeModel(js.JsObject modelJsObject) {
-  var model = rt.Model.cast(modelJsObject);
+  var model = rt.Model.$wrap(modelJsObject);
   var tasks = model.createList();
   model.root['tasks'] = tasks;
 }
@@ -47,8 +47,8 @@ initializeModel(js.JsObject modelJsObject) {
  * @param doc {gapi.drive.realtime.Document} the Realtime document.
  */
 onFileLoaded(docJsObject) {
-  final doc = rt.Document.cast(docJsObject);
-  final rt.CollaborativeList<Task> tasks = rt.CollaborativeList.castListOfSerializables(doc.model.root['tasks'], Task.cast);
+  final doc = rt.Document.$wrap(docJsObject);
+  final rt.CollaborativeList<Task> tasks = rt.CollaborativeList.$wrapSerializables(doc.model.root['tasks'], Task.$wrap);
 
   // collaborators listener
   doc.onCollaboratorJoined.listen((rt.CollaboratorJoinedEvent e){
@@ -93,7 +93,7 @@ onFileLoaded(docJsObject) {
 /**
  * Options for the Realtime loader.
  */
-get realtimeOptions => js.jsify({
+get realtimeOptions => jsw.jsify({
    /**
   * Client ID from the APIs Console.
   */

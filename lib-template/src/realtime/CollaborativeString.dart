@@ -19,8 +19,8 @@ part of google_drive_realtime;
   jsw.SubscribeStreamProvider<TextDeletedEvent> _onTextDeleted;
 
   CollaborativeString.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
-    _onTextInserted = _getStreamProviderFor(EventType.TEXT_INSERTED, TextInsertedEvent.cast);
-    _onTextDeleted = _getStreamProviderFor(EventType.TEXT_DELETED, TextDeletedEvent.cast);
+    _onTextInserted = _getStreamProviderFor(EventType.TEXT_INSERTED, TextInsertedEvent.$wrap);
+    _onTextDeleted = _getStreamProviderFor(EventType.TEXT_DELETED, TextDeletedEvent.$wrap);
   }
 
   int get length;

@@ -15,9 +15,9 @@
 part of google_drive_realtime;
 
 class CollaboratorLeftEvent extends jsw.TypedJsObject {
-  static CollaboratorLeftEvent cast(js.JsObject jsObject) => jsObject == null ? null : new CollaboratorLeftEvent.fromJsObject(jsObject);
+  static CollaboratorLeftEvent $wrap(js.JsObject jsObject) => jsObject == null ? null : new CollaboratorLeftEvent.fromJsObject(jsObject);
   CollaboratorLeftEvent.fromJsObject(js.JsObject jsObject)
       : super.fromJsObject(jsObject);
-  static CollaboratorLeftEvent deserialize(Document source, dynamic serialized) => CollaboratorLeftEvent.cast(js.context['CollaboratorJoined'].deserialize(source, serialized));
-  Collaborator get collaborator => Collaborator.cast($unsafe['collaborator']);
+  static CollaboratorLeftEvent deserialize(Document source, dynamic serialized) => CollaboratorLeftEvent.$wrap(js.context['CollaboratorJoined'].deserialize(source, serialized));
+  Collaborator get collaborator => Collaborator.$wrap($unsafe['collaborator']);
 }

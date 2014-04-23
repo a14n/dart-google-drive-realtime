@@ -15,23 +15,23 @@
 part of google_drive_realtime;
 
 class Document extends EventTarget {
-  static Document cast(js.JsObject jsObject) => jsObject == null ? null : new Document.fromJsObject(jsObject);
+  static Document $wrap(js.JsObject jsObject) => jsObject == null ? null : new Document.fromJsObject(jsObject);
   jsw.SubscribeStreamProvider<CollaboratorLeftEvent> _onCollaboratorLeft;
   jsw.SubscribeStreamProvider<CollaboratorJoinedEvent> _onCollaboratorJoined;
   jsw.SubscribeStreamProvider<DocumentSaveStateChangedEvent> _onDocumentSaveStateChanged;
 
   Document.fromJsObject(js.JsObject jsObject)
       : super.fromJsObject(jsObject) {
-    _onCollaboratorLeft = _getStreamProviderFor(EventType.COLLABORATOR_LEFT, CollaboratorLeftEvent.cast);
-    _onCollaboratorJoined = _getStreamProviderFor(EventType.COLLABORATOR_JOINED, CollaboratorJoinedEvent.cast);
-    _onDocumentSaveStateChanged = _getStreamProviderFor(EventType.DOCUMENT_SAVE_STATE_CHANGED, DocumentSaveStateChangedEvent.cast);
+    _onCollaboratorLeft = _getStreamProviderFor(EventType.COLLABORATOR_LEFT, CollaboratorLeftEvent.$wrap);
+    _onCollaboratorJoined = _getStreamProviderFor(EventType.COLLABORATOR_JOINED, CollaboratorJoinedEvent.$wrap);
+    _onDocumentSaveStateChanged = _getStreamProviderFor(EventType.DOCUMENT_SAVE_STATE_CHANGED, DocumentSaveStateChangedEvent.$wrap);
   }
 
   void close() {
     $unsafe.callMethod('close');
   }
-  List<Collaborator> get collaborators => jsw.TypedJsArray.castListOfSerializables($unsafe.callMethod('getCollaborators'), Collaborator.cast);
-  Model get model => Model.cast($unsafe.callMethod('getModel'));
+  List<Collaborator> get collaborators => jsw.TypedJsArray.$wrapSerializables($unsafe.callMethod('getCollaborators'), Collaborator.$wrap);
+  Model get model => Model.$wrap($unsafe.callMethod('getModel'));
 
   Stream<CollaboratorLeftEvent> get onCollaboratorLeft => _onCollaboratorLeft.stream;
   Stream<CollaboratorJoinedEvent> get onCollaboratorJoined => _onCollaboratorJoined.stream;

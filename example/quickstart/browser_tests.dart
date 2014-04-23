@@ -1,11 +1,11 @@
-import 'dart:async';
 import 'dart:html';
 import 'dart:js' as js;
 
 import 'package:google_drive_realtime/google_drive_realtime.dart' as rt;
+import 'package:js_wrapping/js_wrapping.dart' as jsw;
 
 initializeModel(js.JsObject modelJsObject) {
-  var model = rt.Model.cast(modelJsObject);
+  var model = rt.Model.$wrap(modelJsObject);
   var string = model.createString('Hello Realtime World!');
   model.root['text'] = string;
 }
@@ -18,8 +18,8 @@ initializeModel(js.JsObject modelJsObject) {
  * @param doc {gapi.drive.realtime.Document} the Realtime document.
  */
 onFileLoaded(docJsObject) {
-  var doc = rt.Document.cast(docJsObject);
-  var string = rt.CollaborativeString.cast(doc.model.root['text']);
+  var doc = rt.Document.$wrap(docJsObject);
+  var string = rt.CollaborativeString.$wrap(doc.model.root['text']);
 
   doc.onCollaboratorJoined.listen((rt.CollaboratorJoinedEvent e){
     print("user joined : ${e.collaborator.displayName}");
@@ -55,7 +55,7 @@ onFileLoaded(docJsObject) {
 /**
  * Options for the Realtime loader.
  */
-get realtimeOptions => js.jsify({
+get realtimeOptions => jsw.jsify({
    /**
   * Client ID from the APIs Console.
   */

@@ -15,10 +15,10 @@
 part of google_drive_realtime;
 
 class ValuesSetEvent extends BaseModelEvent {
-  static ValuesSetEvent cast(js.JsObject jsObject) => jsObject == null ? null : new ValuesSetEvent.fromJsObject(jsObject);
+  static ValuesSetEvent $wrap(js.JsObject jsObject) => jsObject == null ? null : new ValuesSetEvent.fromJsObject(jsObject);
   ValuesSetEvent.fromJsObject(js.JsObject jsObject)
       : super.fromJsObject(jsObject);
   int get index => $unsafe['index'];
-  List<dynamic> get newValues => jsw.TypedJsArray.cast($unsafe['newValues']);
-  List<dynamic> get oldValues => jsw.TypedJsArray.cast($unsafe['oldValues']);
+  List<dynamic> get newValues => jsw.TypedJsArray.$wrap($unsafe['newValues']);
+  List<dynamic> get oldValues => jsw.TypedJsArray.$wrap($unsafe['oldValues']);
 }

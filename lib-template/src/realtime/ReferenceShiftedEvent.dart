@@ -15,7 +15,8 @@
 part of google_drive_realtime;
 
 @wrapper abstract class ReferenceShiftedEvent extends BaseModelEvent {
-  static ReferenceShiftedEvent cast(js.JsObject jsObject) {}
+  static ReferenceShiftedEvent $wrap(js.JsObject jsObject) => null;
+
   int get newIndex;
   int get oldIndex;
 }

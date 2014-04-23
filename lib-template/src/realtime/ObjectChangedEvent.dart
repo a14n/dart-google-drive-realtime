@@ -15,6 +15,7 @@
 part of google_drive_realtime;
 
 @wrapper abstract class ObjectChangedEvent extends BaseModelEvent {
-  static ObjectChangedEvent cast(js.JsObject jsObject) {}
+  static ObjectChangedEvent $wrap(js.JsObject jsObject) => null;
+
   List<BaseModelEvent> get events;
 }

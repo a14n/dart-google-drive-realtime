@@ -15,7 +15,8 @@
 part of google_drive_realtime;
 
 @wrapper abstract class ValuesSetEvent extends BaseModelEvent {
-  static ValuesSetEvent cast(js.JsObject jsObject) {}
+  static ValuesSetEvent $wrap(js.JsObject jsObject) => null;
+
   int get index;
   List<dynamic> get newValues;
   List<dynamic> get oldValues;

@@ -15,16 +15,16 @@
 part of google_drive_realtime;
 
 @wrapper @skipConstructor abstract class Document extends EventTarget {
-  static Document cast(js.JsObject jsObject) {}
+  static Document $wrap(js.JsObject jsObject) => null;
 
   jsw.SubscribeStreamProvider<CollaboratorLeftEvent> _onCollaboratorLeft;
   jsw.SubscribeStreamProvider<CollaboratorJoinedEvent> _onCollaboratorJoined;
   jsw.SubscribeStreamProvider<DocumentSaveStateChangedEvent> _onDocumentSaveStateChanged;
 
   Document.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
-    _onCollaboratorLeft = _getStreamProviderFor(EventType.COLLABORATOR_LEFT, CollaboratorLeftEvent.cast);
-    _onCollaboratorJoined = _getStreamProviderFor(EventType.COLLABORATOR_JOINED, CollaboratorJoinedEvent.cast);
-    _onDocumentSaveStateChanged = _getStreamProviderFor(EventType.DOCUMENT_SAVE_STATE_CHANGED, DocumentSaveStateChangedEvent.cast);
+    _onCollaboratorLeft = _getStreamProviderFor(EventType.COLLABORATOR_LEFT, CollaboratorLeftEvent.$wrap);
+    _onCollaboratorJoined = _getStreamProviderFor(EventType.COLLABORATOR_JOINED, CollaboratorJoinedEvent.$wrap);
+    _onDocumentSaveStateChanged = _getStreamProviderFor(EventType.DOCUMENT_SAVE_STATE_CHANGED, DocumentSaveStateChangedEvent.$wrap);
   }
 
   void close();

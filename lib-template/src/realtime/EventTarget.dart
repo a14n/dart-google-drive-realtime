@@ -17,16 +17,16 @@ part of google_drive_realtime;
 @wrapper @skipConstructor class EventTarget extends jsw.TypedJsObject {
   EventTarget.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject);
 
-  void _addEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.callMethod('addEventListener', [type, handler, capture]);
-  void _removeEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.callMethod('removeEventListener', [type, handler, capture]);
+  void _addEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.callMethod('addEventListener', [type.$unsafe, handler, capture]);
+  void _removeEventListener(EventType type, dynamic/*Function|Object*/ handler, [bool capture]) => $unsafe.callMethod('removeEventListener', [type.$unsafe, handler, capture]);
 
   jsw.SubscribeStreamProvider _getStreamProviderFor(EventType eventType, [transformEvent(e)]) {
-    js.Callback handler;
+    Function handler;
     return new jsw.SubscribeStreamProvider(
         subscribe: (EventSink eventSink) {
-          handler = new js.Callback((e) {
+          handler = (e) {
             eventSink.add(transformEvent == null ? e : transformEvent(e));
-          });
+          };
           _addEventListener(eventType, handler);
         },
         unsubscribe: (EventSink eventSink) {

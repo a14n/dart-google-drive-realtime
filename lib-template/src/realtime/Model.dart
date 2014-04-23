@@ -15,12 +15,12 @@
 part of google_drive_realtime;
 
 @wrapper @skipConstructor abstract class Model extends EventTarget {
-  static Model cast(js.JsObject jsObject) {}
+  static Model $wrap(js.JsObject jsObject) => null;
 
   jsw.SubscribeStreamProvider<UndoRedoStateChangedEvent> _onUndoRedoStateChanged;
 
   Model.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
-    _onUndoRedoStateChanged = _getStreamProviderFor(EventType.UNDO_REDO_STATE_CHANGED, UndoRedoStateChangedEvent.cast);
+    _onUndoRedoStateChanged = _getStreamProviderFor(EventType.UNDO_REDO_STATE_CHANGED, UndoRedoStateChangedEvent.$wrap);
   }
 
   bool get isReadOnly;
@@ -29,16 +29,16 @@ part of google_drive_realtime;
 
   void beginCreationCompoundOperation();
   void endCompoundOperation();
-  @forMethods CollaborativeMap get root;
+  CollaborativeMap get root => CollaborativeMap.$wrap($unsafe.callMethod('getRoot'), unwrap: jsw.mayUnwrap);
   bool get isInitialized => $unsafe.callMethod('isInitialized');
 
   void beginCompoundOperation([String name]);
   CollaborativeObject create(dynamic/*function(*)|string*/ ref, [List args = const []]) {
     final params = [ref]..addAll(args);
-    return CollaborativeObject.cast($unsafe['create'].apply($unsafe, js.jsify(params)));
+    return CollaborativeObject.$wrap($unsafe['create'].apply($unsafe, jsw.jsify(params)));
   }
   CollaborativeList createList([List initialValue]);
-  CollaborativeMap createMap([Map initialValue]);
+  CollaborativeMap createMap([Map initialValue]) => CollaborativeMap.$wrap($unsafe.callMethod('createMap', [jsw.jsify(initialValue)]), unwrap: jsw.mayUnwrap);
   CollaborativeString createString([String initialValue]);
 
   void undo();

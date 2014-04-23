@@ -15,7 +15,8 @@
 part of google_drive_realtime;
 
 @wrapper abstract class TextInsertedEvent extends BaseModelEvent {
-  static TextInsertedEvent cast(js.JsObject jsObject) {}
+  static TextInsertedEvent $wrap(js.JsObject jsObject) => null;
+
   int get index;
   String get text;
 }

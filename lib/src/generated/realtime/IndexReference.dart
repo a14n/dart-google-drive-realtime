@@ -15,17 +15,17 @@
 part of google_drive_realtime;
 
 class IndexReference extends CollaborativeObject {
-  static IndexReference cast(js.JsObject jsObject) => jsObject == null ? null : new IndexReference.fromJsObject(jsObject);
+  static IndexReference $wrap(js.JsObject jsObject) => jsObject == null ? null : new IndexReference.fromJsObject(jsObject);
   jsw.SubscribeStreamProvider<ReferenceShiftedEvent> _onReferenceShifted;
 
   IndexReference.fromJsObject(js.JsObject jsObject)
       : super.fromJsObject(jsObject) {
-    _onReferenceShifted = _getStreamProviderFor(EventType.REFERENCE_SHIFTED, ReferenceShiftedEvent.cast);
+    _onReferenceShifted = _getStreamProviderFor(EventType.REFERENCE_SHIFTED, ReferenceShiftedEvent.$wrap);
   }
 
   bool get canBeDeleted => $unsafe['canBeDeleted'];
   int get index => $unsafe['index'];
-  CollaborativeObject get referencedObject => CollaborativeObject.cast($unsafe['referencedObject']);
+  CollaborativeObject get referencedObject => CollaborativeObject.$wrap($unsafe['referencedObject']);
 
   Stream<ReferenceShiftedEvent> get onReferenceShifted => _onReferenceShifted.stream;
 }

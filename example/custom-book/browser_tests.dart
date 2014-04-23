@@ -3,6 +3,7 @@ import 'dart:js' as js;
 
 import 'package:google_drive_realtime/google_drive_realtime.dart' as rt;
 import 'package:google_drive_realtime/google_drive_realtime_custom.dart' as rtc;
+import 'package:js_wrapping/js_wrapping.dart' as jsw;
 
 class Book extends rt.CollaborativeObject {
   static const NAME = 'Book';
@@ -32,7 +33,7 @@ class Book extends rt.CollaborativeObject {
 }
 
 initializeModel(js.JsObject modelJsObject) {
-  var model = rt.Model.cast(modelJsObject);
+  var model = rt.Model.$wrap(modelJsObject);
   var book = model.create(Book.NAME);
   model.root['book'] = book;
 }
@@ -45,7 +46,7 @@ initializeModel(js.JsObject modelJsObject) {
  * @param doc {gapi.drive.realtime.Document} the Realtime document.
  */
 onFileLoaded(docJsObject) {
-  var doc = rt.Document.cast(docJsObject);
+  var doc = rt.Document.$wrap(docJsObject);
   var book = Book.cast(doc.model.root['book']);
 
   // collaborators listener
@@ -79,7 +80,7 @@ onFileLoaded(docJsObject) {
 /**
  * Options for the Realtime loader.
  */
-get realtimeOptions => js.jsify({
+get realtimeOptions => jsw.jsify({
    /**
   * Client ID from the APIs Console.
   */

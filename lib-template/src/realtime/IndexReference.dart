@@ -18,7 +18,7 @@ part of google_drive_realtime;
   jsw.SubscribeStreamProvider<ReferenceShiftedEvent> _onReferenceShifted;
 
   IndexReference.fromJsObject(js.JsObject jsObject) : super.fromJsObject(jsObject) {
-    _onReferenceShifted = _getStreamProviderFor(EventType.REFERENCE_SHIFTED, ReferenceShiftedEvent.cast);
+    _onReferenceShifted = _getStreamProviderFor(EventType.REFERENCE_SHIFTED, ReferenceShiftedEvent.$wrap);
   }
 
   bool get canBeDeleted;

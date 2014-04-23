@@ -15,8 +15,9 @@
 part of google_drive_realtime;
 
 @wrapper abstract class Error extends jsw.TypedJsObject {
-  static Error cast(js.JsObject jsObject) {}
+  static Error $wrap(js.JsObject jsObject) => null;
+
   bool get isFatal;
   String get message;
-  @isEnum ErrorType get type;
+  ErrorType get type;
 }

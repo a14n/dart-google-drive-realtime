@@ -15,8 +15,8 @@
 part of google_drive_realtime;
 
 @wrapper abstract class CollaboratorJoinedEvent extends jsw.TypedJsObject {
-  static CollaboratorJoinedEvent deserialize(Document source, dynamic serialized) => CollaboratorJoinedEvent.cast(js.context['CollaboratorJoinedEvent'].deserialize(source, serialized));
-  static CollaboratorJoinedEvent cast(js.JsObject jsObject) {}
+  static CollaboratorJoinedEvent deserialize(Document source, dynamic serialized) => CollaboratorJoinedEvent.$wrap(js.context['CollaboratorJoinedEvent'].deserialize(source, serialized));
+  static CollaboratorJoinedEvent $wrap(js.JsObject jsObject) => null;
 
   Collaborator get collaborator;
 }

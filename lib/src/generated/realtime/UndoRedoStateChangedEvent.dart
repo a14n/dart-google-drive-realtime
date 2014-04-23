@@ -15,7 +15,7 @@
 part of google_drive_realtime;
 
 class UndoRedoStateChangedEvent extends BaseModelEvent {
-  static UndoRedoStateChangedEvent cast(js.JsObject jsObject) => jsObject == null ? null : new UndoRedoStateChangedEvent.fromJsObject(jsObject);
+  static UndoRedoStateChangedEvent $wrap(js.JsObject jsObject) => jsObject == null ? null : new UndoRedoStateChangedEvent.fromJsObject(jsObject);
   UndoRedoStateChangedEvent.fromJsObject(js.JsObject jsObject)
       : super.fromJsObject(jsObject);
   bool get canRedo => $unsafe['canRedo'];

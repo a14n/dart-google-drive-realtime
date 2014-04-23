@@ -16,6 +16,9 @@ library google_drive_realtime_custom;
 
 import 'dart:js' as js;
 
+import 'package:js_wrapping/js_wrapping.dart' as jsw;
+import 'package:google_drive_realtime/google_drive_realtime.dart';
+
 import 'google_drive_realtime.dart';
 
 final realtimeCustom = realtime['custom'];
@@ -24,18 +27,18 @@ dynamic collaborativeField(String name) => realtimeCustom.collaborativeField(nam
 
 String getId(dynamic obj) => realtimeCustom.getId(obj);
 
-Model getModel(dynamic obj) => Model.cast(realtimeCustom.getModel(obj));
+Model getModel(dynamic obj) => Model.$wrap(realtimeCustom.getModel(obj));
 
 bool isCustomObject(dynamic obj) => realtimeCustom.isCustomObject(obj);
 
-void registerType(js.Serializable<js.JsFunction> type, String name) {
+void registerType(jsw.Serializable<js.JsFunction> type, String name) {
   realtimeCustom.registerType(type, name);
 }
 
-void setInitializer(js.Serializable<js.JsFunction> type, Function initialize) {
+void setInitializer(jsw.Serializable<js.JsFunction> type, Function initialize) {
   realtimeCustom.setInitializer(type, initialize);
 }
 
-void setOnLoaded(js.Serializable<js.JsFunction> type, [Function onLoaded]) {
+void setOnLoaded(jsw.Serializable<js.JsFunction> type, [Function onLoaded]) {
   realtimeCustom.setOnLoaded(type, onLoaded);
 }
