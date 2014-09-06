@@ -19,24 +19,24 @@ import 'dart:js' as js;
 import 'package:js_wrapping/js_wrapping.dart' as jsw;
 import 'package:google_drive_realtime/google_drive_realtime.dart';
 
-final realtimeCustom = realtime['custom'];
+final js.JsObject realtimeCustom = realtime['custom'];
 
-dynamic collaborativeField(String name) => realtimeCustom.collaborativeField(name);
+dynamic collaborativeField(String name) => realtimeCustom.callMethod('collaborativeField', [name]);
 
-String getId(dynamic obj) => realtimeCustom.getId(obj);
+String getId(dynamic obj) => realtimeCustom.callMethod('getId', [jsw.mayUnwrap(obj)]);
 
-Model getModel(dynamic obj) => Model.$wrap(realtimeCustom.getModel(obj));
+Model getModel(dynamic obj) => Model.$wrap(realtimeCustom.callMethod('getModel', [jsw.mayUnwrap(obj)]));
 
-bool isCustomObject(dynamic obj) => realtimeCustom.isCustomObject(obj);
+bool isCustomObject(dynamic obj) => realtimeCustom.callMethod('isCustomObject', [jsw.mayUnwrap(obj)]);
 
 void registerType(jsw.Serializable<js.JsFunction> type, String name) {
-  realtimeCustom.registerType(type, name);
+  realtimeCustom.callMethod('registerType', [jsw.mayUnwrap(type), name]);
 }
 
 void setInitializer(jsw.Serializable<js.JsFunction> type, Function initialize) {
-  realtimeCustom.setInitializer(type, initialize);
+  realtimeCustom.callMethod('setInitializer', [jsw.mayUnwrap(type), initialize]);
 }
 
 void setOnLoaded(jsw.Serializable<js.JsFunction> type, [Function onLoaded]) {
-  realtimeCustom.setOnLoaded(type, onLoaded);
+  realtimeCustom.callMethod('setOnLoaded', [jsw.mayUnwrap(type), onLoaded]);
 }

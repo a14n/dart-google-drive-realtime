@@ -25,6 +25,6 @@ import 'google_drive_realtime.dart';
 part 'src/generated/databinding/already_bound_error.dart';
 part 'src/generated/databinding/binding.dart';
 
-final realtimeDatabinding = realtime['databinding'];
+final js.JsObject realtimeDatabinding = realtime['databinding'];
 
-Binding bindString(CollaborativeString string, TextInputElement textInputElement) => Binding.$wrap(realtimeDatabinding.bindString(string, textInputElement));
+Binding bindString(CollaborativeString string, TextInputElement textInputElement) => Binding.$wrap(realtimeDatabinding.callMethod('bindString', [jsw.mayUnwrap(string), textInputElement]));

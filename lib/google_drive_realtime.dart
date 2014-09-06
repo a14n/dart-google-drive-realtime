@@ -47,30 +47,27 @@ part 'src/generated/realtime/UndoRedoStateChangedEvent.dart';
 part 'src/generated/realtime/error_type.dart';
 part 'src/generated/realtime/event_type.dart';
 
-// js.Proxy for "gapi.drive.realtime"
-final realtime = js.context['gapi']['drive']['realtime'];
+// js.JsObject for "gapi.drive.realtime"
+final js.JsObject realtime = js.context['gapi']['drive']['realtime'];
 
 String get token => realtime.callMethod('getToken');
 
 Future<Document> load(String docId, [void initializerFn(Model model), void errorFn(Error error)]) {
   final completer = new Completer.sync();
-  realtime.load(docId,
+  realtime.callMethod('load', [docId,
       (js.JsObject p) => completer.complete(Document.$wrap(p)),
       initializerFn == null ? null : (js.JsObject p) => initializerFn(Model.$wrap(p)),
       errorFn == null ? null : (js.JsObject p) => errorFn(Error.$wrap(p))
-  );
+  ]);
   return completer.future;
 }
 
 Future<Document> loadAppDataDocument([void initializerFn(Model model), void errorFn(Error error)]) {
   final completer = new Completer.sync();
-  realtime.loadAppDataDocument(
+  realtime.callMethod('loadAppDataDocument', [
       (js.JsObject p) => completer.complete(Document.$wrap(p)),
       initializerFn == null ? null : (js.JsObject p) => initializerFn(Model.$wrap(p)),
       errorFn == null ? null : (js.JsObject p) => errorFn(Error.$wrap(p))
-  );
+  ]);
   return completer.future;
 }
-
-
-
