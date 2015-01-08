@@ -5,15 +5,15 @@ import 'package:google_drive_realtime/google_drive_realtime.dart' as rt;
 import 'package:js_wrapping/js_wrapping.dart' as jsw;
 import 'package:unittest/unittest.dart';
 import 'package:unittest/html_config.dart';
-var a;
-initializeModel(js.JsObject modelJsObject) {
+
+void initializeModel(js.JsObject modelJsObject) {
   var model = rt.Model.$wrap(modelJsObject);
   model.root['text'] = model.createString('Hello Realtime World!');
   model.root['list'] = model.createList();
   model.root['map'] = model.createMap();
 }
 
-onFileLoaded(docJsObject) {
+void onFileLoaded(docJsObject) {
   var doc = rt.Document.$wrap(docJsObject);
 
   useHtmlConfiguration();
@@ -59,7 +59,7 @@ onFileLoaded(docJsObject) {
 
   group('CollaborativeString', () {
     var string = rt.CollaborativeString.$wrap(doc.model.root['text']);
-    setUp((){
+    setUp(() {
       string.text = 'unittest';
     });
     test('get length', () {
@@ -116,7 +116,7 @@ onFileLoaded(docJsObject) {
 
   group('CollaborativeList', () {
     var list = rt.CollaborativeList.$wrap(doc.model.root['list']);
-    setUp((){
+    setUp(() {
       list.clear();
       list.push('s1');
     });
@@ -183,39 +183,39 @@ onFileLoaded(docJsObject) {
  * Options for the Realtime loader.
  */
 get realtimeOptions => jsw.jsify({
-   /**
+  /**
   * Client ID from the APIs Console.
   */
   'clientId': 'INSERT YOUR CLIENT ID HERE',
 
-   /**
+  /**
   * The ID of the button to click to authorize. Must be a DOM element ID.
   */
-   'authButtonElementId': 'authorizeButton',
+  'authButtonElementId': 'authorizeButton',
 
-   /**
+  /**
   * Function to be called when a Realtime model is first created.
   */
-   'initializeModel': initializeModel,
+  'initializeModel': initializeModel,
 
-   /**
+  /**
   * Autocreate files right after auth automatically.
   */
-   'autoCreate': true,
+  'autoCreate': true,
 
-   /**
+  /**
   * Autocreate files right after auth automatically.
   */
-   'defaultTitle': "New Realtime Quickstart File",
+  'defaultTitle': "New Realtime Quickstart File",
 
-   /**
+  /**
   * Function to be called every time a Realtime file is loaded.
   */
-   'onFileLoaded': onFileLoaded
+  'onFileLoaded': onFileLoaded
 });
 
-
-main() {
-  var realtimeLoader = new js.JsObject(js.context['rtclient']['RealtimeLoader'], [realtimeOptions]);
+void main() {
+  var realtimeLoader = new js.JsObject(
+      js.context['rtclient']['RealtimeLoader'], [realtimeOptions]);
   realtimeLoader.callMethod('start');
 }
